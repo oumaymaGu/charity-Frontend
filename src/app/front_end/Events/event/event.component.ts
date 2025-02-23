@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../pages/service/event.service';
 import { Router } from '@angular/router';
+import { Event } from '../../pages/models/event';
 
 @Component({
   selector: 'app-event',
@@ -8,8 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  events: any[] = [];
-
+  events: Event[] = [];
+  filteredEvents: Event[] = [];
+  searchTerm: string = '';
 
   constructor(private eventService: EventService, private router: Router) { }
 
@@ -18,12 +20,21 @@ export class EventComponent implements OnInit {
   }
 
   getEvents(): void {
-    this.eventService.getAllevents().subscribe((res: any) => {
-      this.events = res;
-      console.log(res);
+    this.eventService.getAllevents().subscribe((data: Event[]) => {
+      this.events = data;
+      this.filteredEvents = data; // Initialize filteredEvents with all events
     });
   }
 
-  viewEventDetails(event: any): void {
+  searchEvents(term: string): void {
+    if (term) {
+      this.filteredEvents = this.events.filter(event => event.nomEvent.toLowerCase().includes(term.toLowerCase()));
+    } else {
+      this.filteredEvents = this.events;
+    }
+  }
+
+  viewEventDetails(event: Event): void {
     this.router.navigate(['/event-details', event.idEvent]);
-  }}
+  }
+}

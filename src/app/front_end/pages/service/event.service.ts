@@ -29,4 +29,7 @@ export class EventService {
   deleteEvent(id: any): Observable<void> {
     return this.http.delete<void>(this.url + "/remove-event/" + id);
   }
+  findByNomEvent(nomEvent: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.url}?nomEvent=${nomEvent}`);
+  }
 }

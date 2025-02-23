@@ -29,6 +29,14 @@ import { FormsModule } from '@angular/forms';
 import { EditEventComponent } from './front_end/Events/edit-event/edit-event.component';
 import { EventPageComponent } from './front_end/Events/event-page/event-page.component';
 import { EventDetailsComponent } from './front_end/Events/event-details/event-details.component';
+import { AjoutLogistiqueComponent } from './back_end/LOG/ajoutlogestique/ajoutlogestique.component';
+import { ListelogestiqueComponent } from './back_end/LOG/listelogestique/listelogestique.component';
+import { EditlogestiqueComponent } from './back_end/LOG/editlogestique/editlogestique.component';
+
+
+
+
+
 
 
 
@@ -60,6 +68,13 @@ import { EventDetailsComponent } from './front_end/Events/event-details/event-de
       EditEventComponent,
       EventPageComponent,
       EventDetailsComponent,
+      AjoutLogistiqueComponent,
+      ListelogestiqueComponent,
+      EditlogestiqueComponent
+   
+      
+     
+
       
     
     ],

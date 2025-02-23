@@ -63,4 +63,9 @@ export class ListelogestiqueComponent implements OnInit {
       this.getLogestiques(); // Refresh the list after deletion
     });
   }
+  
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 }

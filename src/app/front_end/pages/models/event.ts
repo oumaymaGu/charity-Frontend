@@ -6,3 +6,4 @@ export class Event {
     prixevent: any;
     dateEvent: any;
   }
+ 

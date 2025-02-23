@@ -17,6 +17,10 @@ import { AjoutEventComponent } from './front_end/Events/ajout-event/ajout-event.
 import { EditEventComponent } from './front_end/Events/edit-event/edit-event.component';
 import { EventDetailsComponent } from './front_end/Events/event-details/event-details.component';
 import { EventPageComponent } from './front_end/Events/event-page/event-page.component';
+import { AjoutLogistiqueComponent } from './back_end/LOG/ajoutlogestique/ajoutlogestique.component';
+import { ListelogestiqueComponent } from './back_end/LOG/listelogestique/listelogestique.component';
+import { EditlogestiqueComponent } from './back_end/LOG/editlogestique/editlogestique.component';
+
 
 
 
@@ -41,8 +45,12 @@ const routes: Routes = [
   { path: 'dash', component: DashboardComponent },  
   { path: 'ajout-event', component: AjoutEventComponent },
   { path: 'edit-event/:id', component: EditEventComponent },
-  { path: 'event-details/:id', component: EventDetailsComponent },
-{ path : 'list-event' , component : EventPageComponent},
+  { path: 'event-details/:id', component: EventDetailsComponent },  
+  { path : 'list-event' , component : EventPageComponent},
+  {path : 'ajout-log', component: AjoutLogistiqueComponent},
+  {path : 'liste-log', component : ListelogestiqueComponent},
+  {path : 'edit-log/:id', component : EditlogestiqueComponent},
+  
 
 
 
