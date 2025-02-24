@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2 class="text-center">Liste des Paiements</h2>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="text-center">
+    <p>Chargement des paiements...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger text-center">
+    {{ error }}
+  </div>
+
+  <!-- Tableau des paiements -->
+  <table *ngIf="!loading && payments.length > 0" class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Date</th>
+        <th>Méthode</th>
+        <th>Statut</th>
+        <th>Montant</th>
+        <th>Devise</th>
+        <th>RIB Bancaire</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payment of payments">
+        <td>{{ payment.datePaiment ? (payment.datePaiment | date: 'dd/MM/yyyy') : 'Non spécifié' }}</td>
+        <td>{{ payment.methodePaiment || 'Non spécifié' }}</td>
+        <td>
+         
+            {{ payment.statutPaiment  }}
+        
+        </td>
+        <td>{{ payment.montant !== undefined && payment.montant !== null ? (payment.montant | currency: payment.devise) : '0.00' }}</td>
+        <td>{{ payment.devise.toUpperCase() || 'N/A' }}</td>
+
+
+        <!-- RIB Bancaire avec masquage -->
+        <td>{{ payment.ribBancaire ? payment.ribBancaire.slice(0, 4) + '********' + payment.ribBancaire.slice(-4) : 'Non spécifié' }}</td>
+
+        <td>
+          <button class="btn btn-info btn-sm me-2" (click)="viewDetails(payment.idPmt)">
+            Voir Détails
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deletePayment(payment.idPmt)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-secondary btn-xl btn-rounded-edge" routerLink="/list-payment">Retour</button>
+<br><br>
+
+  <!-- Message si aucun paiement trouvé -->
+  <div *ngIf="!loading && payments.length === 0" class="alert alert-info text-center">
+    Aucun paiement trouvé.
+  </div>
+</div>

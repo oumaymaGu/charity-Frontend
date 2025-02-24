@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Liste des Donations</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Montant</th>
+        <th>Date</th>
+        <th>Bénéficiaire</th>
+        <th>Donneur</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let donation of donations">
+        <td>{{ donation.idDon }}</td>
+        <td>{{ donation.montant }}</td>
+        <td>{{ donation.dateDon }}</td>
+        <td>{{ donation.nomBenificaire }}</td>
+        <td>{{ donation.nomDonneur }}</td>
+        <td>
+          <button class="btn btn-info" (click)="viewDetails(donation.idDon)">Voir Détails</button>
+         
+        </td>
+      </tr>
+      <button type="button" class="btn btn-primary btn-xl btn-rounded-edge" routerLink="/list-donation">Retour</button>
+<br><br>
+    </tbody>
+  </table>
+</div>

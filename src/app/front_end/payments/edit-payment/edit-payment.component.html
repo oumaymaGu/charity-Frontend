@@ -1,0 +1,72 @@
+<div class="container mt-4">
+    <h2 class="text-center">Modifier le Paiement</h2>
+  
+    <!-- Message de succès après mise à jour -->
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+  
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Formulaire de modification de paiement -->
+    <form (ngSubmit)="onSubmit()">
+      
+      <!-- Date de paiement -->
+      <div class="mb-3">
+        <label for="datePaiment" class="form-label">Date de paiement</label>
+        <input type="date" id="datePaiment" class="form-control" [(ngModel)]="payment.datePaiment" name="datePaiment" required>
+      </div>
+  
+      <!-- Méthode de paiement (Dropdown) -->
+      <div class="mb-3">
+        <label for="methodePaiment" class="form-label">Méthode de paiement</label>
+        <select id="methodePaiment" class="form-select" [(ngModel)]="payment.methodePaiment" name="methodePaiment" required>
+          <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+        </select>
+      </div>
+  
+      <!-- Statut de paiement (Radio buttons) -->
+      <div class="mb-3">
+        <label class="form-label">Statut du paiement</label>
+        <div *ngFor="let status of paymentStatuses" class="form-check">
+          <input type="radio" class="form-check-input" [value]="status" [(ngModel)]="payment.statutPaiment" name="statusPaiment" required>
+          <label class="form-check-label">{{ status }}</label>
+        </div>
+      </div>
+  
+      <!-- Montant -->
+      <div class="mb-3">
+        <label for="montent" class="form-label">Montant</label>
+        <input type="number" id="montent" class="form-control" [(ngModel)]="payment.montant" name="montent" required min="0.01" step="0.01">
+      </div>
+  
+      <!-- Devise (Dropdown) -->
+      <div class="mb-3">
+        <label for="devise" class="form-label">Devise</label>
+        <select id="devise" class="form-select" [(ngModel)]="payment.devise" name="devise" required>
+          <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+        </select>
+      </div>
+  
+      <!-- RIB Bancaire -->
+      <div class="mb-3">
+        <label for="ribBancaire" class="form-label">RIB Bancaire</label>
+        <input type="text" id="ribBancaire" class="form-control" [(ngModel)]="payment.ribBancaire" name="ribBancaire" required pattern="[0-9]{20}" placeholder="Entrez un RIB de 20 chiffres">
+      </div>
+  
+      <!-- Boutons d'action -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-success" [disabled]="loading">✅ Mettre à jour</button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="onCancel()">❌ Annuler</button>
+      </div>
+    </form>
+  
+    <!-- Message de préchargement -->
+    <div *ngIf="loading" class="text-center mt-3">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mise à jour en cours...
+    </div>
+  </div>
+  

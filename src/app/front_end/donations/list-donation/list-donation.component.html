@@ -1,0 +1,57 @@
+<div class="container">
+    <h2>Liste des Donations</h2>
+    
+    <!-- Affichage des erreurs -->
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+  
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Rechercher par nom de donneur ou ID" class="form-control" />
+      <button (click)="searchDonation()" class="btn btn-primary">Rechercher</button>
+    </div>
+  
+    <!-- Tableau des donations -->
+    <div *ngIf="loading" class="loading">
+      <p>Chargement des donations...</p>
+    </div>
+  
+    <table *ngIf="!loading && donations.length" class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom du Donneur</th>
+          <th>Nom du Bénéficiaire</th>
+          <th>Montant</th>
+          <th>Date du Don</th>
+          <th>Type de Don</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donation of donations">
+          <td>{{ donation.idDon }}</td>
+          <td>{{ donation.nomDonneur }}</td>
+          <td>{{ donation.nomBenificaire }}</td>
+          <td>{{ donation.montant }}</td>
+          <td>{{ donation.dateDon | date }}</td>
+          <td>{{ donation.typeDon }}</td>
+          <td>
+            <!-- Boutons pour modifier et supprimer -->
+            <button (click)="modifierDonation(donation)" class="btn btn-warning btn-sm">Modifier</button>
+            <button (click)="deleteDonation(donation.idDon)" class="btn btn-danger btn-sm">Supprimer</button>
+
+          </td>
+        </tr>
+        <button type="button" class="btn btn-secondary btn-xl btn-rounded-edge" routerLink="/donation-page">View Donations</button>
+<br><br>
+      </tbody>
+    </table>
+  
+    <!-- Message si aucune donation n'est trouvée -->
+    <div *ngIf="!loading && donations.length === 0">
+      <p>Aucune donation trouvée.</p>
+    </div>
+  </div>
+  

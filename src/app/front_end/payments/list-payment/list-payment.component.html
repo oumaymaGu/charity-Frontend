@@ -1,0 +1,62 @@
+
+<div class="container">
+  <h2>Liste des Paiements</h2>
+
+  <!-- Barre de recherche -->
+  <div class="mb-3">
+    <input [(ngModel)]="searchTerm" placeholder="Rechercher un paiement par ID" class="form-control" />
+    <button (click)="searchPayment()" class="btn btn-primary mt-2">Rechercher</button>
+  </div>
+
+  <!-- Table des paiements -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date de Paiement</th>
+        <th>Méthode</th>
+        <th>Statut</th>
+        <th>Montant</th>
+        <th>Devise</th>
+        <th>RIB Bancaire</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paiement of paiements">
+        <td>{{ paiement.idPmt }}</td>
+        <td>{{ formatDate(paiement.datePaiment) }}</td>
+        <td>{{ paiement.methodePaiment }}</td>
+       
+        
+          
+        <td> {{ paiement.statutPaiment  }}</td> 
+       
+        <td>{{ paiement.montant }}</td>
+        <td>{{ paiement.devise }}</td>
+        <td>{{ paiement.ribBancaire }}</td>
+        <td>
+          <button (click)="modifierPayment(paiement)" class="btn btn-warning btn-sm">Modifier</button>
+          <button (click)="deletePayment(paiement.idPmt)" class="btn btn-danger btn-sm">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-secondary btn-xl btn-rounded-edge" routerLink="/payment-page">View Payments</button>
+<br><br>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="text-center">
+    <i class="fa fa-spinner fa-spin"></i> Chargement en cours...
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <!-- Message si aucun paiement trouvé -->
+  <div *ngIf="paiements.length === 0 && !loading">
+    <p>Aucun paiement trouvé.</p>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div *ngIf="payment; else loading" class="payment-details-container">
+  <h2>Détails du Paiement</h2>
+  
+  <div class="detail-row">
+    <label for="datePaiment">Date de Paiement:</label>
+    <span id="datePaiment">{{ payment.datePaiment | date:'short' }}</span>
+  </div>
+
+  <div class="detail-row">
+    <label for="methodePaiment">Méthode de Paiement:</label>
+    <span id="methodePaiment">{{ payment.methodePaiment }}</span>
+  </div>
+
+  <div class="detail-row">
+    <label for="statusPaiment">Statut de Paiement:</label>
+    <span id="statusPaiment">{{ payment.statutPaiment }}</span>
+  </div>
+
+  <div class="detail-row">
+    <label for="montent">Montant:</label>
+    <span id="montent">{{ payment.montant }} {{ payment.devise }}</span>
+  </div>
+
+  <div class="buttons">
+    <button (click)="goBack()" class="btn btn-secondary">Retour</button>
+  </div>
+</div>
+<button type="button" class="btn btn-primary btn-xl btn-rounded-edge" routerLink="/donate">Retour à Donate</button>
+<br><br>
+
+<ng-template #loading>
+  <p>Chargement des détails du paiement...</p>
+</ng-template>

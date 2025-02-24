@@ -1,0 +1,65 @@
+<div class="payment-form">
+    <h2>Ajouter un Paiement</h2>
+  
+    <form (ngSubmit)="onSubmit()" class="form-container">
+      
+      <!-- Date du paiement -->
+      <div class="form-group">
+        <label for="datePaiment">Date du paiement :</label>
+        <input type="date" id="datePaiment" [(ngModel)]="payment.datePaiment" name="datePaiment" class="form-control" required>
+      </div>
+      
+      <!-- Méthode de paiement (ComboBox) -->
+      <div class="form-group">
+        <label for="methodePaiment">Méthode de paiement :</label>
+        <select id="methodePaiment" [(ngModel)]="payment.methodePaiment" name="methodePaiment" class="form-control" required>
+          <option value="" disabled selected>Choisissez une méthode</option>
+          <option value="Carte">Carte Bancaire</option>
+          <option value="Virement">Virement Bancaire</option>
+          <option value="Espece">Espèces</option>
+        </select>
+      </div>
+      
+     <!-- Statut du paiement (Combobox) -->
+  <div class="form-group">
+    <label>Statut du paiement :</label>
+    <select [(ngModel)]="payment.statutPaiment" name="statutPaiment" class="form-control" required>
+      <option value="">Sélectionnez un statut</option>
+      <option value="En attente">En attente</option>
+      <option value="Validé">Validé</option>
+      <option value="Refusé">Refusé</option>
+    </select>
+  </div>
+      
+      <!-- Montant -->
+      <div class="form-group">
+        <label for="montent">Montant :</label>
+        <input type="number" id="montent" [(ngModel)]="payment.montant" name="montent" class="form-control" required min="1" step="0.01">
+      </div>
+      
+      <!-- Devise (ComboBox) -->
+      <div class="form-group">
+        <label for="devise">Devise :</label>
+        <select id="devise" [(ngModel)]="payment.devise" name="devise" class="form-control" required>
+          <option value="TND">TND</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </div>
+      
+      <!-- RIB Bancaire -->
+      <div class="form-group">
+        <label for="ribBancaire">RIB Bancaire :</label>
+        <input type="text" id="ribBancaire" [(ngModel)]="payment.ribBancaire" name="ribBancaire" class="form-control" required pattern="[0-9]{20}" placeholder="Entrez un RIB de 20 chiffres">
+      </div>
+      
+      <!-- Affichage des erreurs -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+  
+      <!-- Bouton de soumission -->
+      <button type="submit" class="submit-btn">Ajouter Paiement</button>
+    </form>
+  </div>
+  

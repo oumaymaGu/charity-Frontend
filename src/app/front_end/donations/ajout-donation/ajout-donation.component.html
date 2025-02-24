@@ -1,0 +1,78 @@
+<div class="donation-form">
+  <h2>Ajouter une Donation</h2>
+  
+  <form (ngSubmit)="onSubmit()" #donationForm="ngForm">
+    <!-- Montant -->
+    <div class="form-group">
+      <label for="montant">Montant</label>
+      <input 
+        type="number" 
+        id="montant" 
+        name="montant" 
+        [(ngModel)]="donation.montant" 
+        required 
+        min="1"
+        class="form-control" />
+    </div>
+
+    <!-- Date du don -->
+    <div class="form-group">
+      <label for="dateDon">Date du Don</label>
+      <input 
+        type="date" 
+        id="dateDon" 
+        name="dateDon" 
+        [(ngModel)]="donation.dateDon" 
+        required 
+        class="form-control" />
+    </div>
+
+    <!-- Nom du bénéficiaire -->
+    <div class="form-group">
+      <label for="nomBenificaire">Nom du Bénéficiaire</label>
+      <input 
+        type="text" 
+        id="nomBenificaire" 
+        name="nomBenificaire" 
+        [(ngModel)]="donation.nomBenificaire" 
+        required 
+        class="form-control" />
+    </div>
+
+    <!-- Nom du donneur -->
+    <div class="form-group">
+      <label for="nomDonneur">Nom du Donneur</label>
+      <input 
+        type="text" 
+        id="nomDonneur" 
+        name="nomDonneur" 
+        [(ngModel)]="donation.nomDonneur" 
+        required 
+        class="form-control" />
+    </div>
+
+    <!-- Type de don (ComboBox) -->
+    <div class="form-group">
+      <label for="typeDon">Type de Don</label>
+      <select 
+        id="typeDon" 
+        name="typeDon" 
+        [(ngModel)]="donation.typeDon" 
+        required 
+        class="form-control">
+        <option [value]="TypeDon.ARGENT">Argent</option>
+        <option [value]="TypeDon.MATERIEL">Matériel</option>
+      </select>
+    </div>
+
+    <!-- Bouton d'envoi -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" [disabled]="donationForm.invalid">Ajouter la Donation</button>
+    </div>
+  </form>
+
+  <!-- Message de succès -->
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+  </div>
+</div>

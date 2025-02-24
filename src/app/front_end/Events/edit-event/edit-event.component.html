@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Edit Event</h2>
+    <form (ngSubmit)="updateEvent()">
+      <div class="form-group">
+        <label for="nomEvent">Event Name:</label>
+        <input type="text" id="nomEvent" class="form-control" [(ngModel)]="event.nomEvent" name="nomEvent" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Event Description:</label>
+        <textarea id="description" class="form-control" [(ngModel)]="event.description" name="description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="lieu">Event Location:</label>
+        <input type="text" id="lieu" class="form-control" [(ngModel)]="event.lieu" name="lieu" required>
+      </div>
+      <div class="form-group">
+        <label for="prixevent">Event Price:</label>
+        <input type="number" id="prixevent" class="form-control" [(ngModel)]="event.prixevent" name="prixevent" required>
+      </div>
+      <div class="form-group">
+        <label for="dateEvent">Event Date:</label>
+        <input type="date" id="dateEvent" class="form-control" [(ngModel)]="event.dateEvent" name="dateEvent" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Event</button>
+    </form>
+  </div>
