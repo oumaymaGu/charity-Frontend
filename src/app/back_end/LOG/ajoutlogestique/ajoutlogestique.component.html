@@ -1,0 +1,15 @@
+<div class="container">
+  <h2>Add New Logistics</h2>
+  <form (ngSubmit)="addLogistique()">
+   
+      <div class="form-group">
+          <label for="ressourceName">Resource Name:</label>
+          <input type="text" id="ressourceName" class="form-control" [(ngModel)]="logistique.ressourceName" name="ressourceName" required>
+      </div>
+      <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" class="form-control" [(ngModel)]="logistique.quantity" name="quantity" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Logistics</button> 
+  </form>
+</div>

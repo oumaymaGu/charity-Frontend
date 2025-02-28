@@ -1,0 +1,17 @@
+<h2>Ajouter une Association</h2>
+<form (ngSubmit)="addAssociation()">
+  <input type="text" [(ngModel)]="newAssociation.name" name="name" placeholder="Nom" required />
+  <input type="text" [(ngModel)]="newAssociation.description" name="description" placeholder="Description" required />
+  <button type="submit">Ajouter</button>
+</form>
+
+<h2>Liste des Associations</h2>
+<table>
+  <tr *ngFor="let association of associations">
+    <td>{{ association.name }}</td>
+    <td>{{ association.description }}</td>
+    <td>
+      <button (click)="deleteAssociation(association.id)">Supprimer</button>
+    </td>
+  </tr>
+</table>
