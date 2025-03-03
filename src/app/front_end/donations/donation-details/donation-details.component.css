@@ -1,0 +1,123 @@
+/* 🌟 Styles Généraux */
+.donation-details-container {
+  background: #e6f3f7; /* Fond bleu clair comme dans l'image de fond global */
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.donation-card-details {
+  background: #fff; /* Fond blanc comme dans l'image */
+  border-radius: 15px; /* Coins arrondis comme dans l'image */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  padding: 30px;
+  width: 100%;
+  max-width: 800px; /* Augmentation pour correspondre à la largeur de l'image */
+  margin: 20px auto;
+  position: relative; /* Pour positionner la barre en bas */
+}
+
+/* 🔥 Titre */
+h2 {
+  text-align: center;
+  color: #2a5298; /* Bleu clair comme dans l'image */
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 🌀 Indicateur de chargement */
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #2a5298; /* Bleu clair pour cohérence */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ⚠️ Message d'erreur */
+.error-message {
+  text-align: center;
+  color: #ff4d4d;
+  margin: 20px 0;
+}
+
+/* 🌈 Contenu du don */
+.donation-content {
+  text-align: center;
+}
+
+.image-container {
+  margin-bottom: 20px;
+}
+
+.donation-image {
+  width: 100%;
+  max-width: 600px; /* Augmentation pour un look plus grand */
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.no-image {
+  color: #888;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+/* 🏆 Détails */
+.donation-details {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.donation-details p {
+  margin: 15px 0; /* Plus d'espace entre les lignes */
+  font-size: 16px;
+  color: #1e3c72; /* Bleu plus foncé pour les détails, cohérent avec l'image */
+}
+
+.donation-details strong {
+  color: #2a5298; /* Bleu clair pour les titres, cohérent avec l'image */
+}
+
+/* 🎯 Boutons */
+.button-group {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Espacement entre les boutons */
+}
+
+.contact-donor-btn {
+  background: #2c3e50; /* Bleu foncé pour le bouton, cohérent avec le design global */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-donor-btn:hover {
+  background: #1d2939; /* Bleu foncé plus foncé au survol */
+  transform: translateY(-2px);
+}

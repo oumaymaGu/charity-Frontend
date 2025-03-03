@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <div class="col-md-9 content">
+      <div class="list-donation-container">
+        <h2>Donation History</h2>
+      
+        <!-- Chargement en cours -->
+        <div *ngIf="loading" class="loading-message text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p>Chargement en cours...</p>
+        </div>
+      
+        <!-- Message d'erreur -->
+        <div *ngIf="error" class="alert alert-danger text-center">
+          {{ error }}
+        </div>
+      
+        <!-- Liste des donations -->
+        <div *ngIf="!loading && !error" class="donation-list card shadow-sm">
+          <table class="table table-striped">
+            <thead class="table-info"> <!-- Changed to table-info for light blue header -->
+              <tr>
+                <th>Date</th>
+                <th>Donation Type</th>
+                <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let donation of donations">
+                <td>{{ getDisplayDate(donation) }}</td> <!-- Display formatted dateDon for all donations -->
+                <td>{{ donation.typeDon }}</td>
+                <td>{{ donation.amount }} TND</td>
+                <td>
+                  <img *ngIf="donation.photo_url" [src]="donation.photo_url" alt="Donation Photo" width="100">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Display total amount of ARGENT donations -->
+          <div class="total-amount text-center mt-3">
+            Total Amount of ARGENT Donations : {{ totalAmount }} TND
+          </div>
+        </div>
+        <!-- Return to Dashboard Button -->
+        <div class="text-left mb-3">
+          <button class="btn btn-secondary" (click)="returnToDashboard()">
+            Return to Dashboard
+          </button>
+        </div>
+      
+        <!-- Aucun résultat -->
+        <div *ngIf="donations.length === 0 && !loading" class="alert alert-info text-center">
+          Aucune donation trouvée.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- ✅ Styles mis à jour -->
+<style>
+  /* Assurer que la page n’a pas de marges inutiles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  /* ✅ Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh; /* Pleine hauteur */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ✅ Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #d5e6e3; /* Garder le fond bleu clair */
+  }
+
+  .form-group label {
+    font-weight: bold;
+  }
+
+  .btn-primary {
+    margin-top: 10px;
+  }
+</style>

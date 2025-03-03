@@ -1,0 +1,15 @@
+/* Ajouter un effet de transition douce au dropdown */
+.dropdown-menu {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .dropdown-menu:not(.show) {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  
