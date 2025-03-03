@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">List of registered </h2>
+    <div *ngIf="users.length > 0; else noUsers">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noUsers>
+      <p class="text-center">No Participants registered for this event!</p>
+    </ng-template>
+  </div>

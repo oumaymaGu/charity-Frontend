@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+  <h2>Event List</h2>
+  
+ 
+
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="searchTerm" (input)="searchEvents(searchTerm)">
+  </div>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.nomEvent }}</td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.dateEvent | date }}</td>
+        <td>{{ event.lieu }}</td>
+        <td>{{ event.prixevent }} dt</td>
+        <td>
+          <button (click)="editEvent(event)" class="btn btn-warning btn-sm">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button (click)="confirmDelete(event.idEvent)" class="btn btn-danger btn-sm">
+            <i class="fa fa-trash"></i>
+          </button>
+          <a [routerLink]="['/event', event.idEvent, 'users']" class="btn btn-info btn-sm">
+            <i class="fa fa-users"></i>  Show inscriptions
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a routerLink="/dash" class="btn btn-primary mb-3">
+    <i class="fa fa-arrow-left"></i> back to  Dashboard
+  </a>
+</div>
