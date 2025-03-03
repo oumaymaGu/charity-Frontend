@@ -69,7 +69,7 @@ h2 {
 
 .donation-image {
   width: 100%;
-  max-width: 600px; /* Augmentation pour un look plus grand */
+  max-width: 500px; /* Augmentation pour un look plus grand */
   height: auto;
   border-radius: 10px;
   object-fit: cover;
