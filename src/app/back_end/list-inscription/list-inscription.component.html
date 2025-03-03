@@ -1,23 +1,81 @@
 <app-navbar></app-navbar>
-<div class="container mt-5">
-    <h2 class="text-center text-primary mb-4">List of registered </h2>
-    <div *ngIf="users.length > 0; else noUsers">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-          </tr>
-        </tbody>
-      </table>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
     </div>
-    <ng-template #noUsers>
-      <p class="text-center">No Participants registered for this event!</p>
-    </ng-template>
+    
+    <!-- Content -->
+    <div class="col-md-9 content">
+      <h2 class="text-center text-primary mb-4">List of registered</h2>
+      <div *ngIf="users.length > 0; else noUsers">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noUsers>
+        <p class="text-center">No Participants registered for this event!</p>
+      </ng-template>
+    </div>
   </div>
+</div>
+
+<!-- ✅ Styles mis à jour -->
+<style>
+  /* Assurer que la page n’a pas de marges inutiles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  /* ✅ Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh; /* Pleine hauteur */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ✅ Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #d5e6e3; /* Garder le fond bleu clair */
+  }
+
+  .form-group label {
+    font-weight: bold;
+  }
+
+  .btn-primary {
+    margin-top: 10px;
+  }
+</style>

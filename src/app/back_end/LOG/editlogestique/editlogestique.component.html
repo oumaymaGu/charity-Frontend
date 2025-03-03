@@ -5,21 +5,25 @@
     <div class="col-md-3 sidebar">
       <app-sidebar></app-sidebar>
     </div>
-  <h2>Modifier la Logistique</h2>
+    
+    <!-- Content -->
+    <div class="col-md-9 content">
+      <h2>Modifier la Logistique</h2>
+      <form (ngSubmit)="updateLogestique()">
+        <div class="mb-3">
+          <label for="ressourceName" class="form-label">Ressource Name</label>
+          <input type="text" id="ressourceName" class="form-control" [(ngModel)]="logestique.ressourceName" name="ressourceName" required>
+        </div>
 
-  <form (ngSubmit)="updateLogestique()">
-    <div class="mb-3">
-      <label for="ressourceName" class="form-label">Ressource Name</label>
-      <input type="text" id="ressourceName" class="form-control" [(ngModel)]="logestique.ressourceName" name="ressourceName" required>
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="number" id="quantity" class="form-control" [(ngModel)]="logestique.quantity" name="quantity" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
     </div>
-
-    <div class="mb-3">
-      <label for="quantity" class="form-label">Quantity</label>
-      <input type="number" id="quantity" class="form-control" [(ngModel)]="logestique.quantity" name="quantity" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update</button>
-  </form>
+  </div>
 </div>
 
 <!-- ✅ Styles mis à jour -->
@@ -69,4 +73,3 @@
     margin-top: 10px;
   }
 </style>
-
