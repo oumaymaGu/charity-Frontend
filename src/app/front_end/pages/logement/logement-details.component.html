@@ -1,0 +1,56 @@
+<div class="container-xxl py-5">
+    <div class="container">
+        <!-- Loading state -->
+        <div *ngIf="loading" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Error message -->
+        <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+        </div>
+
+        <!-- Housing details -->
+        <div class="service-item bg-white p-5" *ngIf="logement && !loading">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img class="img-fluid rounded mb-4" src="/assets/img/autres résidences.jpg" alt="Housing">
+                </div>
+                <div class="col-lg-8">
+                    <h2 class="mb-4">{{ logement.nom }}</h2>
+                    <div class="info-section mb-4">
+                        <h4 class="mb-3">General Information</h4>
+                        <div class="info-item mb-2">
+                            <i class="fa fa-map-marker text-primary me-2"></i>
+                            <strong>Address:</strong> {{ logement.adresse }}
+                        </div>
+                        <div class="info-item mb-2">
+                            <i class="fa fa-users text-primary me-2"></i>
+                            <strong>Capacity:</strong> {{ logement.capacite }} people
+                        </div>
+                        <div class="info-item">
+                            <i class="fa fa-info-circle text-primary me-2"></i>
+                            <strong>Status:</strong>
+                            <span class="badge rounded-pill ms-2" 
+                                  [class.bg-success]="logement.disponnibilite === 'available'"
+                                  [class.bg-danger]="logement.disponnibilite !== 'available'">
+                                {{ logement.disponnibilite === 'available' ? 'Available' : 'Not Available' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a class="btn btn-outline-primary px-3" routerLink="/logement">
+                    <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle me-2">
+                        <i class="fa fa-arrow-left"></i>
+                    </div>
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

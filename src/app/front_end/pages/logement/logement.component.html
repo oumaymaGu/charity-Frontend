@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Humanity</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" routerLink="/assets/css/bootstrap.min.css">
+        <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link routerLink="/assets/css/styles.css" rel="stylesheet">
+        <link rel="stylesheet" routerLink="/assets/css/demo.css" />
+        <link rel="stylesheet" routerLink="/assets/css/testimonial.css" />
+        <link rel="stylesheet" routerLink="/assets/css/font-awesome.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+    <div class="header container">
+      <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
+        <a rel="home" routerLink="/home">
+          <img src="/assets/img/logo.png" width="200" alt="logo">
+        </a>
+      </div>
+    </div>
+<!-- Navigation Bar Section -->
+<div class="navbar" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/about">Associations</a></li>
+      <li class="selected"><a routerLink="/service">Refuge Space</a></li>
+      <li><a routerLink="/gallery">Delivery</a></li>
+      <li class="hidden-xs hidden-sm">
+        <a rel="home" routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
+      </li>
+      <li><a routerLink="/event">Events</a></li>
+      <li><a routerLink="/team">Testimonials</a></li>
+      <li><a routerLink="/donate">Donate</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+      <li><a routerLink="/join">Sign In</a></li>
+      <li><a routerLink="/signup">Sign Up</a></li>
+    </ul>
+  </div>
+</div>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5">
+            <h1 class="display-6">Our Available Accommodations</h1>
+            <p class="text-muted">Discover our accommodations for people in need</p>
+        </div>
+
+        <div class="mb-3">  <a routerLink="/service" class="btn btn-secondary">Back</a>
+        </div>
+
+        <div *ngIf="loading" class="text-center py-3">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+        </div>
+
+        <div class="row g-4" *ngIf="!loading && !error">
+            <div class="col-lg-4 col-md-6" *ngFor="let logement of logements">
+                <div class="service-item bg-white text-center h-100 p-4 p-xl-5">
+                    <img class="img-fluid mb-4" src="/assets/img/autres résidences.jpg" alt="Accommodation">
+                    <h4 class="mb-3">{{ logement.nom }}</h4>
+                    <p class="mb-4">
+                        <i class="fa fa-map-marker"></i> {{ logement.adresse }}<br>
+                        <i class="fa fa-users"></i> Capacity: {{ logement.capacite }} people
+                    </p>
+                    <div class="mb-4">
+                        <span class="badge rounded-pill" 
+                            [class.bg-success]="logement.disponnibilite === 'disponible'"
+                            [class.bg-danger]="logement.disponnibilite !== 'disponible'">
+                            {{ logement.disponnibilite === 'disponible' ? 'Available' : 'Not available' }}
+                        </span>
+                    </div>
+                    <a class="btn btn-outline-primary px-3" (click)="voirDetails(logement)">
+                        See Details
+                        <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                            <i class="fa fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!loading && !error && !logements.length" class="text-center py-3">
+            <p>No accommodation available at the moment.</p>
+        </div>
+    </div>
+</div>

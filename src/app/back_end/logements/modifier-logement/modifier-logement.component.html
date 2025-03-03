@@ -1,0 +1,44 @@
+<div class="container-fluid px-4">
+  <h1 class="mt-4">Modifier un logement</h1>
+  <div class="card mb-4">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #logementForm="ngForm">
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom du logement</label>
+          <input type="text" class="form-control" id="nom" name="nom" 
+                 [(ngModel)]="logement.nom" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="adresse" class="form-label">Adresse</label>
+          <input type="text" class="form-control" id="adresse" name="adresse" 
+                 [(ngModel)]="logement.adresse" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="capacite" class="form-label">Capacité</label>
+          <input type="number" class="form-control" id="capacite" name="capacite" 
+                 [(ngModel)]="logement.capacite" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="disponnibilite" class="form-label">Disponibilité</label>
+          <select class="form-control" id="disponnibilite" name="disponnibilite" 
+                  [(ngModel)]="logement.disponnibilite">
+            <option value="disponible">Disponible</option>
+            <option value="non disponible">Non disponible</option>
+          </select>
+        </div>
+
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary me-2" [disabled]="!logementForm.form.valid">
+            Modifier le logement
+          </button>
+          <button type="button" class="btn btn-secondary" routerLink="/admin/logements/liste">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

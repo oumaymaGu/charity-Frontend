@@ -1,0 +1,35 @@
+
+.service-item {
+    border-radius: 10px;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+}
+
+.service-item img {
+    max-width: 100px;
+    margin-bottom: 1.5rem;
+}
+
+.badge {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.btn-outline-primary:hover .btn-sm-square {
+    background-color: #fff !important;
+    color: var(--primary) !important;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
+}

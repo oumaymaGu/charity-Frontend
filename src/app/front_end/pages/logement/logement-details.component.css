@@ -1,0 +1,27 @@
+.service-item {
+    border-radius: 10px;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+}
+
+.info-item {
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.badge {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
