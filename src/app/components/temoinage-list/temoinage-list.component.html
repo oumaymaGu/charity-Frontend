@@ -1,0 +1,128 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9 content">
+      <h2>Testimonials List</h2>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Statut</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let temoinage of temoinages">
+            <td>{{ temoinage.nom }}</td>
+            <td>{{ temoinage.statut }}</td>
+            <td>{{ temoinage.description }}</td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteTemoinage(temoinage)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Styles mis à jour -->
+<style>
+  /* Assurer que la page n’a pas de marges inutiles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  /* Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh; /* Pleine hauteur */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #f8f9fa; /* Fond clair pour le contenu */
+  }
+
+  /* Style de la table */
+  .table {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #fff;
+    border-collapse: collapse;
+  }
+
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .btn-danger {
+    background-color: #817271;
+    color: white;
+    border: none;
+  }
+
+  .btn-warning {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+  }
+
+  .btn-danger:hover, .btn-warning:hover {
+    opacity: 0.8;
+  }
+
+  /* Bouton d'ajout */
+  .add-btn {
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+  }
+
+  .add-btn:hover {
+    background-color: #218838;
+  }
+</style>

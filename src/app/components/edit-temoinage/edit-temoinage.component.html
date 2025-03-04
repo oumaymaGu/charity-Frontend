@@ -1,0 +1,42 @@
+<div class="form-container">
+    <h2>MODIFIER UN TÉMOIGNAGE</h2>
+    <form (ngSubmit)="updateTemoinage()">
+      <label>Nom:</label>
+      <input type="text" [(ngModel)]="temoinage.nom" name="nom" placeholder="Votre nom" required>
+  
+      <label>Description:</label>
+      <textarea [(ngModel)]="temoinage.description" name="description" placeholder="Décrivez votre expérience" required></textarea>
+  
+      <label>Date du Témoignage:</label>
+      <input type="date" [(ngModel)]="temoinage.date" name="date" required>
+  
+      <label>Localisation:</label>
+      <input type="text" [(ngModel)]="temoinage.localisation" name="localisation" placeholder="Ville / Pays" required>
+  
+      <label>Photo:</label>
+      <input type="file" (change)="onFileSelected($event)">
+  
+      <label>Note:</label>
+      <select [(ngModel)]="temoinage.note" name="note" required>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
+  
+      <label>Catégorie:</label>
+      <select [(ngModel)]="temoinage.categorie" name="categorie" required>
+        <option value="Logement">Logement</option>
+        <option value="Santé">Santé</option>
+        <option value="Emploi">Emploi</option>
+        <option value="Aide sociale">Aide sociale</option>
+        <option value="Autre">Autre</option>
+      </select>
+  
+      <label>Contact (facultatif):</label>
+      <input type="email" [(ngModel)]="temoinage.contact" name="contact" placeholder="Email ou téléphone">
+  
+      <button type="submit" class="btn-ajouter">MODIFIER</button>
+    </form>
+  </div>

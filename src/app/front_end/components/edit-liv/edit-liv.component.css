@@ -1,0 +1,124 @@
+
+/* Modify Delivery Form */
+.modify-delivery {
+    background-color: white;
+    padding: 20px;
+    max-width: 600px;
+    margin: 50px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modify-delivery h2 {
+    font-size: 26px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.modify-delivery form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modify-delivery label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.modify-delivery input, .modify-delivery select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.modify-delivery input:focus, .modify-delivery select:focus {
+    border-color: #9cc9c8;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+}
+
+.modify-delivery button {
+    padding: 12px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #346270;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modify-delivery button:hover {
+    background-color: #88d8d0;
+}
+
+.modify-delivery button:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(104, 172, 193, 0.6);
+}
+
+/* Footer */
+footer {
+    background-color: #21444d;
+    color: white;
+    padding: 30px 0;
+}
+
+footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+footer .footer-adress ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-adress ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .footer-adress ul li a:hover {
+    text-decoration: underline;
+}
+
+footer .social-block a {
+    color: white;
+    margin: 0 10px;
+    font-size: 2em;
+}
+
+footer .move-top-page {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer .scroll-to-top {
+    color: white;
+    font-size: 2em;
+    text-decoration: none;
+}
+
+footer .scroll-to-top:hover {
+    color: #88d8d0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-adress, .footer-second, .footer-third {
+        margin-bottom: 20px;
+    }
+}

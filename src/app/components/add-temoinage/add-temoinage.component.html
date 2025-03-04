@@ -1,0 +1,120 @@
+<!-- Header -->
+<div class="header container">
+    <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
+      <a routerLink="/">
+        <img src="assets/images/logo.png" width="200" alt="logo">
+      </a>
+    </div>
+  </div>
+  <div class="navbar" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="selected"><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/about">Associations</a></li>
+        <li><a routerLink="/service">Logements</a></li>
+        <li><a routerLink="/gallery">Delivery</a></li>
+        <li class="hidden-xs hidden-sm">
+          <a rel="home" routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
+        </li>
+        <li><a routerLink="/event">Events</a></li>
+        <li><a routerLink="/team">Testimonials</a></li>
+        <li><a routerLink="/donate">Donate</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+        <li><a routerLink="/signin">Sign In</a></li>
+        <li><a routerLink="/signup">Sign Up</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Main Content: Add Testimonial Form -->
+  <div class="form-container">
+    <h2>Add Testimonial</h2>
+    <form (ngSubmit)="saveTemoinage()">
+      <label>Name:</label>
+      <input type="text" [(ngModel)]="temoinage.nom" name="name" placeholder="your name" required>
+  
+      <label>Description:</label>
+      <textarea [(ngModel)]="temoinage.description" name="description" placeholder="Write your experience" required></textarea>
+  
+      <label>Date of testimonial:</label>
+      <input type="date" [(ngModel)]="temoinage.date" name="date" required>
+  
+      <label>Localisation:</label>
+      <input type="text" [(ngModel)]="temoinage.localisation" name="localisation" placeholder="Ville / Pays" required>
+  
+      <label>Photo:</label>
+      <input type="file" (change)="onFileSelected($event)">
+  
+      <label>Rate:</label>
+      <select [(ngModel)]="temoinage.note" name="note" required>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
+  
+      <label>Category:</label>
+      <select [(ngModel)]="temoinage.categorie" name="categorie" required>
+        <option value="Logement">Donor</option>
+        <option value="Santé">Beneficiary</option>
+        
+        <option value="Autre">Autre</option>
+      </select>
+  
+      <label>Contact (facultatif):</label>
+      <input type="email" [(ngModel)]="temoinage.contact" name="contact" placeholder="Email or phone">
+  
+      <button type="submit" class="btn-ajouter">Add</button>
+    </form>
+  </div>
+  
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-content container">
+      <div class="footer-adress text-center col-xs-12 col-sm-4 col-md-4">
+        <h4>Great love for humanity</h4>
+        <ul class="footer-menus">
+          <li><a routerLink="/">Home</a> /</li>
+          <li><a routerLink="/about">About</a> /</li>
+          <li><a routerLink="/services">Service</a> /</li>
+          <li><a routerLink="/gallery">Gallery</a> /</li>
+          <li><a routerLink="/contact">Contact</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-second col-xs-12 col-sm-4 col-md-4">
+        <div class="social-block text-center">
+          <div class="social-share">
+            <a href="#"><i class="fa fa-2x fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-2x fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-2x fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-2x fa-instagram"></i></a>
+          </div>
+        </div>
+        <p class="text-center footer-text1">123 456 7890</p>
+        <p class="text-center footer-text">humanity@shuvohabib.com</p>
+      </div>
+  
+      <div class="footer-third col-xs-12 col-sm-4 col-md-4">
+        <div class="copyright">
+          <span>Copyright 2014 Theme</span><br>
+          <span>All Rights Reserved</span>
+        </div>
+      </div>
+    </div>
+  
+    <div class="move-top-page">
+      <a href="#" class="scroll-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </a>
+    </div>
+  </footer>

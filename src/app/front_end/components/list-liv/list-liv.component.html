@@ -1,0 +1,123 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
+    
+    <div class="col-md-9 content">
+      <h2>Delivery History</h2>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>State</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let livraison of livraisons">
+            <td>{{ livraison.nom }}</td>
+            <td>{{ livraison.adresseLivr }}</td>
+            <td>{{ livraison.etatLivraisons }}</td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteLivraison(livraison.idLivr)">Delete</button>
+              <!-- Button for confirmation -->
+              <button *ngIf="livraison.etatLivraisons !== 'LIVREE'" class="btn btn-success" (click)="confirmLivraison(livraison)">Confirm</button>
+          
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Confirmation Modal -->
+      <div *ngIf="confirmLivraisonActive" class="confirmation-popup">
+        <p>Are you sure you want to confirm this delivery?</p>
+        <button class="btn btn-success" (click)="confirmAction()">Yes, Confirm</button>
+        <button class="btn btn-danger" (click)="cancelAction()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Styles mis à jour -->
+<style>
+  /* Assurer que la page n’a pas de marges inutiles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  /* Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh; /* Pleine hauteur */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #f8f9fa; /* Fond clair pour le contenu */
+  }
+
+  /* Style de la table */
+  .table {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #fff;
+    border-collapse: collapse;
+  }
+
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .btn-danger {
+    background-color: #a2686c;
+    color: white;
+    border: none;
+  }
+
+  .btn-warning {
+    background-color: #858483;
+    color: black;
+    border: none;
+  }
+
+  .btn-danger:hover, .btn-warning:hover {
+    opacity: 0.8;
+  }
+</style>

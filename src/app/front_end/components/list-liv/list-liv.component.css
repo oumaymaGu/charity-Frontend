@@ -1,0 +1,134 @@
+
+/* General App Container */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e6f9f9;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .header h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .header button {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .header button:hover {
+    background-color: #006C8B;
+  }
+  
+  .livraison-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .livraison-card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33% - 20px);  /* 3 cards per row on large screens */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .livraison-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+  }
+  
+  .card-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .card-info h5 {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .card-info p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-body p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .card-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .card-actions button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .card-actions .btn-danger {
+    background-color: #65c1c4;
+    color: white;
+  }
+  
+  .card-actions .btn-warning {
+    background-color: #77adb8;
+    color: white;
+  }
+  
+  .card-actions button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Responsive Design for Mobile */
+  @media (max-width: 768px) {
+    .livraison-card {
+      width: calc(50% - 20px); /* 2 cards per row on medium screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .livraison-card {
+      width: 100%; /* 1 card per row on small screens */
+    }
+    .header button {
+      width: 100%;
+    }
+  }
+  

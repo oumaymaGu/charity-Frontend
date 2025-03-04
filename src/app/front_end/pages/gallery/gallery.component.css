@@ -1,0 +1,43 @@
+.clickable-text {
+    font-size: 24px; /* Make the text bigger */
+    font-weight: 600; /* Bold text */
+    color: #618c90; /* Vibrant orange color */
+    text-transform: uppercase; /* Uppercase letters */
+    letter-spacing: 2px; /* Add space between letters */
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s, transform 0.3s, letter-spacing 0.3s;
+  }
+  
+  /* Adding a shadow effect */
+  .clickable-text::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background-color: #57778b;
+    transition: width 0.4s, left 0.4s;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Hover effects */
+  .clickable-text:hover {
+    color: #ffffff; /* Change text color on hover */
+    letter-spacing: 4px; /* Expand spacing */
+    transform: scale(1.1); /* Slightly enlarge the text */
+  }
+  
+  /* On hover, expand the underline effect */
+  .clickable-text:hover::before {
+    width: 100%;
+    left: 0;
+  }
+  
+  /* Add a glowing effect */
+  .clickable-text:focus, .clickable-text:hover {
+    text-shadow: 0 0 10px rgba(79, 112, 158, 0.8), 0 0 20px rgba(87, 175, 189, 0.6);
+  }
+  
