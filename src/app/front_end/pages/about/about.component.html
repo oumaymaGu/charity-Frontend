@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Humanity - Nos Associations</title>
+
+    <!-- Bootstrap & Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Fond dégradé */
+        .container-background {
+            background: linear-gradient(to right, #80b6d3, #b2ede0);
+            padding: 50px 0;
+        }
+
+        /* Cartes des associations */
+        .card-association {
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            background: rgb(240, 238, 238);
+            text-align: center;
+        }
+
+        .card-association:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-association img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 5px solid #80b6d3;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #80b6d3;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #070707;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
+            color: #80b6d3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card-association {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar ORIGINAL -->
+<div class="header container">
+    <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
+        <a rel="home" routerLink="/home">
+            <img src="/assets/img/logo.png" width="200" alt="logo">
+        </a>
+    </div>
+</div>
+
+<div class="navbar" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a routerLink="/home">Home</a></li>
+            <li class="selected"><a routerLink="/about">Associations</a></li>
+            <li><a routerLink="/service">Espace Refuge</a></li>
+            <li><a routerLink="/gallery">Delivery</a></li>
+            <li class="hidden-xs hidden-sm">
+                <a rel="home" routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
+            </li>
+            <li><a routerLink="/event">Events</a></li>
+            <li><a routerLink="/team">Testimonials</a></li>
+            <li><a routerLink="/donate">Donate</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
+            <li><a routerLink="/join">Sign In</a></li>
+            <li><a routerLink="/signup">Sign Up</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Section Associations -->
+<div class="container container-background">
+  <h2 class="text-center text-dark mb-4">🌍 Nos Associations</h2> <!-- Noir -->
+
+    <!-- Chargement -->
+    <div *ngIf="loading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Chargement...</span>
+        </div>
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="error" class="alert alert-danger text-center">
+        {{ error }}
+    </div>
+
+    <!-- Grid des associations -->
+    <div *ngIf="associations.length > 0" class="row">
+        <div class="col-md-4 mb-4" *ngFor="let association of associations">
+            <div class="card card-association">
+                <img [src]="association.photoUrl || '/assets/img/default-association.jpg'" class="card-img-top" alt="Association Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ association.nomAss }}</h5>
+                    <p class="card-text"><i class="fa fa-map-marker icon"></i> {{ association.lieu }}</p>
+                    <p class="card-text"><i class="fa fa-calendar icon"></i> Créée le : {{ association.date | date }}</p>
+                    <p class="card-text"><i class="fa fa-envelope icon"></i> {{ association.email }}</p>
+                    <p class="card-text"><i class="fa fa-phone icon"></i> {{ association.contact }}</p>
+                    <p class="card-text">{{ association.description }}</p>
+                    <a href="#" class="btn btn-outline-dark">Voir plus</a> <!-- Noir -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aucune association trouvée -->
+    <div *ngIf="associations.length === 0 && !loading" class="alert alert-info text-center">
+        Aucune association trouvée.
+    </div>
+</div>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

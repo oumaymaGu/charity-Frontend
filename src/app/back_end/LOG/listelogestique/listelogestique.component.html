@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <button (click)="goToDashboard()" class="btn btn-primary mb-3">
+    <a routerLink="/dash" class="btn btn-primary mb-3">
+      <i class="fa fa-arrow-left"></i> Retour au Dashboard
+    </a>
+    
+  </button>
+
+  <h2>Liste des Logistiques</h2>
+
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Rechercher par nom" [(ngModel)]="searchTerm" (input)="searchLogestiques(searchTerm)">
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Quantité</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let logestique of logestiques">
+        <td>{{ logestique.ressourceName }}</td>
+        <td>{{ logestique.quantity }}</td>
+        <td>
+          <button (click)="editLogestique(logestique)" class="btn btn-warning btn-sm me-2">
+            <i class="fa fa-edit"></i> Modifier
+          </button>
+          <button (click)="confirmDelete(logestique.idlogestique)" class="btn btn-danger btn-sm">
+            <i class="fa fa-trash"></i> Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

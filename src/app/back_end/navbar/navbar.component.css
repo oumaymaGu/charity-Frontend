@@ -1,0 +1,25 @@
+/* Ajouter un effet de transition douce au dropdown */
+.dropdown-menu {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .dropdown-menu:not(.show) {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  
+  .sb-topnav {
+    margin-bottom: 0; /* Supprime la marge en bas pour coller au contenu */
+    border-radius: 0;
+    z-index: 1000; /* Assure que la navbar reste au-dessus du contenu lors du défilement */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optionnel : ajoute une ombre pour un effet visuel */
+  }
+  
+  body {
+    padding-top: 56px; /* Ajuste le padding du body pour compenser la hauteur de la navbar (56px est la hauteur par défaut de Bootstrap pour une navbar fixe) */
+  }

@@ -1,0 +1,87 @@
+/* Style du conteneur principal */
+div {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Titre */
+  h2 {
+    text-align: center;
+    color: #383b29;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Style des labels */
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  /* Champs de saisie */
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  
+  input:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
+  
+  /* Style des boutons */
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  /* Bouton Enregistrer */
+  button[type="submit"] {
+    background: #a9ddb5;
+    color: white;
+    font-weight: bold;
+  }
+  
+  button[type="submit"]:hover {
+    background: #218838;
+  }
+  
+  /* Bouton Annuler */
+  .btn-secondary {
+    background: #c59096;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .btn-secondary:hover {
+    background: #c82333;
+  }
+  
+  /* Espacement entre les champs */
+  div > div {
+    margin-bottom: 15px;
+  }
+
+  body {
+    background-color: #5a5c5e;
+  }
+  
+  

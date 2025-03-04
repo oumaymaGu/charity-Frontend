@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Font and general body styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Centering the card */
+        .container {
+            height: 100vh;
+        }
+
+        /* Styling for the card */
+        .card {
+            border-radius: 12px;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Input and select styling */
+        .form-control,
+        .form-select {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        /* Styling for the buttons */
+        .btn {
+            border-radius: 50px;
+            padding: 15px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Link styling */
+        .text-decoration-none {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .text-decoration-none:hover {
+            text-decoration: underline;
+        }
+
+        /* Adding a hover effect for inputs */
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+
+        /* Responsive Design for smaller screens */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+
+            .btn {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
+            <div class="text-center">
+                <img src="/assets/img/logo.png" width="150" alt="Logo" class="mb-4">
+                <h3 class="mb-3">Login</h3>
+            </div>
+            <form (ngSubmit)="onSubmit()">
+                <!-- Username Field -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" [(ngModel)]="credentials.username" name="username" required placeholder="Enter your username">
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="password" required placeholder="Enter your password">
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg" [disabled]="!credentials.username || !credentials.password">Login</button>
+                </div>
+
+                <!-- Error and success messages -->
+                <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+                    {{ successMessage }}
+                </div>
+                <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+                    {{ errorMessage }}
+                </div>
+
+                <!-- Signup Link -->
+                <div class="text-center mt-3">
+                    <p>Don't have an account? <a href="/signup" class="text-decoration-none">Sign Up here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<app-navbar></app-navbar>
+<!-- Sidebar -->
+<div class="col-md-3 sidebar">
+  <app-sidebar></app-sidebar>
+</div>
+
+<div class="container mt-4 container-background">
+  <h2 class="text-center text-dark mb-4">Add a New Stock</h2>
+
+  <form (ngSubmit)="onSubmit()" class="shadow p-4 rounded bg-light">
+    <!-- Capacity -->
+    <div class="mb-3">
+      <label for="capacite" class="form-label">Capacity:</label>
+      <input type="number" id="capacite" class="form-control" [(ngModel)]="stock.capacite" name="capacite" required>
+      <div *ngIf="submitted && !stock.capacite" class="text-danger small">⚠ Required field.</div>
+    </div>
+
+    <!-- Acheminement -->
+    <div class="mb-3">
+      <label for="acheminement" class="form-label">Acheminement:</label>
+      <input type="text" id="acheminement" class="form-control" [(ngModel)]="stock.acheminement" name="acheminement" required>
+      <div *ngIf="submitted && !stock.acheminement" class="text-danger small">⚠ Required field.</div>
+    </div>
+
+    <!-- Type -->
+    <div class="mb-3">
+      <label for="typeStock" class="form-label">Type:</label>
+      <input type="text" id="typeStock" class="form-control" [(ngModel)]="stock.typeStock" name="typeStock" required>
+      <div *ngIf="submitted && !stock.typeStock" class="text-danger small">⚠ Required field.</div>
+    </div>
+
+    <!-- Association -->
+    <div class="mb-3">
+      <label for="associationId" class="form-label">Association:</label>
+      <input type="number" id="associationId" class="form-control" [(ngModel)]="stock.associationId" name="associationId" required>
+      <div *ngIf="submitted && !stock.associationId" class="text-danger small">⚠ Required field.</div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary w-100" [disabled]="stockForm.invalid">➕ Add Stock</button>
+
+    <!-- Feedback Messages -->
+    <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
+      ✅ {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+      ❌ {{ errorMessage }}
+    </div>
+  </form>
+</div>
+
+<!-- Ajouter la classe CSS suivante pour le background -->
+<style>
+  .container-background {
+    background-image: url('https://www.wur.nl/upload/28b64e46-65c1-48cb-8207-761bd398db67_Racial-Equality-2.jpg'); /* Remplace par le chemin de ton image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 0%;
+  }
+</style>
+
+<!-- ✅ Styles mis à jour -->
+<style>
+  /* Assurer que la page n’a pas de marges inutiles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  /* ✅ Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh; /* Pleine hauteur */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Ajout du défilement vertical */
+  }
+
+  /* ✅ Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #f8f9fa; /* Garder le fond bleu clair */
+  }
+
+  .form-group label {
+    font-weight: bold;
+  }
+
+  .btn-primary {
+    margin-top: 10px;
+  }
+
+  /* Style du formulaire */
+  form {
+    max-width: 600px;
+    margin: auto;
+    background: #f8f9fa;
+  }
+
+  /* Style des erreurs */
+  .text-danger {
+    font-size: 0.9rem;
+  }
+
+  /* Animation du bouton */
+  button {
+    transition: 0.3s ease-in-out;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+  }
+
+  /* Animation background */
+</style>

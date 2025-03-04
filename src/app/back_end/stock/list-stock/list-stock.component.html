@@ -1,0 +1,132 @@
+<app-navbar></app-navbar>
+<!-- Sidebar -->
+<div class="col-md-3 sidebar">
+  <app-sidebar></app-sidebar>
+</div>
+
+<div class="content mt-4">
+  <h2 class="text-center text-dark mb-4">Stocks</h2>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger text-center">
+    ❌ {{ error }}
+  </div>
+
+  <!-- Zone de recherche -->
+  <div class="mb-3">
+    <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="search" (input)="searchStock()" />
+  </div>
+
+  <!-- Message de chargement -->
+  <div *ngIf="loading" class="spinner-border" role="status">
+    <span class="sr-only">Chargement...</span>
+  </div>
+
+  <!-- Liste des stocks -->
+  <table *ngIf="!loading && stocks.length > 0" class="table table-bordered table-striped table-hover shadow-sm">
+    <thead class="table-primary">
+      <tr>
+        <th>Capacity</th>
+        <th>Acheminement</th>
+        <th>Type</th>
+        <th>Association</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of stocks">
+        <td>{{ stock.capacite }}</td>
+        <td>{{ stock.acheminement }}</td>
+        <td>{{ stock.typeStock }}</td>
+        <td>{{ stock.associationId }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-success me-2" (click)="modifierStock(stock)">✏ Edit</button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteStock(stock.idStock)">🗑 Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Message lorsqu'il n'y a pas de stocks -->
+  <div *ngIf="stocks.length === 0 && !loading" class="alert alert-warning text-center">
+    😕 No stock available.
+  </div>
+</div>
+
+<style>
+  /* Assurer que la page n’a pas de marges inutiles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh;
+    position: fixed;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  /* Contenu */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px);
+    background-color: #ffffff; /* Fond blanc pour la page */
+  }
+
+  /* Formulaire et Table */
+  .form-group label {
+    font-weight: bold;
+  }
+
+  .btn-primary {
+    margin-top: 10px;
+  }
+
+  /* Table style */
+  .table {
+    margin-top: 20px;
+  }
+
+  /* Boutons d'actions dans la table */
+  .btn-sm {
+    margin-right: 5px;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .table-primary {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+  }
+
+  /* Spinner */
+  .spinner-border {
+    display: block;
+    margin: 0 auto;
+  }
+</style>
