@@ -9,7 +9,7 @@
     <!-- Content -->
     <div class="col-md-9 content">
       <h2>Edit Event</h2>
-      <form (ngSubmit)="updateEvent()">
+      <form (ngSubmit)="updateEvent()" #eventForm="ngForm">
         <div class="form-group">
           <label for="nomEvent">Event Name:</label>
           <input type="text" id="nomEvent" class="form-control" [(ngModel)]="event.nomEvent" name="nomEvent" required>
@@ -24,14 +24,20 @@
         </div>
         <div class="form-group">
           <label for="prixevent">Event Price:</label>
-          <input type="number" id="prixevent" class="form-control" [(ngModel)]="event.prixevent" name="prixevent" required>
+          <input type="number" id="prixevent" class="form-control" [(ngModel)]="event.prixevent" name="prixevent" required min="0">
+          <div *ngIf="eventForm.controls['prixevent']?.invalid && (eventForm.controls['prixevent']?.dirty || eventForm.controls['prixevent']?.touched)" class="text-danger">
+            Price must be a positive number.
+          </div>
         </div>
         <div class="form-group">
           <label for="dateEvent">Event Date:</label>
-          <input type="date" id="dateEvent" class="form-control" [(ngModel)]="event.dateEvent" name="dateEvent" required>
+          <input type="date" id="dateEvent" class="form-control" [(ngModel)]="event.dateEvent" name="dateEvent" required [min]="minDate">
+          <div *ngIf="eventForm.controls['dateEvent']?.invalid && (eventForm.controls['dateEvent']?.dirty || eventForm.controls['dateEvent']?.touched)" class="text-danger">
+            Date cannot be in the past.
+          </div>
         </div>
         <div class="d-flex justify-content-between">
-          <button type="submit" class="btn btn-primary">Update Event</button>
+          <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">Update Event</button>
           <a routerLink="/dash" class="btn btn-primary mb-3">
             <i class="fa fa-arrow-left"></i> back to Dashboard
           </a>

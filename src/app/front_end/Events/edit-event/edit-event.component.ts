@@ -10,6 +10,7 @@ import { Event } from '../../pages/models/event';
 })
 export class EditEventComponent implements OnInit {
   event: Event = new Event();
+  minDate!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,6 +19,9 @@ export class EditEventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]; // Set minDate to today's date in YYYY-MM-DD format
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.eventService.getEventById(id).subscribe(
@@ -33,6 +37,16 @@ export class EditEventComponent implements OnInit {
   }
 
   updateEvent(): void {
+    if (this.event.prixevent <= 0) {
+      alert('Price must be a positive number.');
+      return;
+    }
+
+    if (new Date(this.event.dateEvent) < new Date(this.minDate)) {
+      alert('Date cannot be in the past.');
+      return;
+    }
+
     this.eventService.updateEvent(this.event).subscribe(
       response => {
         console.log('Event updated successfully', response);

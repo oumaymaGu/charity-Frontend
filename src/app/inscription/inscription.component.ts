@@ -41,7 +41,7 @@ export class InscriptionComponent implements OnInit {
     const username = localStorage.getItem('username');
     if (email && username) {
       this.user.email = email;
-      this.user.username = username; // Assuming 'username' is the username
+      this.user.username = username; 
       // Retrieve userId from the backend
       this.eventService.getUserIdByEmail(email).subscribe(
         (userId: number) => {
