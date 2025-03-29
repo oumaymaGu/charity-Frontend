@@ -92,6 +92,29 @@
       </div>
     </div>
 </div>
+<style>
+  .btn-custom {
+    background-color: #28a745; /* Green color */
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-custom:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+</style>
+
+
+<!-- Composant de carte -->
+<button (click)="findEventsNearMe()" class="btn-custom">
+  <i class="fa fa-map-marker"></i> Trouver des événements près de chez moi
+</button>
+
+<app-map [eventsNearby]="filteredEvents"></app-map>
 
 <script src="/assets/js/bootstrap.min.js"></script>
 </body>

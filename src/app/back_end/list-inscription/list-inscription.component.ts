@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/front_end/pages/models/user';
 import { EventService } from 'src/app/services/event.service';
-// Assuming you have a User model
 
 @Component({
   selector: 'app-list-inscription',
@@ -20,15 +19,28 @@ export class ListInscriptionComponent implements OnInit {
     this.getUsersByEventId(this.eventId);
   }
 
-  getUsersByEventId(eventId: number) {
+  getUsersByEventId(eventId: number): void {
     this.eventService.getUsersByEventId(eventId).subscribe(
       (data: User[]) => {
         this.users = data;
       },
-
       (error: any) => {
         console.error('Error fetching users:', error);
       }
     );
+  }
+
+  deleteUserFromEvent(email: string): void {
+    if (confirm(`Are you sure you want to remove the user with email ${email} from the event?`)) {
+      this.eventService.deassignUserToEventByEmail(email, this.eventId).subscribe(
+        () => {
+          console.log(`User with email ${email} removed from event ${this.eventId}`);
+          this.getUsersByEventId(this.eventId); // Refresh the user list
+        },
+        (error: any) => {
+          console.error('Error removing user from event:', error);
+        }
+      );
+    }
   }
 }

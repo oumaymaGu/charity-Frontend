@@ -5,4 +5,9 @@ export class Event {
     lieu: any;
     prixevent: any;
     dateEvent: any;
+    temperature: any ;
+    weatherDescription : any;
+    latitude: any;
+    longitude: any;
+
   }

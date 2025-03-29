@@ -49,5 +49,18 @@ export class EventService {
   getUsersByEventId(eventId: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.url}/${eventId}/users`);
   }
-
+ 
+  deassignUserToEventByEmail(email: string, eventId: number): Observable<any> {
+    return this.http.delete(`${this.userUrl}/deaffecter-user-from-event/${email}/${eventId}`, {});
+  }
+  getEventsNear(latitude: number, longitude: number, radius: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/nearby`, {
+      params: {
+        latitude: latitude.toString(),  
+        longitude: longitude.toString(), 
+        radius: radius.toString()
+      }
+    });
+  }
+  
 }

@@ -26,6 +26,8 @@ import { AjoutLogistiqueComponent } from './back_end/LOG/ajoutlogestique/ajoutlo
 import { ListelogestiqueComponent } from './back_end/LOG/listelogestique/listelogestique.component';
 import { EditlogestiqueComponent } from './back_end/LOG/editlogestique/editlogestique.component';
 import { ListInscriptionComponent } from './back_end/list-inscription/list-inscription.component';
+import { map } from 'leaflet';
+import { MapComponent } from './front_end/map/map.component';
 
 
 
@@ -62,6 +64,8 @@ const routes: Routes = [
 { path: 'associations/create', component: AssociationFormComponent },
 { path: 'associations/:id/edit', component: AssociationFormComponent },
 { path: 'event/:eventId/users', component: ListInscriptionComponent },
+{path: 'map', component: MapComponent},
+
 { path: '**', redirectTo:"" , pathMatch: 'full' },
 
 

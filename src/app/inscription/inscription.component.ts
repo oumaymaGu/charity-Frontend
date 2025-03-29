@@ -29,7 +29,8 @@ export class InscriptionComponent implements OnInit {
   getEventDetails(eventId: number) {
     this.eventService.getEventById(eventId).subscribe(
       (data: Event) => {
-        this.event = data;      },
+        this.event = data;
+      },
       (error: any) => {
         console.error('Error fetching event details:', error);
       }
@@ -54,8 +55,6 @@ export class InscriptionComponent implements OnInit {
     }
   }
 
-
-
   validerInscription(form: NgForm) {
     const user = {
       username: form.value.nom,
@@ -72,9 +71,21 @@ export class InscriptionComponent implements OnInit {
       .subscribe(response => {
         console.log('User assigned to event:', response);
         this.validationMessage = 'Registration successful!'; // Set the validation message
-        //this.router.navigate(['/paiement', { id: this.idEvent, prix: this.totalAmount, userId: response.idUser }]);
       }, error => {
         console.error('Error assigning user to event:', error);
       });
   }
+
+  // New method to deassign a user from the event
+  deassignUserFromEvent(email: string, eventId: number) {
+    if (confirm(`Are you sure you want to cancel your registration for this event?`)) {
+      this.eventService.deassignUserToEventByEmail(email, eventId)
+        .subscribe(response => {
+          console.log(`User with email ${email} deassigned from event ${eventId}`);
+          this.validationMessage = 'You have been successfully removed from the event.';
+        }, error => {
+          console.error('Error deassigning user from event:', error);
+        });
+    }
+  } 
 }
