@@ -7,8 +7,15 @@
   border-radius: 15px;
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+.payment-container:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
 h2 {
   text-align: center;
   color: #333;
@@ -20,23 +27,27 @@ h2 {
 /* Groupes de champs */
 .form-group {
   margin-bottom: 20px;
+  transition: opacity 0.3s ease-in-out;
 }
 
+/* Labels */
 label {
   display: block;
   font-weight: bold;
   margin-bottom: 8px;
   color: #555;
   font-size: 14px;
+  transition: color 0.3s ease-in-out;
 }
 
+/* Inputs and Selects */
 input, select {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
-  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 input:focus, select:focus {
@@ -45,28 +56,118 @@ input:focus, select:focus {
   outline: none;
 }
 
+input:hover, select:hover {
+  border-color: #2c3e50;
+}
+
+/* Validation Styles */
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+  border-color: #ff4d4d;
+}
+
+input.ng-valid.ng-touched, select.ng-valid.ng-touched {
+  border-color: #28a745;
+}
+
 /* Expiration Date */
 .expiration-container {
   display: flex;
   justify-content: space-between;
-  gap: 10px; /* Ajout d'un espace entre les champs */
+  gap: 10px;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .expiration-container select {
   width: 48%;
 }
 
-/* Style pour le message d'erreur */
-.error-message {
-  color: #ff4d4d;
+/* Amount Form (from previous integration) */
+.amount-form {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  transition: box-shadow 0.3s ease;
+}
+
+.amount-form:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.amount-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.amount-button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  min-width: 80px;
+}
+
+.amount-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.amount-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.custom-amount-input {
+  padding: 12px;
+  width: 100%;
+  max-width: 150px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-amount-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Messages (Error and Success) */
+.error-message, .success-message {
   text-align: center;
   font-size: 14px;
   margin-top: 15px;
   font-weight: 500;
+  animation: fadeIn 0.5s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* Bouton de soumission */
-.submit-btn {
+.error-message {
+  color: #ff4d4d;
+}
+
+.success-message {
+  color: #28a745;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Bouton de soumission et continue */
+.submit-btn, .btn-continue {
   width: 100%;
   padding: 14px;
   background: #2c3e50;
@@ -76,26 +177,28 @@ input:focus, select:focus {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.submit-btn:hover {
-  background:#2c3e50;
-  transform: translateY(-2px); /* Effet de léger soulèvement */
+.submit-btn:hover, .btn-continue:hover {
+  background: #3e5366; /* Slightly lighter shade on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(44, 62, 80, 0.3);
 }
 
-.submit-btn:active {
-  transform: translateY(0); /* Retour à l'état initial */
+.submit-btn:active, .btn-continue:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
-/* Ajout d'un effet de chargement pour le bouton */
-.submit-btn.loading {
+/* Loading State for Buttons */
+.submit-btn.loading, .btn-continue.loading {
   background: #2c3e50;
   cursor: not-allowed;
   position: relative;
 }
 
-.submit-btn.loading::after {
+.submit-btn.loading::after, .btn-continue.loading::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -106,6 +209,7 @@ input:focus, select:focus {
   border-top: 3px solid transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
 }
 
 @keyframes spin {
@@ -113,7 +217,7 @@ input:focus, select:focus {
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Responsive */
+/* Responsive Adjustments */
 @media (max-width: 480px) {
   .payment-container {
     width: 90%;
@@ -126,391 +230,52 @@ input:focus, select:focus {
 
   input, select {
     padding: 10px;
+    font-size: 13px;
   }
 
-  .submit-btn {
+  .amount-button {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    min-width: 70px;
+  }
+
+  .custom-amount-input {
+    max-width: 130px;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn, .btn-continue {
     padding: 12px;
     font-size: 14px;
   }
-}
-
-/* Ajout d'un effet de survol pour les champs */
-input:hover, select:hover {
-  border-color: #2c3e50;
-}
-/* Style pour les champs invalides */
-input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
-  border-color: #ff4d4d;
-}
-
-/* Style pour les champs valides */
-input.ng-valid.ng-touched, select.ng-valid.ng-touched {
-  border-color: #28a745;
-}
-
-/* Ajout d'une animation pour les messages d'erreur */
-.error-message {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Ajout d'un effet de transition pour les champs */
-input, select {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons */
-button {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les messages d'erreur */
-.error-message {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les labels */
-label {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les conteneurs */
-.payment-container {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les groupes de champs */
-.form-group {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les conteneurs d'expiration */
-.expiration-container {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de soumission */
-.submit-btn {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement */
-.submit-btn.loading {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement après */
-.submit-btn.loading::after {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement avant */
-.submit-btn.loading::before {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement hover */
-.submit-btn.loading:hover {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement active */
-.submit-btn.loading:active {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement focus */
-.submit-btn.loading:focus {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement disabled */
-.submit-btn.loading:disabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement enabled */
-.submit-btn.loading:enabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement checked */
-.submit-btn.loading:checked {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement indeterminate */
-.submit-btn.loading:indeterminate {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement valid */
-.submit-btn.loading:valid {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement invalid */
-.submit-btn.loading:invalid {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement required */
-.submit-btn.loading:required {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement optional */
-.submit-btn.loading:optional {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement read-only */
-.submit-btn.loading:read-only {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement read-write */
-.submit-btn.loading:read-write {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder-shown */
-.submit-btn.loading:placeholder-shown {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder */
-.submit-btn.loading::placeholder {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder hover */
-.submit-btn.loading::placeholder:hover {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder active */
-.submit-btn.loading::placeholder:active {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder focus */
-.submit-btn.loading::placeholder:focus {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder disabled */
-.submit-btn.loading::placeholder:disabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder enabled */
-.submit-btn.loading::placeholder:enabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder checked */
-.submit-btn.loading::placeholder:checked {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder indeterminate */
-.submit-btn.loading::placeholder:indeterminate {
-  transition: all 0.3s ease-in-out;
-}
 
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder valid */
-.submit-btn.loading::placeholder:valid {
-  transition: all 0.3s ease-in-out;
+  .error-message, .success-message {
+    font-size: 13px;
+  }
+}
+
+/* Additional Responsive Adjustments for Amount Form */
+@media (max-width: 576px) {
+  .amount-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .amount-button {
+    width: 100%;
+    max-width: 150px;
+    font-size: 0.9rem;
+  }
+
+  .custom-amount-input {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .btn-continue {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
 }
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder invalid */
-.submit-btn.loading::placeholder:invalid {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder required */
-.submit-btn.loading::placeholder:required {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder optional */
-.submit-btn.loading::placeholder:optional {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder read-only */
-.submit-btn.loading::placeholder:read-only {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder read-write */
-.submit-btn.loading::placeholder:read-write {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder-shown */
-.submit-btn.loading::placeholder:placeholder-shown {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder */
-.submit-btn.loading::placeholder::placeholder {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder hover */
-.submit-btn.loading::placeholder::placeholder:hover {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder active */
-.submit-btn.loading::placeholder::placeholder:active {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder focus */
-.submit-btn.loading::placeholder::placeholder:focus {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder disabled */
-.submit-btn.loading::placeholder::placeholder:disabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder enabled */
-.submit-btn.loading::placeholder::placeholder:enabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder checked */
-.submit-btn.loading::placeholder::placeholder:checked {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder indeterminate */
-.submit-btn.loading::placeholder::placeholder:indeterminate {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder valid */
-.submit-btn.loading::placeholder::placeholder:valid {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder invalid */
-.submit-btn.loading::placeholder::placeholder:invalid {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder required */
-.submit-btn.loading::placeholder::placeholder:required {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder optional */
-.submit-btn.loading::placeholder::placeholder:optional {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder read-only */
-.submit-btn.loading::placeholder::placeholder:read-only {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder read-write */
-.submit-btn.loading::placeholder::placeholder:read-write {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder-shown */
-.submit-btn.loading::placeholder::placeholder:placeholder-shown {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder */
-.submit-btn.loading::placeholder::placeholder::placeholder {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder hover */
-.submit-btn.loading::placeholder::placeholder::placeholder:hover {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder active */
-.submit-btn.loading::placeholder::placeholder::placeholder:active {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder focus */
-.submit-btn.loading::placeholder::placeholder::placeholder:focus {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder disabled */
-.submit-btn.loading::placeholder::placeholder::placeholder:disabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder enabled */
-.submit-btn.loading::placeholder::placeholder::placeholder:enabled {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder checked */
-.submit-btn.loading::placeholder::placeholder::placeholder:checked {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder indeterminate */
-.submit-btn.loading::placeholder::placeholder::placeholder:indeterminate {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder valid */
-.submit-btn.loading::placeholder::placeholder::placeholder:valid {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder invalid */
-.submit-btn.loading::placeholder::placeholder::placeholder:invalid {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder required */
-.submit-btn.loading::placeholder::placeholder::placeholder:required {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder optional */
-.submit-btn.loading::placeholder::placeholder::placeholder:optional {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder read-only */
-.submit-btn.loading::placeholder::placeholder::placeholder:read-only {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder read-write */
-.submit-btn.loading::placeholder::placeholder::placeholder:read-write {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder placeholder-shown */
-.submit-btn.loading::placeholder::placeholder::placeholder:placeholder-shown {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ajout d'un effet de transition pour les boutons de chargement placeholder placeholder placeholder placeholder */
-.submit-btn.loading::placeholder::placeholder::placeholder::placeholder {
-  transition: all 0.3s ease-in-out;
-}
-
-

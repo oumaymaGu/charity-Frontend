@@ -1,0 +1,94 @@
+<div class="payment-container">
+  <!-- Formulaire de paiement -->
+  <div *ngIf="!paymentSuccess" class="payment-form">
+    <h2>Paiement sécurisé</h2>
+    
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+      <!-- Montant -->
+      <div class="form-group">
+        <label for="amount">Montant (€)</label>
+        <input type="number" id="amount" formControlName="amount" step="0.01" min="1" class="form-input">
+        <div class="error-message" 
+             *ngIf="paymentForm.get('amount')?.invalid && (paymentForm.get('amount')?.dirty || paymentForm.get('amount')?.touched)">
+          <div *ngIf="paymentForm.get('amount')?.errors?.['required']">Ce champ est requis</div>
+          <div *ngIf="paymentForm.get('amount')?.errors?.['min']">Minimum 1€ requis</div>
+        </div>
+      </div>
+      
+      <!-- Nom complet -->
+      <div class="form-group">
+        <label for="name">Nom complet</label>
+        <input type="text" id="name" formControlName="name" class="form-input" placeholder="Comme indiqué sur la carte">
+        <div class="error-message" 
+             *ngIf="paymentForm.get('name')?.invalid && (paymentForm.get('name')?.dirty || paymentForm.get('name')?.touched)">
+          Ce champ est requis
+        </div>
+      </div>
+      
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-input" placeholder="Votre reçu sera envoyé ici">
+        <div class="error-message" 
+             *ngIf="paymentForm.get('email')?.invalid && (paymentForm.get('email')?.dirty || paymentForm.get('email')?.touched)">
+          <div *ngIf="paymentForm.get('email')?.errors?.['required']">Ce champ est requis</div>
+          <div *ngIf="paymentForm.get('email')?.errors?.['email']">Email invalide</div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" id="description" formControlName="description" class="form-input">
+        <div class="error-message" 
+             *ngIf="paymentForm.get('description')?.invalid && (paymentForm.get('description')?.dirty || paymentForm.get('description')?.touched)">
+          Ce champ est requis
+        </div>
+      </div>
+
+      <!-- ID Don -->
+      <div class="form-group">
+        <label for="donId">ID Don</label>
+        <input type="number" id="donId" formControlName="donId" class="form-input">
+        <div class="error-message" 
+             *ngIf="paymentForm.get('donId')?.invalid && (paymentForm.get('donId')?.dirty || paymentForm.get('donId')?.touched)">
+          <div *ngIf="paymentForm.get('donId')?.errors?.['required']">Ce champ est requis</div>
+          <div *ngIf="paymentForm.get('donId')?.errors?.['pattern']">Nombre valide requis</div>
+        </div>
+      </div>
+      
+      <!-- Détails de la carte Stripe -->
+      <div class="form-group">
+        <label>Détails de la carte</label>
+        <div id="card-element" class="card-element"></div>
+        <div *ngIf="cardError" class="error-message">{{ cardError }}</div>
+      </div>
+      
+      <!-- Bouton de soumission -->
+      <button type="submit" [disabled]="paymentForm.invalid || loading" class="payment-button">
+        <span *ngIf="!loading">Payer {{ paymentForm.get('amount')?.value | currency:'EUR':'symbol':'1.2-2' }}</span>
+        <span *ngIf="loading">
+          <span class="spinner"></span> Traitement...
+        </span>
+      </button>
+      
+      <!-- Message d'erreur général -->
+      <div *ngIf="errorMessage" class="error-message">
+        <i class="icon-warning">⚠️</i> {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+  
+  <!-- Confirmation de paiement -->
+  <div *ngIf="paymentSuccess" class="success-container">
+    <div class="success-content">
+      <div class="success-icon">✓</div>
+      <h3>Paiement réussi !</h3>
+      <p>Merci pour votre contribution.</p>
+      <p class="email-receipt">Un reçu a été envoyé à <strong>{{ currentEmail }}</strong></p>
+      <button (click)="resetPayment()" class="new-payment-button">
+        Effectuer un autre paiement
+      </button>
+    </div>
+  </div>
+</div>

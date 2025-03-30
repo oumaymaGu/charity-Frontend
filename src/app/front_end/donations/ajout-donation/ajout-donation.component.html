@@ -54,76 +54,62 @@
                 </ul>
             </div>
         </div>
-<div class="donation-form">
-  <h2 class="form-title">Add a Donation</h2>
-  
-  <form (ngSubmit)="onSubmit()" #donationForm="ngForm" class="form-container">
-   
-    <!-- Donation Type (ComboBox) -->
-    <div class="form-group">
-      <label for="typeDon" class="form-label">Donation Type</label>
-      <select 
-        id="typeDon" 
-        name="typeDon" 
-        [(ngModel)]="donation.typeDon" 
-        required 
-        class="form-control"
-        (change)="onTypeDonChange()">
-        <option [value]="TypeDon.ARGENT">Money</option>
-        <option [value]="TypeDon.MATERIEL">Material</option>
-      </select>
-    </div>
-
-    <!-- Intermediate form to choose between Single and Monthly Donation -->
-    <div *ngIf="showDonationFrequencyForm" class="donation-frequency-form">
-      <h3 class="frequency-title">Choose Donation Type</h3>
-      <div class="frequency-options">
-        <label class="frequency-option">
-          <input 
-            type="radio" 
-            name="donationFrequency" 
-            value="single" 
-            [(ngModel)]="donationFrequency" 
-            required>
-          Single Donation
-        </label>
-        <label class="frequency-option">
-          <input 
-            type="radio" 
-            name="donationFrequency" 
-            value="monthly" 
-            [(ngModel)]="donationFrequency" 
-            required>
-          Monthly Donation
-        </label>
-      </div>
-      <button type="button" class="btn-continue" (click)="onDonationFrequencySubmit()">Continue</button>
-    </div>
-
-    <!-- Amount Selection Form -->
-<div *ngIf="showAmountForm" class="amount-form">
-  <h3 class="amount-title">Choose Donation Amount</h3>
-  <div class="amount-options">
-    <button type="button" class="amount-button" (click)="selectedAmount = 10">10TND</button>
-    <button type="button" class="amount-button" (click)="selectedAmount = 50">50TND</button>
-    <button type="button" class="amount-button" (click)="selectedAmount = 100">100TND</button>
-    <button type="button" class="amount-button" (click)="selectedAmount = 200">200TND</button>
-    <input type="number" class="custom-amount-input" [(ngModel)]="selectedAmount" placeholder="Other amount" name="amount">
-  </div>
-  <button type="button" class="btn-continue" (click)="onAmountSubmit()">Continue</button>
-</div>
-    <!-- Submit Button -->
-    <div class="form-group">
-      <button type="submit" class="btn-submit" [disabled]="donationForm.invalid">Submit</button>
-    </div>
-  </form>
-
-  <!-- Success Message -->
-  <div *ngIf="successMessage" class="alert alert-success mt-3">
-    {{ successMessage }}
-  </div>
-  
-</div>
+        <div class="donation-form">
+          <h2 class="form-title">Add Donation</h2>
+          
+          <form (ngSubmit)="onSubmit()" #donationForm="ngForm" class="form-container">
+            <!-- Donation Type (ComboBox) -->
+            <div class="form-group">
+              <label for="typeDon" class="form-label">Donation Type</label>
+              <select 
+                id="typeDon" 
+                name="typeDon" 
+                [(ngModel)]="donation.typeDon" 
+                required 
+                class="form-control"
+                (change)="onTypeDonChange()">
+                <option [value]="TypeDon.ARGENT">Money</option>
+                <option [value]="TypeDon.MATERIEL">Material</option>
+              </select>
+            </div>
+        
+            <!-- Intermediate form to choose between Single and Monthly Donation -->
+            <div *ngIf="showDonationFrequencyForm" class="donation-frequency-form">
+              <h3 class="frequency-title">Choose Donation Type</h3>
+              <div class="frequency-options">
+                <label class="frequency-option">
+                  <input 
+                    type="radio" 
+                    name="donationFrequency" 
+                    value="single" 
+                    [(ngModel)]="donationFrequency" 
+                    required>
+                  Single Donation
+                </label>
+                <label class="frequency-option">
+                  <input 
+                    type="radio" 
+                    name="donationFrequency" 
+                    value="monthly" 
+                    [(ngModel)]="donationFrequency" 
+                    required>
+                  Monthly Donation
+                </label>
+              </div>
+              <button type="button" class="btn-continue" (click)="onDonationFrequencySubmit()">Continue</button>
+            </div>
+        
+            <!-- Submit Button -->
+            <div class="form-group">
+              <button type="submit" class="btn-submit" [disabled]="donationForm.invalid">Submit</button>
+            </div>
+          </form>
+        
+          <!-- Success Message -->
+          <div *ngIf="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+          </div>
+        </div>
  <!-- ============FOOTER============= -->
 
     

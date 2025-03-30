@@ -53,69 +53,65 @@
                 </ul>
             </div>
         </div>
-<div class="payment-container">
-  <h2>Add Payment</h2>
-  
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Email :</label>
-      <input type="email" [(ngModel)]="payment.email" name="email" required>
-    </div>
-
-    <div class="form-group">
-      <label>cardNumber :</label>
-      <input type="text" [(ngModel)]="payment.cardNumber" name="cardNumber" maxlength="16" required>
-    </div>
-
-    <div class="form-row">
-      <div class="col expiration">
-          <label for="expirationMonth">MM / YY</label>
-          <div class="expiration-container">
-              <select id="expirationMonth" [(ngModel)]="payment.expirationMonth" name="expirationMonth" required>
-                  <option value="" disabled selected>MM</option>
-                  <option value="01">01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                  <option value="04">04</option>
-                  <option value="05">05</option>
-                  <option value="06">06</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-              </select>
-              <select id="expirationYear" [(ngModel)]="payment.expirationYear" name="expirationYear" required>
-                  <option value="" disabled selected>YY</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                  <option value="2026">2026</option>
-                  <option value="2027">2027</option>
-                  <option value="2028">2028</option>
-                  <option value="2029">2029</option>
-                  <option value="2030">2030</option>
-              </select>
+        <div class="payment-container">
+          <h2>Add Payment</h2>
+          
+          <form (ngSubmit)="onPaymentSubmit()">
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="email" [(ngModel)]="payment.email" name="email" required class="form-control">
+            </div>
+        
+            <div class="form-group">
+              <label>Card Number:</label>
+              <input type="text" [(ngModel)]="payment.cardNumber" name="cardNumber" maxlength="16" required class="form-control">
+            </div>
+        
+            <div class="form-row">
+              <div class="col expiration">
+                <label for="expirationMonth">MM / YY</label>
+                <div class="expiration-container">
+                  <select id="expirationMonth" [(ngModel)]="payment.expirationMonth" name="expirationMonth" required class="form-control">
+                    <option value="" disabled selected>MM</option>
+                    <option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="month < 10 ? '0' + month : month">{{ month < 10 ? '0' + month : month }}</option>
+                  </select>
+                  <select id="expirationYear" [(ngModel)]="payment.expirationYear" name="expirationYear" required class="form-control">
+                    <option value="" disabled selected>YY</option>
+                    <option *ngFor="let year of [2025,2026,2027,2028,2029,2030]" [value]="year">{{ year }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label>CVV:</label>
+              <input type="text" [(ngModel)]="payment.cvv" name="cvv" maxlength="4" required class="form-control">
+            </div>
+        
+            <div class="form-group">
+              <label>Cardholder Name:</label>
+              <input type="text" [(ngModel)]="payment.cardHolderName" name="cardHolderName" required class="form-control">
+            </div>
+        
+            <button type="submit" class="submit-btn">Continue</button>
+          </form>
+        
+          <!-- Amount Selection Form -->
+          <div *ngIf="showAmountForm" class="amount-form">
+            <h3 class="amount-title">Choose Donation Amount</h3>
+            <div class="amount-options">
+              <button type="button" class="amount-button" (click)="selectedAmount = 10">10 TND</button>
+              <button type="button" class="amount-button" (click)="selectedAmount = 50">50 TND</button>
+              <button type="button" class="amount-button" (click)="selectedAmount = 100">100 TND</button>
+              <button type="button" class="amount-button" (click)="selectedAmount = 200">200 TND</button>
+              <input type="number" class="custom-amount-input" [(ngModel)]="selectedAmount" placeholder="Other amount" name="customAmount" min="1">
+            </div>
+            <button type="button" class="btn-continue" (click)="onAmountSubmit()">Submit Payment</button>
           </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>cvv :</label>
-      <input type="text" [(ngModel)]="payment.cvv" name="cvv" maxlength="4" required>
-    </div>
-
-    <div class="form-group">
-      <label>cardHolderName :</label>
-      <input type="text" [(ngModel)]="payment.cardHolderName" name="cardHolderName" required>
-    </div>
-
-    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
-
-    <button type="submit" class="submit-btn">payer</button>
-  </form>
-</div>
+        
+          <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+          <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+        </div>
  <!-- ============FOOTER============= -->
 
     

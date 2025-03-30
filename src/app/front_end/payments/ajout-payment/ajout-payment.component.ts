@@ -11,6 +11,21 @@ interface Payment {
   cardHolderName: string;
 }
 
+interface Donation {
+  typeDon: string;
+  idDon: number;
+  photoUrl: string;
+  donorContact: string;
+  dateDon: string;
+  donationFrequency: string;
+  amount: number;
+  heure: string;
+  description?: string;
+  phone?: string;
+  email?: string;
+  donorName?: string;
+}
+
 @Component({
   selector: 'app-add-payment',
   templateUrl: './ajout-payment.component.html',
@@ -26,41 +41,70 @@ export class AddPaymentComponent {
     cardHolderName: ''
   };
 
+  donation: Donation;
+  showAmountForm: boolean = false;
+  selectedAmount: number = 0;
   errorMessage: string = '';
-successMessage: any;
+  successMessage: string = '';
+f: any;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    // Retrieve donation data from navigation state
+    this.donation = history.state.donation || { typeDon: 'ARGENT', donationFrequency: '' };
+  }
 
   validateForm(): boolean {
-    // Validation logic here
+    if (!this.payment.email || !this.payment.cardNumber || !this.payment.expirationMonth || 
+        !this.payment.expirationYear || !this.payment.cvv || !this.payment.cardHolderName) {
+      this.errorMessage = 'Please fill out all payment fields.';
+      return false;
+    }
     return true;
   }
 
-  onSubmit() {
-    if (!this.validateForm()) {
-      return;
+  onPaymentSubmit() {
+    if (this.validateForm()) {
+      this.showAmountForm = true; // Show amount selection after payment details
     }
+  }
 
+  onAmountSubmit() {
+    if (this.selectedAmount > 0) {
+      this.donation.amount = this.selectedAmount;
+      this.submitPaymentAndDonation();
+    } else {
+      this.errorMessage = 'Please enter a valid amount.';
+    }
+  }
+
+  submitPaymentAndDonation() {
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    this.http.post<Payment>('http://localhost:8089/payments/add', this.payment, httpOptions).subscribe({
-      next: (response) => {
-        console.log('Paiement ajouté avec succès:', response);
-        alert("Paiement ajouté avec succès !");
-        this.router.navigate(['/donate']);
+    // Submit donation first
+    this.http.post<Donation>('http://localhost:8089/dons/add', this.donation, httpOptions).subscribe({
+      next: (donationResponse) => {
+        console.log('Donation saved:', donationResponse);
+
+        // Then submit payment
+        this.http.post<Payment>('http://localhost:8089/payments/add', this.payment, httpOptions).subscribe({
+          next: (paymentResponse) => {
+            console.log('Payment added successfully:', paymentResponse);
+            this.successMessage = 'Payment and donation added successfully!';
+            setTimeout(() => {
+              this.router.navigate(['/donate']);
+            }, 2000);
+          },
+          error: (error) => {
+            this.errorMessage = 'Error adding payment: ' + (error.error?.message || error.message);
+            console.error('Payment error:', error);
+          }
+        });
       },
       error: (error) => {
-        console.error('Erreur détaillée:', error);
-        if (error.error) {
-          console.error('Réponse du serveur:', error.error); // Afficher la réponse du serveur
-          this.errorMessage = error.error.message || "Erreur lors de l'ajout du paiement.";
-        } else {
-          this.errorMessage = "Erreur lors de l'ajout du paiement.";
-        }
+        this.errorMessage = 'Error adding donation: ' + (error.error?.message || error.message);
+        console.error('Donation error:', error);
       }
     });
   }

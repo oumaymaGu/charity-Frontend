@@ -30,6 +30,7 @@ import { AddPaymentComponent } from './front_end/payments/ajout-payment/ajout-pa
 import { MaterialDonationComponent } from './front_end/donations/material-donation/material-donation.component';
 import { MaterialDonationListComponent } from './front_end/donations/material-donation-list/material-donation-list.component';
 import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
+import { StripeComponent } from './front_end/payments/stripe/stripe.component';
 
 
 
@@ -68,6 +69,7 @@ const routes: Routes = [
 {path:'material-donation' , component : MaterialDonationComponent},
 { path: 'payment-history', component: PaymentHistoryComponent },
 {path:'material-donation-list' , component : MaterialDonationListComponent},
+{ path: 'stripe-payment', component: StripeComponent },
 
 { path: '**', redirectTo:"" , pathMatch: 'full' }
 

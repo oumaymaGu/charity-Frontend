@@ -44,6 +44,7 @@ import { MaterialDonationListComponent } from './front_end/donations/material-do
 import { FilterByTypePipe } from 'src/filter-by-type.pipe';
 import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
 import { MaskCardPipe } from './front_end/mask.pipe';
+import { StripeComponent } from './front_end/payments/stripe/stripe.component'; // Ensure this path is correct
 
 
 
@@ -92,7 +93,9 @@ import { MaskCardPipe } from './front_end/mask.pipe';
       MaterialDonationListComponent,
       FilterByTypePipe,
       PaymentHistoryComponent,
-      MaskCardPipe // Ajoutez la pipe ici
+      MaskCardPipe,
+      StripeComponent
+      
 
      
       

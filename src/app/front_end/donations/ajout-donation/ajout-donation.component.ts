@@ -1,4 +1,3 @@
-// src/app/front_end/donations/ajout-donation/ajout-donation.component.ts
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -20,7 +19,7 @@ export class AjoutDonationComponent {
     idDon: 0,
     photoUrl: '',
     donorContact: '',
-    dateDon: '', // Initially empty, will be set in onSubmit/submitDonation
+    dateDon: new Date().toISOString(), // Set default date for ARGENT
     donationFrequency: '',
     amount: 0,
     heure: '',
@@ -32,20 +31,15 @@ export class AjoutDonationComponent {
 
   TypeDon = TypeDon;
   showDonationFrequencyForm: boolean = false;
-  showAmountForm: boolean = false; // Ajoutez cette ligne
   donationFrequency: string = '';
-  selectedAmount: number = 0; // Ajoutez cette ligne
   successMessage: string | null = null;
-  username: any;
-  logout: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onTypeDonChange() {
     this.showDonationFrequencyForm = this.donation.typeDon === TypeDon.ARGENT;
-    this.showAmountForm = false; // Réinitialiser l'affichage du formulaire de montant
-    // Reset dateDon when changing type
-    this.donation.dateDon = this.donation.typeDon === TypeDon.ARGENT ? 'N/A' : '';
+    // Set default date for ARGENT, empty for MATERIEL
+    this.donation.dateDon = this.donation.typeDon === TypeDon.ARGENT ? new Date().toISOString() : '';
   }
 
   onSubmit() {
@@ -59,46 +53,28 @@ export class AjoutDonationComponent {
   onDonationFrequencySubmit() {
     if (this.donationFrequency) {
       this.donation.donationFrequency = this.donationFrequency;
-      this.showAmountForm = true; // Afficher le formulaire de montant
-    }
-  }
-
-  onAmountSubmit() {
-    if (this.selectedAmount > 0) {
-      this.donation.amount = this.selectedAmount;
-      this.submitDonation();
+      // Navigate to payment page with donation data
+      this.router.navigate(['/ajout-payment'], { state: { donation: this.donation } });
     } else {
-      alert("Veuillez entrer un montant valide.");
+      alert("Veuillez sélectionner un type de donation.");
     }
   }
 
   submitDonation() {
-    // Set dateDon to 'N/A' for ARGENT donations, keep it as is (or empty) for MATERIEL
-    if (this.donation.typeDon === TypeDon.ARGENT) {
-      this.donation.dateDon = this.donation.dateDon || new Date().toISOString();
-    } else if (this.donation.typeDon === TypeDon.MATERIEL) {
-      this.donation.dateDon = this.donation.dateDon || new Date().toISOString(); // Set current date if not set
-    }
+    this.donation.dateDon = this.donation.dateDon || new Date().toISOString();
+    this.donation.heure = new Date().toLocaleTimeString();
 
-    this.http.post<Donation>('http://localhost:8089/dons/add', this.donation)
-      .subscribe({
-        next: (response) => {
-          console.log('Donation saved:', response);
-          this.successMessage = this.donation.typeDon === TypeDon.ARGENT
-            ? 'Donation saved'
-            : 'Donation saved';
-
-          setTimeout(() => {
-            if (this.donation.typeDon === TypeDon.ARGENT) {
-              this.router.navigate(['/ajout-payment']);
-            } else if (this.donation.typeDon === TypeDon.MATERIEL) {
-              this.router.navigate(['/material-donation']);
-            }
-          }, 2000);
-        },
-        error: (error) => {
-          console.error('Donation error:', error);
-        }
-      });
+    this.http.post<Donation>('http://localhost:8089/dons/add', this.donation).subscribe({
+      next: (response) => {
+        console.log('Donation saved:', response);
+        
+        setTimeout(() => {
+          this.router.navigate(['/material-donation']);
+        }, 2000);
+      },
+      error: (error) => {
+        console.error('Donation error:', error);
+      }
+    });
   }
 }

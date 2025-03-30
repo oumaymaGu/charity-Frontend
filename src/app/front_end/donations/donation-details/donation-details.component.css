@@ -17,17 +17,23 @@
   max-width: 800px; /* Augmentation pour correspondre à la largeur de l'image */
   margin: 20px auto;
   position: relative; /* Pour positionner la barre en bas */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.donation-card-details:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 /* 🔥 Titre */
 h2 {
   text-align: center;
   color: #2a5298; /* Bleu clair comme dans l'image */
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 /* 🌀 Indicateur de chargement */
@@ -56,6 +62,7 @@ h2 {
   text-align: center;
   color: #ff4d4d;
   margin: 20px 0;
+  font-size: 16px;
 }
 
 /* 🌈 Contenu du don */
@@ -64,7 +71,7 @@ h2 {
 }
 
 .image-container {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .donation-image {
@@ -73,6 +80,7 @@ h2 {
   height: auto;
   border-radius: 10px;
   object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .no-image {
@@ -85,39 +93,108 @@ h2 {
 /* 🏆 Détails */
 .donation-details {
   text-align: left;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .donation-details p {
   margin: 15px 0; /* Plus d'espace entre les lignes */
   font-size: 16px;
   color: #1e3c72; /* Bleu plus foncé pour les détails, cohérent avec l'image */
+  line-height: 1.6;
 }
 
 .donation-details strong {
   color: #2a5298; /* Bleu clair pour les titres, cohérent avec l'image */
+  font-weight: 600;
 }
 
 /* 🎯 Boutons */
 .button-group {
-  margin-top: 30px;
+  margin-top: 35px;
   display: flex;
   justify-content: center;
-  gap: 15px; /* Espacement entre les boutons */
+  gap: 25px; /* Maintained gap for space between buttons */
 }
 
-.contact-donor-btn {
-  background: #2c3e50; /* Bleu foncé pour le bouton, cohérent avec le design global */
+.contact-donor-btn,
+.btn-return {
+  background: linear-gradient(135deg, #2c3e50, #1d2939); /* Gradient for modern look */
   color: white;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.contact-donor-btn:hover {
-  background: #1d2939; /* Bleu foncé plus foncé au survol */
-  transform: translateY(-2px);
+.contact-donor-btn:hover,
+.btn-return:hover {
+  background: linear-gradient(135deg, #1d2939, #2c3e50); /* Reversed gradient on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-donor-btn:active,
+.btn-return:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-donor-btn:focus,
+.btn-return:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.3); /* Focus ring for accessibility */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .donation-card-details {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .contact-donor-btn,
+  .btn-return {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .donation-image {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .donation-card-details {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contact-donor-btn,
+  .btn-return {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .donation-image {
+    max-width: 300px;
+  }
 }
