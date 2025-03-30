@@ -1,5 +1,4 @@
 <div class="payment-container">
-  <!-- Formulaire de paiement -->
   <div *ngIf="!paymentSuccess" class="payment-form">
     <h2>Paiement sécurisé</h2>
     
@@ -36,27 +35,9 @@
         </div>
       </div>
 
-      <!-- Description -->
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" id="description" formControlName="description" class="form-input">
-        <div class="error-message" 
-             *ngIf="paymentForm.get('description')?.invalid && (paymentForm.get('description')?.dirty || paymentForm.get('description')?.touched)">
-          Ce champ est requis
-        </div>
-      </div>
+      <!-- Description (cachée avec valeur par défaut) -->
+      <input type="hidden" formControlName="description">
 
-      <!-- ID Don -->
-      <div class="form-group">
-        <label for="donId">ID Don</label>
-        <input type="number" id="donId" formControlName="donId" class="form-input">
-        <div class="error-message" 
-             *ngIf="paymentForm.get('donId')?.invalid && (paymentForm.get('donId')?.dirty || paymentForm.get('donId')?.touched)">
-          <div *ngIf="paymentForm.get('donId')?.errors?.['required']">Ce champ est requis</div>
-          <div *ngIf="paymentForm.get('donId')?.errors?.['pattern']">Nombre valide requis</div>
-        </div>
-      </div>
-      
       <!-- Détails de la carte Stripe -->
       <div class="form-group">
         <label>Détails de la carte</label>

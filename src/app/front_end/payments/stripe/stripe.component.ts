@@ -3,28 +3,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StripeService } from 'src/app/back_end/services/stripe.service';
 import { StripeCardElement } from '@stripe/stripe-js';
 
-interface PaymentResponse {
-  requiresAction?: boolean;
-  clientSecret?: string;
-  payment?: {
-    status: string;
-  };
-  message?: string;
-}
-
 @Component({
   selector: 'app-stripe',
   templateUrl: './stripe.component.html',
   styleUrls: ['./stripe.component.css']
 })
 export class StripeComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    this.stripeService.cleanup();
+  }
   paymentForm: FormGroup;
   loading = false;
   paymentSuccess = false;
   errorMessage: string | null = null;
   cardElement: StripeCardElement | null = null;
   currentEmail: string = '';
-cardError: any;
+  cardError: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -34,13 +28,14 @@ cardError: any;
       amount: ['', [Validators.required, Validators.min(1)]],
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      description: ['', Validators.required],
-      donId: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]
+      description: ['Donation', Validators.required],
+      // Supprimez donId du formulaire
     });
   }
 
   async ngOnInit(): Promise<void> {
     await this.initializeStripeElement();
+    this.setupCardElementListeners();
   }
 
   async initializeStripeElement(): Promise<void> {
@@ -54,8 +49,12 @@ cardError: any;
     }
   }
 
-  ngOnDestroy(): void {
-    this.stripeService.cleanup();
+  setupCardElementListeners(): void {
+    if (this.cardElement) {
+      this.cardElement.on('change', (event) => {
+        this.cardError = event.error?.message || null;
+      });
+    }
   }
 
   async onSubmit(): Promise<void> {
@@ -69,13 +68,14 @@ cardError: any;
     try {
       const formValue = this.paymentForm.value;
       
+      // Envoyez la requête sans donId
       const paymentResponse = await this.stripeService.processPayment({
         amount: formValue.amount,
         currency: 'eur',
         email: formValue.email,
-        description: formValue.description,
-        donId: formValue.donId
-      }).toPromise() as PaymentResponse;
+        description: formValue.description
+        // donId est omis volontairement
+      }).toPromise();
 
       if (!paymentResponse?.clientSecret) {
         throw new Error('No client secret received');
@@ -94,9 +94,12 @@ cardError: any;
       if (pmError) throw pmError;
       if (!paymentMethod?.id) throw new Error('Payment method creation failed');
 
-      const { error, paymentIntent } = await this.stripeService.confirmCardPayment(
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
         paymentResponse.clientSecret,
-        paymentMethod.id
+        {
+          payment_method: paymentMethod.id,
+          receipt_email: formValue.email
+        }
       );
 
       if (error) throw error;
@@ -110,6 +113,9 @@ cardError: any;
       this.loading = false;
     }
   }
+
+  // ... autres méthodes inchangées ...
+
 
   handlePaymentSuccess(): void {
     this.paymentSuccess = true;
