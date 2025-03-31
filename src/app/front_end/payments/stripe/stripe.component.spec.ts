@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServiceComponent } from './service.component';
+import { StripeComponent } from './stripe.component';
 
-describe('ServiceComponent', () => {
-  let component: ServiceComponent;
-  let fixture: ComponentFixture<ServiceComponent>;
+describe('StripeComponent', () => {
+  let component: StripeComponent;
+  let fixture: ComponentFixture<StripeComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ServiceComponent]
+      declarations: [StripeComponent]
     });
-    fixture = TestBed.createComponent(ServiceComponent);
+    fixture = TestBed.createComponent(StripeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

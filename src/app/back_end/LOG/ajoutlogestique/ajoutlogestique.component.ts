@@ -10,10 +10,10 @@ import { LogestiqueServiceService } from 'src/app/services/logestique-service.se
   templateUrl: './ajoutlogestique.component.html', // Vérifie que le fichier existe bien
   styleUrls: ['./ajoutlogestique.component.css']
 })
-export class AjoutLogistiqueComponent { 
+export class AjoutLogistiqueComponent {
   logistique: Logistique = new Logistique(); // Objet Logistique
 
-  constructor(private logistiqueService: LogestiqueServiceService, private router: Router) {} 
+  constructor(private logistiqueService: LogestiqueServiceService, private router: Router) {}
 
   addLogistique() { // Méthode pour ajouter une logistique
     this.logistiqueService.addlog(this.logistique).subscribe(

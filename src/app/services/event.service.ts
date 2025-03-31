@@ -16,17 +16,23 @@ export class EventService {
     return this.http.get<Event[]>(this.url + "/retrieve-all-Events");
   }
 
-  getEventById(id: any): Observable<Event> {
-    return this.http.get<Event>(this.url + "/get-event/" + id);
-  }
-
-  addEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.url + "/add-Event", event);
+  getEventById(idEvent: any): Observable<Event> {
+    return this.http.get<Event>(this.url + "/get-event/" + idEvent);
   }
 
   updateEvent(event: Event): Observable<Event> {
     return this.http.put<Event>(this.url + "/modifyEvent", event);
   }
+  
+
+  addEvent(event: Event, file: File): Observable<Event> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('event', JSON.stringify(event));
+
+    return this.http.post<Event>(`${this.url}/add-Event`, formData);
+}
+
 
   deleteEvent(id: any): Observable<void> {
     return this.http.delete<void>(this.url + "/remove-event/" + id);

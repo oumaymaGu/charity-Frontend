@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../../services/event.service';
-import { Router } from '@angular/router';
+
 import { Event } from '../../pages/models/event';
-import Swal from 'sweetalert2';
+import {Component, OnInit} from "@angular/core";
+import {EventService} from "../../../services/event.service";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-event',
@@ -10,9 +11,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
+
   events: Event[] = [];
   filteredEvents: Event[] = [];
   searchTerm: string = '';
+  today: Date = new Date(); // Current date
+
+  Events: any[] = [];
 
   constructor(private eventService: EventService, private router: Router) { }
 
@@ -20,14 +25,19 @@ export class EventComponent implements OnInit {
     this.getEvents();
   }
 
+  isEventInPast(eventDate: any): boolean {
+    const eventDateObj = new Date(eventDate);
+    return eventDateObj < this.today; // Check if the event date is in the past
+  }
   getEvents(): void {
+
     this.eventService.getAllevents().subscribe((data: Event[]) => {
       this.events = data;
       this.filteredEvents = data;
       console.log("Événements récupérés :", this.events); // Vérification
     });
   }
-  
+
   searchEvents(term: string): void {
     if (term) {
       this.filteredEvents = this.events.filter(event => event.nomEvent.toLowerCase().includes(term.toLowerCase()));
@@ -38,19 +48,19 @@ export class EventComponent implements OnInit {
 
   }
 
-  
+
   findEventsNearMe(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-  
+
           // Call the service to get nearby events
           const radius = 10; // Search radius in kilometers
           this.eventService.getEventsNear(latitude, longitude, radius).subscribe(events => {
             console.log('Nearby events:', events);
-  
+
             if (events.length > 0) {
               this.filteredEvents = events; // Update the filteredEvents array
             } else {
@@ -67,7 +77,7 @@ export class EventComponent implements OnInit {
       alert('Geolocation is not supported by this browser.');
     }
   }
-  
+
   viewEventDetails(event: Event): void {
     this.router.navigate(['/event-details', event.idEvent]);
   }

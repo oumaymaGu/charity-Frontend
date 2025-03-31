@@ -1,0 +1,26 @@
+<div *ngIf="donation">
+  <div class="container mt-5">
+    <h2>Détails de la Donation</h2>
+
+    <!-- Affichage des détails de la donation -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ donation.nomBenificaire }}</h5>
+        <p class="card-text"><strong>Montant:</strong> {{ donation.montant }} {{ donation.typeDon }}</p>
+        <p class="card-text"><strong>Nom du Donneur:</strong> {{ donation.nomDonneur }}</p>
+        <p class="card-text"><strong>Date de la Donation:</strong> {{ donation.dateDon | date: 'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+
+    <!-- Boutons pour revenir à la liste ou pour modifier la donation -->
+    <div class="mt-4">
+      <button class="btn btn-secondary" (click)="goBack()">Retour</button>
+      <button class="btn btn-primary" (click)="goToEdit()">Modifier</button>
+    </div>
+  </div>
+</div>
+
+<!-- Si la donation n'est pas encore chargée, afficher un message -->
+<div *ngIf="!donation" class="text-center mt-5">
+  <p>Chargement des détails de la donation...</p>
+</div>

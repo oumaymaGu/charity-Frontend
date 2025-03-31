@@ -56,20 +56,23 @@ export class MapComponent implements AfterViewInit, OnChanges {
     this.markers.forEach(marker => this.map.removeLayer(marker));
     this.markers = [];
 
-    // Add new markers for events
-    this.eventsNearby.forEach(event => {
-      if (event.latitude && event.longitude) {
-        const marker = L.marker([event.latitude, event.longitude], { icon: this.eventIcon })
-          .addTo(this.map)
-          .bindPopup(`<b>${event.nomEvent}</b><br>${event.lieu}`);
-        this.markers.push(marker);
-      }
+    // Filter events with valid coordinates
+    const validEvents = this.eventsNearby.filter(event => event.latitude && event.longitude);
+
+    // Add new markers for valid events
+    validEvents.forEach(event => {
+      const marker = L.marker([event.latitude, event.longitude], { icon: this.eventIcon })
+        .addTo(this.map)
+        .bindPopup(`<b>${event.nomEvent}</b><br>${event.lieu}`);
+      this.markers.push(marker);
     });
 
     // Adjust the map view to fit all markers
-    if (this.eventsNearby.length > 0) {
-      const bounds = L.latLngBounds(this.eventsNearby.map(event => [event.latitude, event.longitude]));
+    if (validEvents.length > 0) {
+      const bounds = L.latLngBounds(validEvents.map(event => [event.latitude, event.longitude]));
       this.map.fitBounds(bounds, { padding: [50, 50] });
+    } else {
+      console.warn("❗ No valid events with coordinates to display on the map.");
     }
   }
 }

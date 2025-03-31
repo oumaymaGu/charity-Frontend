@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './front_end/pages/home/home.component';
 import { AboutComponent } from './front_end/pages/about/about.component';
-import { ServiceComponent } from './front_end/pages/service/service.component';
 import { ContactComponent } from './front_end/pages/contact/contact.component';
 import { DonateComponent } from './front_end/pages/donate/donate.component';
 import { GalleryComponent } from './front_end/pages/gallery/gallery.component';
@@ -28,7 +27,16 @@ import { EditlogestiqueComponent } from './back_end/LOG/editlogestique/editloges
 import { ListInscriptionComponent } from './back_end/list-inscription/list-inscription.component';
 import { map } from 'leaflet';
 import { MapComponent } from './front_end/map/map.component';
+import { AjoutDonationComponent } from './front_end/donations/ajout-donation/ajout-donation.component';
+import { DonationDetailsComponent } from './front_end/donations/donation-details/donation-details.component';
+import { PaymentInscriptionComponent } from './front_end/payment-inscription/payment-inscription.component'; // Ensure this path is correct
 
+import { ListDonationComponent } from './front_end/donations/list-donation/list-donation.component';
+import { AddPaymentComponent } from './front_end/payments/ajout-payment/ajout-payment.component';
+import { MaterialDonationComponent } from './front_end/donations/material-donation/material-donation.component';
+import { MaterialDonationListComponent } from './front_end/donations/material-donation-list/material-donation-list.component';
+import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
+import { StripeComponent } from './front_end/payments/stripe/stripe.component';
 
 
 
@@ -41,7 +49,6 @@ const routes: Routes = [
 
   // Routes pour les autres pages
   { path: 'about', component: AboutComponent },
-  { path: 'service', component: ServiceComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'donate', component: DonateComponent },
   { path: 'gallery', component: GalleryComponent },
@@ -51,7 +58,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'forget', component: ForgetPasswordComponent },
   { path: 'reset', component: ResetPasswordComponent },
-  { path: 'dash', component: DashboardComponent ,canActivate: [AuthGuard] },  
+  { path: 'dash', component: DashboardComponent ,canActivate: [AuthGuard] },
   { path: 'ajout-event', component: AjoutEventComponent },
   { path: 'edit-event/:id', component: EditEventComponent },
   { path: 'event-details/:id', component: EventDetailsComponent },
@@ -62,12 +69,25 @@ const routes: Routes = [
 { path: 'inscription/:id', component: InscriptionComponent },
 { path: 'associations', component: AssociationComponent },
 { path: 'associations/create', component: AssociationFormComponent },
+  { path : 'list-event' , component : EventPageComponent},
+  { path: 'associations', component: AssociationComponent },
+  { path: 'associations/create', component: AssociationFormComponent },
 { path: 'associations/:id/edit', component: AssociationFormComponent },
 { path: 'event/:eventId/users', component: ListInscriptionComponent },
 {path: 'map', component: MapComponent},
+{path : 'ajout-donation', component: AjoutDonationComponent },
+{path: 'donation-details/:id', component: DonationDetailsComponent },
+{path:'list-donation' , component : ListDonationComponent},
 
-{ path: '**', redirectTo:"" , pathMatch: 'full' },
 
+{path:'ajout-payment' , component : AddPaymentComponent},
+{path:'material-donation' , component : MaterialDonationComponent},
+{ path: 'payment-history', component: PaymentHistoryComponent },
+{path:'material-donation-list' , component : MaterialDonationListComponent},
+{ path: 'stripe-payment', component: StripeComponent },
+{path: 'payment-inscription', component: PaymentInscriptionComponent },
+
+{ path: '**', redirectTo:"" , pathMatch: 'full' }
 
 ];
 

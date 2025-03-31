@@ -1,0 +1,46 @@
+/* 🌟 Styles Généraux */
+.donation-section {
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 10px;
+  color: #333; /* Texte sombre */
+  position: relative;
+  overflow: hidden;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* 🔥 Animation de la lumière (optionnel) - Supprimée */
+
+/* ✨ En-tête */
+.header-text {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #2a5298; /* Couleur principale */
+  margin-bottom: 20px;
+}
+
+.header-text span {
+  color: #1e3c72; /* Variation de la couleur principale */
+}
+
+.header-text2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 20px;
+  color: #666; /* Texte secondaire */
+}
+
+/* 🏆 Contenu principal */
+.donate-content {
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  box-shadow: none; /* Suppression de l'ombre */
+  background: transparent; /* Fond transparent */
+}

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +94,7 @@
               <i class="fas fa-map-marker-alt text-primary me-2"></i>
               <strong>Lieu:</strong> {{ event.lieu }}
             </p>
-            
+
             <!-- Afficher les informations météo -->
             <div *ngIf="event.weatherDescription">
               <p class="mb-2">
@@ -110,11 +111,12 @@
 
         <div class="col-md-4 d-flex align-items-center">
           <div class="ms-3">
-            <img src="/assets/images/image.png" width="200" class="img-fluid rounded">
+            <img [src]="event.photoEvent" width="200" class="img-fluid rounded">
           </div>
-       
+
         </div>
       </div>
     </div>
   </div>
 </div>
+

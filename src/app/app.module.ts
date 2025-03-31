@@ -9,7 +9,6 @@ import { BlogComponent } from './front_end/blog/blog.component';
 import { FooterComponent } from './front_end/footer/footer.component';
 import { TestimonialsComponent } from './front_end/testimonials/testimonials.component';
 import { HomeComponent } from './front_end/pages/home/home.component';
-import { ServiceComponent } from './front_end/pages/service/service.component';
 import { ContactComponent } from './front_end/pages/contact/contact.component';
 import { DonateComponent } from './front_end/pages/donate/donate.component';
 import { GalleryComponent } from './front_end/pages/gallery/gallery.component';
@@ -24,7 +23,7 @@ import { NavbarComponent } from './back_end/navbar/navbar.component';
 import { DashboardComponent } from './back_end/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AjoutEventComponent } from './front_end/Events/ajout-event/ajout-event.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditEventComponent } from './front_end/Events/edit-event/edit-event.component';
 import { EventPageComponent } from './front_end/Events/event-page/event-page.component';
 import { EventDetailsComponent } from './front_end/Events/event-details/event-details.component';
@@ -40,8 +39,19 @@ import { EditlogestiqueComponent } from './back_end/LOG/editlogestique/editloges
 import { ListInscriptionComponent } from './back_end/list-inscription/list-inscription.component';
 import { MapComponent } from './front_end/map/map.component';
 
+import { AjoutDonationComponent } from './front_end/donations/ajout-donation/ajout-donation.component';
 
+import { DonationDetailsComponent } from './front_end/donations/donation-details/donation-details.component';
+import { ListDonationComponent } from './front_end/donations/list-donation/list-donation.component';
 
+import { AddPaymentComponent } from './front_end/payments/ajout-payment/ajout-payment.component';
+import { MaterialDonationComponent } from './front_end/donations/material-donation/material-donation.component';
+import { MaterialDonationListComponent } from './front_end/donations/material-donation-list/material-donation-list.component';
+import { FilterByTypePipe } from 'src/filter-by-type.pipe';
+import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
+import { MaskCardPipe } from './front_end/mask.pipe';
+import { StripeComponent } from './front_end/payments/stripe/stripe.component';
+import { PaymentInscriptionComponent } from './front_end/payment-inscription/payment-inscription.component'; // Ensure this path is correct
 
 
 
@@ -59,7 +69,6 @@ import { MapComponent } from './front_end/map/map.component';
       FooterComponent,
       TestimonialsComponent,
       HomeComponent,
-      ServiceComponent,
       ContactComponent,
       DonateComponent,
       GalleryComponent,
@@ -85,16 +94,35 @@ import { MapComponent } from './front_end/map/map.component';
       EditlogestiqueComponent,
       ListInscriptionComponent,
       MapComponent,
+      AjoutDonationComponent,
 
+      DonationDetailsComponent,
+      ListDonationComponent,
+
+
+      AddPaymentComponent,
+      MaterialDonationComponent,
+      MaterialDonationListComponent,
+      FilterByTypePipe,
+      PaymentHistoryComponent,
+      MaskCardPipe,
+      StripeComponent,
+      PaymentInscriptionComponent,
       
-  
-    
+
+
+
+
+
     ],
     imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      FormsModule
+     
+      FormsModule,
+      ReactiveFormsModule
+
 
     ],
     providers: [

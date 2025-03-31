@@ -53,102 +53,37 @@
                 </ul>
             </div>
         </div>
-        <div class="divider col-sm-12 col-xs-12 col-md-12">
-            <div class="header-text"><span>Donate</span> Here</div>
-        </div>
-        <div class="col-md-12 container">
-            <div class="donate-content">
-              <div class="donate-body">
-                <div class="accent-rule-short"></div>
-                <h2>Join us in helping people survive and rebuild their lives. </h2>
-                <ul class="list-unstyled list-inline">
-                    <li><button type="button" id="p1" class="btn btn-primary btn-xl btn-block">$15</button></li>
-                    <li><button type="button" id="p2" class="btn btn-primary btn-xl btn-block">$25</button></li>
-                    <li><button type="button" id="p3" class="btn btn-primary btn-xl btn-block">$50</button></li>
-                    <li><button type="button" id="p4" class="btn btn-primary btn-xl btn-block">$75</button></li>
-                    <li><button type="button" id="p5" class="btn btn-primary btn-xl btn-block">$100</button></li>
-                    <li>
-                        <div class="control-group">
-                          <div class="form-control-donate controls">
-                            <input name="textinput" placeholder="$ Other Amount" class="form-control" type="text">
-                          </div>
-                        </div>
-                    </li>
-                </ul>
-                <br>
-                <!-- monthly / one-time -->
-                      <form class="form-horizontal text-center">
-                        <fieldset>
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <label class="radio-inline" for="radios-s">
-                              <input name="radios" id="radios-s" value="1" checked="checked" type="radio">
-                              Single Donation
-                            </label>
-                            <label class="radio-inline" for="radios-m">
-                              <input name="radios" id="radios-m" value="2" type="radio">
-                              Monthly Donation
-                            </label>
-                          </div>
-                      </div>
-                      </fieldset>
-                    </form>
-                <br>
-                <button type="button" class="btn btn-tertiary btn-xl btn-rounded-edge" data-dismiss="donate">Continue</button>
-                <br><br>
-            </div>
-          </div>
-        </div>
-        <div class="container donate-text">
-        <h3 class="text-center">Lorem ipsum dolor sit amet</h3>
-        
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        </p>  
-        </div>
 
-        <div class="fun-fact col-md-12">
-        <div class="stat">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="milestone-counter">
-                    <i class="fa fa-users fa-3x"></i>
-                    <span class="stat-count highlight">422</span>
-                    <div class="milestone-details">Happy Volunteers</div>
+
+      <div class="col-md-12 container">
+        <div class="donate-content">
+          <div class="donate-body">
+            <div class="accent-rule-short"></div>
+            <h2>Join us in helping people survive and rebuild their lives.</h2>
+            <br>
+
+            <br>
+            <div *ngIf="selectedDonationType" class="alert alert-info">
+              Selected Donation Type: {{ selectedDonationType }}
+            </div>
+
+            <br>
+            <button type="button" class="btn btn-tertiary btn-xl btn-rounded-edge" routerLink="/ajout-donation">Proceed to Donation</button>
+            <br><br>
+
+            <div class="donation-info text-center">
+              <h3>Why Donate?</h3>
+              <p>Your donation helps us provide essential services to those in need. Every contribution makes a difference.</p>
+            </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="milestone-counter">
-                    <i class="fa fa-map-marker fa-3x"></i>
-                    <span class="stat-count highlight">26</span>
-                    <div class="milestone-details">Countries Served</div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="milestone-counter">
-                    <i class="fa fa-trophy fa-3x"></i>
-                    <span class="stat-count highlight">14</span>
-                    <div class="milestone-details">Awards Win</div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="milestone-counter">
-                    <i class="fa fa-money fa-3x"></i>
-                    <span class="stat-count highlight">232</span>
-                    <div class="milestone-details">Million USD Donated</div>
-                </div>
-            </div>
-    </div><!-- stat -->
   </div>
 
 
     <!-- ============FOOTER============= -->
 
-    
-    <footer id="footer"> 
+
+    <footer id="footer">
         <div class="footer-content container">
             <div class="footer-adress text-center col-xs-12 col-sm-4 col-md-4">
                 <h4>Great love for humanity</h4>

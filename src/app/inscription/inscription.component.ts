@@ -61,9 +61,11 @@ export class InscriptionComponent implements OnInit {
       email: form.value.email,
       ticket: form.value.tickets
     };
-
+    this.router.navigate(['/payment-inscription'], {
+      queryParams: { userId: this.userId, eventId: this.idEvent }
+    });
     console.log("Inscription validée pour l'événement", this.idEvent);
-    this.assignUserToEvent(this.userId, this.idEvent); // Use the stored user ID
+   // Use the stored user ID
   }
 
   assignUserToEvent(userId: number, eventId: number) {

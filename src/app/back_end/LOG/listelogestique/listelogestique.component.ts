@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogestiqueServiceService } from 'src/app/services/logestique-service.service';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
   selector: 'app-listelogestique',
@@ -63,7 +64,7 @@ export class ListelogestiqueComponent implements OnInit {
       this.getLogestiques(); // Refresh the list after deletion
     });
   }
-  
+
 
   goToDashboard() {
     this.router.navigate(['/dashboard']);

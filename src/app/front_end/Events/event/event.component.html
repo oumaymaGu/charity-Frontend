@@ -61,61 +61,175 @@
         </ul>
     </div>
 </div>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Humanity - Events</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa; /* Same background as before */
+        }
 
-<div class="divider col-sm-12 col-xs-12 col-md-12">
-    <div class="header-text"> Our <span>Events</span></div>
-</div>
+        .header-text {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #343a40;
+        }
 
-<div id="exTab2" class="col-md-8 col-lg-7 col-lg-offset-1 col-md-offset-1">
-  <ul class="nav nav-tabs">
-        <li class="active">
-          <a href="#1" data-toggle="tab">Overview</a>
-        </li>
-    </ul>
+        .header-text span {
+            color: #007bff;
+        }
 
-    <div class="tab-content">
-      <div class="tab-pane active" id="1">
-        <div class="blog-event" *ngFor="let event of events">
-          <div class="featured-img">
-            <img src="/assets/images/image.png" width="300" alt="Event image">
-          </div>
-          <div class="featured-blog">
-              <h3 class="event-name">{{ event.nomEvent }}</h3>
-              <p class="event-description">{{ event.description }}</p>
-              <p class="event-description"><small class="text-muted">{{ event.dateEvent | date }}</small></p>
-              <p class="event-description"><small class="text-muted">{{ event.lieu }}</small></p>
-              <p class="event-description"><small class="text-muted">{{ event.prixevent }} dt</small></p>
-              <button (click)="viewEventDetails(event)" class="button-info">More Information</button>
-              <button (click)="rejoindreEvent(event.idEvent)" class="btn btn-primary">Join us</button>
-          </div>
-        </div>
-      </div>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .btn-info {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-info:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header container">
+        <div class="header-text">Our <span>Events</span></div>
     </div>
-</div>
-<style>
-  .btn-custom {
-    background-color: #28a745; /* Green color */
-    color: white;
-    font-size: 1.2em;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
 
-  .btn-custom:hover {
-    background-color: #218838; /* Darker green on hover */
-  }
-</style>
+    <div class="card-container">
+        <!-- Loop through events -->
+        <div class="card" *ngFor="let event of events">
+            <img [src]="event.photoEvent" class="card-img-top" alt="{{ event.nomEvent }}">
+            <div class="card-body">
+                <h3 class="card-title">{{ event.nomEvent }}</h3>
+                <p class="card-text">{{ event.description }}</p>
+                <p class="card-text">
+                    <small class="text-muted">{{ event.dateEvent | date }}</small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">{{ event.lieu }}</small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">{{ event.prixevent }} dt</small>
+                </p>
 
+                <!-- Show a message if the event is in the past -->
+                <div *ngIf="isEventInPast(event.dateEvent)" class="alert-warning">
+                    This event has already passed.
+                </div>
+            </div>
+            <div class="card-footer" *ngIf="!isEventInPast(event.dateEvent)">
+                <button (click)="viewEventDetails(event)" class="btn-info">More Info</button>
+                <button (click)="rejoindreEvent(event.idEvent)" class="btn-primary">Join</button>
+            </div>
+        </div>
+    </div>
 
-<!-- Composant de carte -->
-<button (click)="findEventsNearMe()" class="btn-custom">
-  <i class="fa fa-map-marker"></i> Trouver des événements près de chez moi
-</button>
+    <!-- Button to find nearby events -->
+    <div class="text-center" style="margin-top: 30px;">
+        <button (click)="findEventsNearMe()" class="btn-info">
+            <i class="fa fa-map-marker"></i> Find Events Near Me
+        </button>
+    </div>
 
-<app-map [eventsNearby]="filteredEvents"></app-map>
+    <!-- Map component to display nearby events -->
+    <div class="map-container">
+        <app-map [eventsNearby]="filteredEvents"></app-map>
+    </div>
 
-<script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
 </body>
-</html>
+

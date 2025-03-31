@@ -20,15 +20,21 @@ export class EventPageComponent implements OnInit {
   }
 
   getEvents(): void {
-    this.eventService.getAllevents().subscribe((data: Event[]) => {
-      this.events = data;
-    });
+    this.eventService.getAllevents().subscribe(
+      (data: Event[]) => {
+        this.events = data;
+      },
+      (error) => {
+        console.error("Erreur lors de la récupération des événements", error);
+      }
+    );
   }
 
   editEvent(event: Event): void {
     this.router.navigate(['/edit-event', event.idEvent]);
   }
-  goToDashboard() {
+
+  goToDashboard(): void {
     this.router.navigate(['/dashboard']);
   }
 
@@ -57,11 +63,11 @@ export class EventPageComponent implements OnInit {
   deleteEvent(id: number): void {
     this.eventService.deleteEvent(id).subscribe(
       response => {
-        console.log('Event deleted successfully', response);
-        this.getEvents(); // Refresh the list of events
+        console.log('Événement supprimé avec succès', response);
+        this.getEvents(); // Rafraîchir la liste des événements
       },
       error => {
-        console.error('Error deleting event', error);
+        console.error('Erreur lors de la suppression de l\'événement', error);
       }
     );
   }
@@ -73,7 +79,8 @@ export class EventPageComponent implements OnInit {
       this.getEvents();
     }
   }
-  rejoindreEvent(eventId: number) {
+
+  rejoindreEvent(eventId: number): void {
     this.router.navigate(['/inscription', eventId]);
   }
 }

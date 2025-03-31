@@ -1,5 +1,5 @@
 export class Event {
-    idEvent: any; 
+    idEvent: any;
     nomEvent: any;
     description: any;
     lieu: any;
@@ -9,5 +9,6 @@ export class Event {
     weatherDescription : any;
     latitude: any;
     longitude: any;
+    photoEvent: any;
 
   }
