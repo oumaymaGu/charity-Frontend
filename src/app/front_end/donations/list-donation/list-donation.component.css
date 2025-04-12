@@ -1,0 +1,114 @@
+
+    /* Conteneur principal */
+    .list-donation-container {
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #f0f5f5; /* Light mint-green background */
+    }
+
+    /* Titre du tableau */
+    .list-donation-container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    /* Tableau */
+    .donation-list table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* En-tête du tableau (noir) */
+    .donation-list th {
+      background-color: #000000; /* Black header */
+      color: white;
+      font-weight: bold;
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    /* Cellules du tableau */
+    .donation-list td {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    /* Lignes alternées pour une meilleure lisibilité */
+    .donation-list tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    /* Lignes paires (blanches) */
+    .donation-list tbody tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    /* Effet au survol des lignes */
+    .donation-list tbody tr:hover {
+      background-color: #f1f1f1;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Total Amount text */
+    .total-amount {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Bouton "Return to Dashboard" */
+    .return-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #666;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .return-btn:hover {
+      background-color: #444;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .donation-list table {
+        font-size: 14px;
+      }
+
+      .donation-list th, .donation-list td {
+        padding: 8px 10px;
+      }
+
+      .list-donation-container {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .donation-list table {
+        font-size: 12px;
+      }
+
+      .list-donation-container h2 {
+        font-size: 20px;
+      }
+    }
+  

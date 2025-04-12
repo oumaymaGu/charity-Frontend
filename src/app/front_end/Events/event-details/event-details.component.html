@@ -1,0 +1,7 @@
+<div class="container" *ngIf="event">
+    <h2>{{ event.nomEvent }}</h2>
+    <p>{{ event.description }}</p>
+    <p><strong>Date:</strong> {{ event.dateEvent | date }}</p>
+    <p><strong>Location:</strong> {{ event.lieu }}</p>
+    <p><strong>Price:</strong> {{ event.prixevent }} dt</p>
+  </div>

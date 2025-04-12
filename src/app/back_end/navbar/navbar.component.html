@@ -1,0 +1,21 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+  <!-- Navbar Brand -->
+  <a class="navbar-brand ps-3" routerLink="/">Start Bootstrap</a>
+  <!-- Sidebar Toggle -->
+  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" routerLink="#!">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Navbar -->
+  <ul class="navbar-nav ms-auto">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://img.freepik.com/psd-gratuit/illustration-icone-contact-isolee_23-2151903337.jpg" alt="User Avatar" class="rounded-circle" width="30" height="30">
+        <span class="ms-2">{{ username ? username : 'Profile' }}</span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <li><button class="dropdown-item" (click)="logout()">Logout</button></li> <!-- Utiliser <button> au lieu de <a> -->
+      </ul>
+    </li>
+  </ul>
+</nav>

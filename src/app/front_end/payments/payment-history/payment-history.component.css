@@ -1,0 +1,32 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table thead th {
+  background-color: #212529; /* Noir pour l'en-tête */
+  color: white;
+  font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* Lignes alternées gris clair */
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef; /* Survol des lignes */
+}
+
+/* Masquage du numéro de carte en italique ou avec une couleur différente (optionnel) */
+.table td:nth-child(3) { /* Colonne Card Number */
+  font-style: italic;
+  color: #666;
+}
