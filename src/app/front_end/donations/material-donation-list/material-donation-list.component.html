@@ -55,7 +55,9 @@
             </div>
         </div>
         <div class="donation-list">
-          <h2>Material Donations List</h2>
+          <h2>Liste des dons matériels</h2>
+        
+         
         
           <!-- Indicateur de chargement -->
           <div *ngIf="isLoading" class="loading">
@@ -69,32 +71,42 @@
           </div>
         
           <!-- Liste des dons -->
-          <div *ngIf="!isLoading && donations.length > 0" class="donation-cards">
-            <div *ngFor="let donation of donations" class="donation-card" (click)="goToDetails(donation.idDon)">
-              <!-- Image du don (cliquable) -->
-              <div class="image-container">
-                <img *ngIf="donation.photoUrl" [src]="donation.photoUrl" alt="Donation Image" class="donation-image">
+          <div *ngIf="!isLoading" class="donation-cards">
+            <!-- Message si aucun don n'est disponible -->
+            <div *ngIf="filteredDonations.length === 0" class="no-donations">
+              Aucun don trouvé pour cette catégorie.
+            </div>
+        
+            <!-- Carte de don -->
+            <div *ngFor="let donation of filteredDonations" class="donation-card">
+              <!-- Image du don -->
+              <div class="image-container" (click)="goToDetails(donation.idDon)">
+                <img *ngIf="donation.photoUrl" [src]="donation.photoUrl" alt="Image du don" class="donation-image">
                 <div *ngIf="!donation.photoUrl" class="no-image">
-                  No image available
+                  Pas d'image disponible
                 </div>
               </div>
         
               <!-- Détails du don -->
               <div class="donation-details">
-                <p><strong>📅 Date & Time :</strong> {{ formatDateTime(donation.dateDon) }}</p>
+                
+                
+                <p><strong>📅 Date :</strong> {{ formatDateTime(donation.dateDon) }}</p>
                 <p><strong>📦 Category :</strong> {{ donation.category }}</p>
+                
+                <!-- Détails spécifiques aux médicaments -->
+                <div *ngIf="isMedication(donation)" class="medication-details">
+                  <p *ngIf="donation.medicationName"><strong>Médicament :</strong> {{ donation.medicationName }}</p>
+                  <p *ngIf="donation.lotNumber"><strong>N° de lot :</strong> {{ donation.lotNumber }}</p>
+                  <p *ngIf="donation.expirationDate"><strong>Expiration :</strong> {{ donation.expirationDate }}</p>
+                </div>
+        
+                <!-- Bouton contact -->
+                <button *ngIf="donation.donorContact" class="contact-btn" (click)="contactDonor(donation); $event.stopPropagation()">
+                  Contacter le donneur
+                </button>
               </div>
             </div>
-          </div>
-        
-          <!-- Message si aucune donation n'est trouvée -->
-          <div *ngIf="!isLoading && donations.length === 0" class="no-donations">
-            No material donations found.
-          </div>
-        
-          <!-- Message si aucun don n'est disponible -->
-          <div *ngIf="!isLoading && donations.length === 0" class="no-donations">
-            No material donations available at the moment.
           </div>
         </div>
  <!-- ============FOOTER============= -->

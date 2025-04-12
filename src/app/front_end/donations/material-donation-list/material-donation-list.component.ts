@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DonService } from '../../../back_end/services/donation.service';
-import { Donation } from 'src/app/front_end/pages/models/donation';
+import { Donation, MaterialCategory } from 'src/app/front_end/pages/models/donation';
 
 @Component({
   selector: 'app-material-donation-list',
@@ -9,10 +9,21 @@ import { Donation } from 'src/app/front_end/pages/models/donation';
   styleUrls: ['./material-donation-list.component.css']
 })
 export class MaterialDonationListComponent implements OnInit {
+  MaterialCategory = MaterialCategory;
+  categories: (MaterialCategory | 'ALL')[] = ['ALL', MaterialCategory.FOOD, MaterialCategory.CLOTHES, MaterialCategory.MEDICAMENT];
   donations: Donation[] = [];
+  filteredDonations: Donation[] = [];
   errorMessage: string | null = null;
   isLoading: boolean = true;
-donation: any;
+  selectedCategory: MaterialCategory | 'ALL' = 'ALL';
+
+  // Add medication specific properties to the Donation interface
+  medicationDonation = {
+    medicationName: '',
+    lotNumber: '',
+    expirationDate: ''
+  };
+ 
 
   constructor(private donationService: DonService, private router: Router) {}
 
@@ -26,8 +37,8 @@ donation: any;
 
     this.donationService.getMaterialDons().subscribe({
       next: (data: Donation[]) => {
-        console.log("Données reçues :", data); // 🔍 Debug
-        this.donations = data.filter(donation => donation.photoUrl && donation.photoUrl.trim() !== ''); // Filtrage des images nulles
+        this.donations = data.filter(donation => donation.photoUrl && donation.photoUrl.trim() !== '');
+        this.filterDonations();
         this.isLoading = false;
       },
       error: (error: any) => {
@@ -38,7 +49,34 @@ donation: any;
     });
   }
 
+  filterDonations() {
+    if (this.selectedCategory === 'ALL') {
+      this.filteredDonations = [...this.donations];
+    } else {
+      this.filteredDonations = this.donations.filter(
+        donation => donation.category === this.selectedCategory
+      );
+    }
+  }
+
+  onCategoryChange(category: MaterialCategory | 'ALL') {
+    this.selectedCategory = category;
+    this.filterDonations();
+  }
+
+  // Add this method to get category labels
+  getCategoryLabel(category: MaterialCategory | 'ALL'): string {
+    switch (category) {
+      case 'ALL': return 'Tous';
+      case MaterialCategory.CLOTHES: return 'Vêtements';
+      case MaterialCategory.MEDICAMENT: return 'Médicaments';
+      case MaterialCategory.FOOD: return 'Nourriture';
+      default: return category;
+    }
+  }
+
   formatDateTime(dateString: string): string {
+    if (!dateString) return 'Date inconnue';
     const date = new Date(dateString);
     return date.toLocaleString('fr-FR', {
       year: 'numeric',
@@ -54,24 +92,29 @@ donation: any;
   }
 
   contactDonor(donation: Donation) {
-    if (donation.donorContact) {
-      if (donation.donorContact.includes('@')) {
-        this.contactDonorByEmail(donation.donorContact);
-      } else if (donation.donorContact.includes('facebook.com')) {
-        this.contactDonorByFacebook(donation.donorContact);
-      } else {
-        alert('Informations de contact invalides.');
-      }
-    } else {
+    if (!donation.donorContact) {
       alert('Aucune information de contact disponible.');
+      return;
+    }
+
+    if (donation.donorContact.includes('@')) {
+      this.contactDonorByEmail(donation.donorContact);
+    } else if (donation.donorContact.includes('facebook.com')) {
+      this.contactDonorByFacebook(donation.donorContact);
+    } else {
+      alert('Informations de contact invalides.');
     }
   }
 
-  contactDonorByEmail(email: string) {
+  private contactDonorByEmail(email: string) {
     window.location.href = `mailto:${email}`;
   }
 
-  contactDonorByFacebook(facebookUrl: string) {
+  private contactDonorByFacebook(facebookUrl: string) {
     window.open(facebookUrl, '_blank');
+  }
+
+  isMedication(donation: Donation): boolean {
+    return donation.category === MaterialCategory.MEDICAMENT;
   }
 }

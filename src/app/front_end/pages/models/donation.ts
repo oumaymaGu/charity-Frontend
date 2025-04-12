@@ -9,7 +9,7 @@ export enum TypeDon {
 export enum MaterialCategory {  // Move and export MaterialCategory here
   CLOTHES = 'Clothes',
   MEDICAMENT = 'Medicament',
-  FURNITURE = 'Furniture'
+  FOOD = 'nourriture'
 }
 
 export interface Donation {
@@ -27,7 +27,10 @@ amount?: number; // Optional, only for financial donations
 category?: MaterialCategory; // Add category for material donations, optional
 uploadedImagePreview?: string | ArrayBuffer | null; // Optional, only for frontend preview
 donationFrequency?: string; // Optional, only for financial donations*
-photoTakenDate?: string; 
+medicationName?: string;
+  lotNumber?: string;
+  expirationDate?: string;
+ 
 
 
 }

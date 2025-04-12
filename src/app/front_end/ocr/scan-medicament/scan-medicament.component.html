@@ -1,0 +1,64 @@
+<div class="container">
+    <h1>Scanner un médicament</h1>
+    
+    <div class="upload-section">
+      <div class="file-upload">
+        <label for="fileInput" class="file-input-label">
+          <mat-icon>upload</mat-icon>
+          {{ selectedFile?.name || 'Choisir un fichier' }}
+        </label>
+        <input id="fileInput" type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+      </div>
+  
+      <button mat-raised-button color="primary" (click)="scanImage()" 
+              [disabled]="!selectedFile || isLoading">
+        <span *ngIf="!isLoading">Analyser l'image</span>
+        <span *ngIf="isLoading">
+          <mat-spinner diameter="20"></mat-spinner> Analyse...
+        </span>
+      </button>
+  
+      <button mat-button color="warn" (click)="reset()" *ngIf="selectedFile">
+        <mat-icon>refresh</mat-icon> Réinitialiser
+      </button>
+    </div>
+  
+    <div *ngIf="previewUrl" class="preview-container">
+      <img [src]="previewUrl" alt="Aperçu" class="preview-image">
+    </div>
+  
+    <div *ngIf="error" class="error-message">
+      <mat-icon>error</mat-icon>
+      <span>{{ error }}</span>
+    </div>
+  
+    <div *ngIf="medicationInfo" class="result-card">
+      <h2>Informations du médicament</h2>
+      
+      <div class="info-grid">
+        <div class="info-row">
+          <span class="info-label">Nom:</span>
+          <span class="info-value">{{ medicationInfo.medicationName }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">Lot n°:</span>
+          <span class="info-value">{{ medicationInfo.lotNumber }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">Exp.:</span>
+          <span class="info-value">{{ medicationInfo.expirationDate }}</span>
+        </div>
+      </div>
+  
+      <button mat-button (click)="toggleDebug()" class="debug-toggle">
+        {{ showDebug ? 'Masquer' : 'Afficher' }} les détails techniques
+      </button>
+  
+      <div *ngIf="showDebug && medicationInfo.rawText" class="debug-section">
+        <h3>Données brutes OCR:</h3>
+        <pre>{{ medicationInfo.rawText }}</pre>
+      </div>
+    </div>
+  </div>

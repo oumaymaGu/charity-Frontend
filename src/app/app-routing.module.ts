@@ -30,6 +30,7 @@ import { MaterialDonationListComponent } from './front_end/donations/material-do
 import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
 import { StripeComponent } from './front_end/payments/stripe/stripe.component';
 import { NotificationComponent } from './front_end/notification/notification.component';
+import { ScanMedicamentComponent } from './front_end/ocr/scan-medicament/scan-medicament.component';
 
 
 
@@ -70,6 +71,7 @@ const routes: Routes = [
 {path:'material-donation-list' , component : MaterialDonationListComponent},
 { path: 'stripe-payment', component: StripeComponent },
 { path: 'notifications', component: NotificationComponent },
+{ path: 'scan', component: ScanMedicamentComponent },
 
 { path: '**', redirectTo:"" , pathMatch: 'full' }
 

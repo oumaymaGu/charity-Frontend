@@ -48,6 +48,9 @@ import { StripeComponent } from './front_end/payments/stripe/stripe.component';
 import { CommonModule } from '@angular/common';
 import { NotificationComponent } from './front_end/notification/notification.component';
 import { NotificationTypePipe } from 'src/app/notification-type.pipe';
+import { ScanMedicamentComponent } from './front_end/ocr/scan-medicament/scan-medicament.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -101,6 +104,7 @@ import { NotificationTypePipe } from 'src/app/notification-type.pipe';
       StripeComponent,
    
       NotificationComponent,
+          ScanMedicamentComponent,
     
       
 
@@ -115,7 +119,9 @@ import { NotificationTypePipe } from 'src/app/notification-type.pipe';
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
-      NotificationTypePipe
+      NotificationTypePipe,
+      MatIconModule,
+      MatProgressSpinnerModule,
       
      
 
