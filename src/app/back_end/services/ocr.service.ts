@@ -25,7 +25,7 @@ export class OcrService {
     formData.append('image', imageFile);
     
     return this.http.post<MedicationInfo>(this.apiUrl, formData).pipe(
-      timeout(30000), // Timeout après 30s
+      timeout(60000), // Timeout après 30s
       catchError(this.handleError)
     );
   }

@@ -158,13 +158,9 @@ export class MaterialDonationComponent {
       dateDon: new Date().toISOString(),
       heure: new Date().toLocaleTimeString(),
       photoUrl: '',
-      category: this.materialDonation.category,
-      ...(this.isMedication && this.medicationInfo ? {
-        medicationName: this.medicationInfo.medicationName,
-        lotNumber: this.medicationInfo.lotNumber,
-        expirationDate: this.medicationInfo.expirationDate,
-        productCode: this.medicationInfo.productCode
-      } : {})
+      category: this.materialDonation.category
+      // Les champs OCR (medicationName, lotNumber, etc.) ne sont plus nécessaires ici,
+      // car ils seront détectés côté backend via l'endpoint /add-with-medication
     };
 
     const photoToUpload = this.isMedication ? this.scannedImage : this.materialDonation.photo;

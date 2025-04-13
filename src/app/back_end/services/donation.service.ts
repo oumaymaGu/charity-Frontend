@@ -1,9 +1,8 @@
-// src/app/back_end/services/donation.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { Donation, TypeDon, MaterialCategory } from 'src/app/front_end/pages/models/donation'; // Import MaterialCategory from donation.ts
+import { Donation, TypeDon, MaterialCategory } from 'src/app/front_end/pages/models/donation';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class DonService {
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 Upload d'une photo et récupération de son URL
+  // 🔹 Upload d'une photo et récupération de son URL (peut être conservé pour d'autres usages)
   uploadPhoto(file: File): Observable<string> {
     const formData = new FormData();
     formData.append('file', file);
@@ -34,28 +33,32 @@ export class DonService {
 
   // 🔹 Ajouter un don matériel avec upload de photo et catégorie
   uploadDonMaterial(don: Partial<Donation>, file: File, category: MaterialCategory): Observable<Donation> {
-    return this.uploadPhoto(file).pipe(
-      switchMap((photoUrl: string) => {
-        const donationData: Donation = {
-          idDon: 0, // ID sera généré par le backend
-          donorContact: don.donorContact || '', // Valeur par défaut si non fournie
-          typeDon: TypeDon.MATERIEL, // Définit le type de don comme matériel
-          dateDon: new Date().toISOString(), // Date actuelle
-          photoUrl, // URL de la photo uploadée
-          category, // Ajoutez la catégorie ici
-          amount: 0, // Par défaut à 0 pour les dons matériels (facultatif)
-          heure: new Date().toLocaleTimeString(), // Heure actuelle, optionnelle
-          uploadedImagePreview: undefined // Ne pas envoyer au backend, juste pour le frontend
-          ,
+    const formData = new FormData();
+    // Créer l'objet donationData sans les champs OCR (ils seront détectés côté backend)
+    const donationData: Donation = {
+      idDon: 0,
+      donorContact: don.donorContact || '',
+      typeDon: TypeDon.MATERIEL,
+      dateDon: new Date().toISOString(),
+      photoUrl: '', // Laisser vide, sera rempli par le backend
+      category,
+      amount: 0,
+      heure: new Date().toLocaleTimeString(),
+      uploadedImagePreview: undefined,
+      description: undefined,
+      phone: undefined,
+      email: undefined,
+      donorName: undefined,
+      medicationName: undefined, // Pas besoin côté frontend
+      lotNumber: undefined,      // Pas besoin côté frontend
+      expirationDate: undefined, // Pas besoin côté frontend
+      productCode: undefined     // Pas besoin côté frontend
+    };
+    // Ajouter les données du don et l'image dans le FormData
+    formData.append('don', new Blob([JSON.stringify(donationData)], { type: 'application/json' }));
+    formData.append('medicationImage', file);
 
-          description: undefined,
-          phone: undefined,
-          email: undefined,
-          donorName: undefined
-        };
-
-        return this.addDon(donationData); // Ajoute le don avec l'URL de la photo et la catégorie
-      }),
+    return this.http.post<Donation>(`${this.baseUrl}/add-with-medication`, formData).pipe(
       catchError(this.handleError)
     );
   }

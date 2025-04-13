@@ -100,15 +100,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.notificationSub?.unsubscribe();
     this.unreadCountSub?.unsubscribe();
   }
+
   get filteredNotifications() {
     return this.notifications.filter(notification => {
-      // Exclusion des dons non spécifiés
       if (notification.type === 'DON_MATERIEL' && 
           notification.message.includes('Non spécifié')) {
         return false;
       }
       
-      // Exclusion des doublons
       const firstOccurrence = this.notifications.find(n => 
         n.type === notification.type && 
         n.message === notification.message

@@ -1,0 +1,140 @@
+/* ============================================= */
+/*               BOUTONS D'ACTION                */
+/* ============================================= */
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+/* Structure de base des boutons */
+.action-btn {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  border: none;
+  overflow: hidden;
+}
+
+/* Effet au survol */
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet au clic */
+.action-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation de vague au clic */
+.action-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.action-btn:focus:not(:active)::after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Icônes */
+.action-btn mat-icon {
+  font-size: 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  color: white;
+  transition: transform 0.2s;
+}
+
+.action-btn:hover mat-icon {
+  transform: scale(1.1);
+}
+
+/* Bouton Accepter */
+.btn-accept {
+  background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%);
+}
+
+.btn-accept:hover {
+  background: linear-gradient(135deg, #43A047 0%, #66BB6A 100%);
+}
+
+/* Bouton Supprimer */
+.btn-delete {
+  background: linear-gradient(135deg, #F44336 0%, #E57373 100%);
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #E53935 0%, #EF5350 100%);
+}
+
+/* Tooltips élégants */
+.mat-tooltip {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip-accept {
+  background: #2E7D32;
+}
+
+.tooltip-delete {
+  background: #C62828;
+}
+
+/* Animation */
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(25, 25);
+    opacity: 0;
+  }
+}
+
+/* ============================================= */
+/*           RESPONSIVE - MOBILE FIRST           */
+/* ============================================= */
+
+@media (max-width: 768px) {
+  .action-buttons {
+    gap: 0.5rem;
+  }
+  
+  .action-btn {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .action-btn mat-icon {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

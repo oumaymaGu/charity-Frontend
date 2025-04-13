@@ -5,6 +5,7 @@ import { catchError, map, retry, takeUntil, tap } from 'rxjs/operators';
 import { Client, IMessage, StompSubscription } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Notification {
   id: number;
@@ -29,7 +30,7 @@ export class NotificationService implements OnDestroy {
   private readonly RECONNECT_DELAY = 5000;
   private connectionPromise: Promise<void> | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {
     this.initializeWebSocket();
     this.loadInitialNotifications();
   }
@@ -79,11 +80,37 @@ export class NotificationService implements OnDestroy {
         try {
           const notification = JSON.parse(message.body);
           this.addNotification(notification);
+          this.showToastNotification(notification);
         } catch (e) {
           console.error('Error parsing notification:', e);
         }
       }
     );
+  }
+
+  private showToastNotification(notification: Notification): void {
+    let message = notification.message;
+    let action = 'Fermer';
+    let panelClass = '';
+
+    switch(notification.type) {
+      case 'STRIPE_PAYMENT':
+        panelClass = 'stripe-notification-toast';
+        break;
+      case 'DON_FINANCIER':
+        panelClass = 'financial-notification-toast';
+        break;
+      case 'DON_MATERIEL':
+        panelClass = 'material-notification-toast';
+        break;
+    }
+
+    this.snackBar.open(message, action, {
+      duration: 5000,
+      panelClass: [panelClass, 'notification-toast'],
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
   }
 
   private addNotification(notification: Notification): void {
@@ -178,15 +205,15 @@ export class NotificationService implements OnDestroy {
       this.stompClient.deactivate();
     }
   }
+
   private handleNotification(message: any): void {
-    // Exclure les dons non spécifiés et les doublons
     if (message.type === 'DON_MATERIEL') {
       if (message.message.includes('Non spécifié')) return;
       
       const duplicate = this.notificationsSubject.value.find(n => 
         n.type === 'DON_MATERIEL' && 
         n.message === message.message &&
-        new Date(n.timestamp).getTime() > Date.now() - 300000 // 5 minutes
+        new Date(n.timestamp).getTime() > Date.now() - 300000
       );
       
       if (duplicate) return;
@@ -198,5 +225,3 @@ export class NotificationService implements OnDestroy {
     ]);
   }
 }
-  
-

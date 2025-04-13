@@ -53,77 +53,89 @@
                 </ul>
             </div>
         </div>
-<div class="payment-container">
-  <div *ngIf="!paymentSuccess" class="payment-form">
-    <h2>Paiement sécurisé</h2>
+        <div class="simple-contact-form">
+  <!-- Message de succès -->
+  <div *ngIf="showSuccess" class="success-message">
+    <div class="success-icon">✓</div>
+    <h3>Demande envoyée avec succès !</h3>
+    <p>Votre message a bien été transmis au donateur. Vous allez être redirigé...</p>
+  </div>
+
+  <!-- Formulaire (masqué après envoi réussi) -->
+  <div *ngIf="!showSuccess">
+    <h2>Contacter le Donateur</h2>
     
-    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
-      <!-- Montant -->
-      <div class="form-group">
-        <label for="amount">Montant (€)</label>
-        <input type="number" id="amount" formControlName="amount" step="0.01" min="1" class="form-input">
-        <div class="error-message" 
-             *ngIf="paymentForm.get('amount')?.invalid && (paymentForm.get('amount')?.dirty || paymentForm.get('amount')?.touched)">
-          <div *ngIf="paymentForm.get('amount')?.errors?.['required']">Ce champ est requis</div>
-          <div *ngIf="paymentForm.get('amount')?.errors?.['min']">Minimum 1€ requis</div>
-        </div>
-      </div>
-      
+    <form [formGroup]="contactForm" (ngSubmit)="submitRequest()">
       <!-- Nom complet -->
       <div class="form-group">
-        <label for="name">Nom complet</label>
-        <input type="text" id="name" formControlName="name" class="form-input" placeholder="Comme indiqué sur la carte">
-        <div class="error-message" 
-             *ngIf="paymentForm.get('name')?.invalid && (paymentForm.get('name')?.dirty || paymentForm.get('name')?.touched)">
-          Ce champ est requis
+        <label>Votre nom complet *</label>
+        <input type="text" formControlName="fullName" placeholder="Votre nom">
+        <div *ngIf="f['fullName'].invalid && (f['fullName'].dirty || f['fullName'].touched)"
+             class="error-message">
+          Ce champ est obligatoire
         </div>
       </div>
-      
+
       <!-- Email -->
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email" class="form-input" placeholder="Votre reçu sera envoyé ici">
-        <div class="error-message" 
-             *ngIf="paymentForm.get('email')?.invalid && (paymentForm.get('email')?.dirty || paymentForm.get('email')?.touched)">
-          <div *ngIf="paymentForm.get('email')?.errors?.['required']">Ce champ est requis</div>
-          <div *ngIf="paymentForm.get('email')?.errors?.['email']">Email invalide</div>
+        <label>Votre email *</label>
+        <input type="email" formControlName="userEmail" placeholder="Votre email">
+        <div *ngIf="f['userEmail'].invalid && (f['userEmail'].dirty || f['userEmail'].touched)"
+             class="error-message">
+          <span *ngIf="f['userEmail'].errors?.['required']">Ce champ est obligatoire</span>
+          <span *ngIf="f['userEmail'].errors?.['email']">Email invalide</span>
         </div>
       </div>
 
-      <!-- Description (cachée avec valeur par défaut) -->
-      <input type="hidden" formControlName="description">
-
-      <!-- Détails de la carte Stripe -->
+      <!-- Téléphone -->
       <div class="form-group">
-        <label>Détails de la carte</label>
-        <div id="card-element" class="card-element"></div>
-        <div *ngIf="cardError" class="error-message">{{ cardError }}</div>
+        <label>Votre téléphone</label>
+        <input type="tel" formControlName="phone" placeholder="Votre numéro">
       </div>
-      
-      <!-- Bouton de soumission -->
-      <button type="submit" [disabled]="paymentForm.invalid || loading" class="payment-button">
-        <span *ngIf="!loading">Payer {{ paymentForm.get('amount')?.value | currency:'EUR':'symbol':'1.2-2' }}</span>
-        <span *ngIf="loading">
-          <span class="spinner"></span> Traitement...
-        </span>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label>Votre message *</label>
+        <textarea formControlName="message" placeholder="Écrivez votre message ici..." rows="4"></textarea>
+        <div *ngIf="f['message'].invalid && (f['message'].dirty || f['message'].touched)"
+             class="error-message">
+          Ce champ est obligatoire
+        </div>
+      </div>
+
+      <!-- Méthode de récupération -->
+      <div class="form-group">
+        <label>Méthode de récupération *</label>
+        <div class="radio-options">
+          <label>
+            <input type="radio" formControlName="deliveryMethod" value="pickup">
+            Je viendrai chercher
+          </label>
+          <label>
+            <input type="radio" formControlName="deliveryMethod" value="delivery">
+            Livraison
+          </label>
+        </div>
+      </div>
+
+      <!-- Conditions -->
+      <div class="form-group terms">
+        <label>
+          <input type="checkbox" formControlName="termsAccepted">
+          J'accepte le partage de mes coordonnées *
+        </label>
+        <div *ngIf="f['termsAccepted'].invalid && f['termsAccepted'].touched"
+             class="error-message">
+          Vous devez accepter cette condition
+        </div>
+      </div>
+
+      <!-- Bouton -->
+      <button type="submit" class="submit-btn" [disabled]="contactForm.invalid || isSubmitting">
+        <span *ngIf="!isSubmitting">Envoyer la demande</span>
+        <span *ngIf="isSubmitting">Envoi en cours...</span>
       </button>
-      
-      <!-- Message d'erreur général -->
-      <div *ngIf="errorMessage" class="error-message">
-        <i class="icon-warning">⚠️</i> {{ errorMessage }}
-      </div>
     </form>
-  </div>
-  
-   <!-- Confirmation de paiement -->
-   <div *ngIf="paymentSuccess" class="success-container">
-    <div class="success-content">
-      <div class="success-icon">✓</div>
-      <h3>Paiement réussi !</h3>
-      <p>Merci pour votre contribution.</p>
-      <p class="amount-receipt">Montant : <strong>{{ paymentForm.get('amount')?.value | currency:'EUR':'symbol':'1.2-2' }}</strong></p>
-      <button (click)="downloadReceipt()" class="download-button">Télécharger le reçu</button>
-    </div>
   </div>
 </div>
 <!-- ============FOOTER============= -->
@@ -184,5 +196,3 @@ autoControls: true
 </script>
 </body>
 </html>
-
-  

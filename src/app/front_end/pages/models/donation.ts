@@ -30,6 +30,7 @@ donationFrequency?: string; // Optional, only for financial donations*
 medicationName?: string;
   lotNumber?: string;
   expirationDate?: string;
+  productCode?: string;
  
 
 

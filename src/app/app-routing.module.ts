@@ -31,6 +31,9 @@ import { PaymentHistoryComponent } from './front_end/payments/payment-history/pa
 import { StripeComponent } from './front_end/payments/stripe/stripe.component';
 import { NotificationComponent } from './front_end/notification/notification.component';
 import { ScanMedicamentComponent } from './front_end/ocr/scan-medicament/scan-medicament.component';
+import { DonorContactComponent } from './front_end/donor-contact/donor-contact.component';
+import { RequestListComponent } from './front_end/request-list/request-list.component';
+
 
 
 
@@ -72,6 +75,9 @@ const routes: Routes = [
 { path: 'stripe-payment', component: StripeComponent },
 { path: 'notifications', component: NotificationComponent },
 { path: 'scan', component: ScanMedicamentComponent },
+{ path: 'donor-contact/:id', component: DonorContactComponent },
+{ path: 'Request-liste', component: RequestListComponent },
+
 
 { path: '**', redirectTo:"" , pathMatch: 'full' }
 

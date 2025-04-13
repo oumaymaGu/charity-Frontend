@@ -51,6 +51,19 @@ import { NotificationTypePipe } from 'src/app/notification-type.pipe';
 import { ScanMedicamentComponent } from './front_end/ocr/scan-medicament/scan-medicament.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DonorContactComponent } from './front_end/donor-contact/donor-contact.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RequestListComponent } from './front_end/request-list/request-list.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+    import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 
 
@@ -104,7 +117,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       StripeComponent,
    
       NotificationComponent,
-          ScanMedicamentComponent,
+      ScanMedicamentComponent,
+      DonorContactComponent,
+      RequestListComponent
+      
+      
     
       
 
@@ -122,6 +139,21 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       NotificationTypePipe,
       MatIconModule,
       MatProgressSpinnerModule,
+      MatSnackBarModule,
+      MatCardModule,
+      MatButtonModule,
+      BrowserAnimationsModule, 
+      MatTableModule,
+      MatInputModule,
+    MatFormFieldModule,
+    MatTooltipModule
+    
+     
+     
+      
+      
+      
+   
       
      
 
