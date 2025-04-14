@@ -39,6 +39,7 @@ import { ModifierAssociationComponent } from './back_end/associations/modifier-a
 import { AjoutStockComponent } from './back_end/stock/ajout-stock/ajout-stock.component';
 import { ListStockComponent } from './back_end/stock/list-stock/list-stock.component';
 import { ModifierStockComponent } from './back_end/stock/modifier-stock/modifier-stock.component';
+import { AssociationDetailComponent } from './front_end/pages/about/association-detail/association-detail.component';
 
 
 
@@ -81,7 +82,8 @@ import { ModifierStockComponent } from './back_end/stock/modifier-stock/modifier
       ModifierAssociationComponent,
       AjoutStockComponent,
       ListStockComponent,
-      ModifierStockComponent
+      ModifierStockComponent,
+      AssociationDetailComponent
       
   
     

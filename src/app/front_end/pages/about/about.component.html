@@ -136,7 +136,8 @@
                     <p class="card-text"><i class="fa fa-envelope icon"></i> {{ association.email }}</p>
                     <p class="card-text"><i class="fa fa-phone icon"></i> {{ association.contact }}</p>
                     <p class="card-text">{{ association.description }}</p>
-                    <a href="#" class="btn btn-outline-dark">Voir plus</a> <!-- Noir -->
+                    <a [routerLink]="['/association-detail', association.idAss]" class="btn btn-outline-dark">Voir plus</a>
+                    <!-- Noir -->
                 </div>
             </div>
         </div>

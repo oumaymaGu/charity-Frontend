@@ -1,0 +1,55 @@
+<div class="container mt-5" *ngIf="association">
+    <div *ngIf="loading" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger">
+      <strong>Erreur:</strong> {{ error }}
+    </div>
+  
+    <div *ngIf="association">
+      <!-- Détails de l'association -->
+      <div class="card shadow-lg border-0 rounded-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img [src]="association.photoUrl" class="img-fluid rounded-start" alt="Photo de l'association">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h3 class="card-title">{{ association.nomAss }}</h3>
+              <p class="card-text text-muted">{{ association.lieu }} | {{ association.date | date:'dd/MM/yyyy' }}</p>
+              <p class="card-text">{{ association.description }}</p>
+              <div class="d-flex justify-content-between">
+                <div>
+                  <strong>Contact:</strong> <a href="mailto:{{ association.email }}">{{ association.contact }}</a>
+                </div>
+                <div>
+                  <strong>Email:</strong> <a href="mailto:{{ association.email }}">{{ association.email }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Affichage des commentaires -->
+      <div class="mt-4">
+        <h4>Commentaires</h4>
+        <div *ngFor="let commentaire of commentaires" class="comment-card">
+          <p><strong>{{ commentaire.user?.username }} :</strong></p>
+          <p>{{ commentaire.contenu }}</p>
+          <small>{{ commentaire.dateCreation | date:'dd/MM/yyyy HH:mm' }}</small>
+        </div>
+      </div>
+  
+      <!-- Formulaire d'ajout de commentaire -->
+      <div class="mt-4">
+        <h5>Ajouter un commentaire</h5>
+        <textarea [(ngModel)]="newCommentaire" class="form-control" rows="3" placeholder="Écrivez un commentaire..."></textarea>
+        <button (click)="ajouterCommentaire()" class="btn btn-primary mt-2">Ajouter</button>
+      </div>
+    </div>
+  </div>
+  
