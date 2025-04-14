@@ -94,12 +94,7 @@
                 <p><strong>📅 Date :</strong> {{ formatDateTime(donation.dateDon) }}</p>
                 <p><strong>📦 Category :</strong> {{ donation.category }}</p>
                 
-                <!-- Détails spécifiques aux médicaments -->
-                <div *ngIf="isMedication(donation)" class="medication-details">
-                  <p *ngIf="donation.medicationName"><strong>Médicament :</strong> {{ donation.medicationName }}</p>
-                  <p *ngIf="donation.lotNumber"><strong>N° de lot :</strong> {{ donation.lotNumber }}</p>
-                  <p *ngIf="donation.expirationDate"><strong>Expiration :</strong> {{ donation.expirationDate }}</p>
-                </div>
+                
         
                 <!-- Bouton contact -->
                 <button *ngIf="donation.donorContact" class="contact-btn" (click)="contactDonor(donation); $event.stopPropagation()">

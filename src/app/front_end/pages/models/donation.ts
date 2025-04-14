@@ -31,6 +31,7 @@ medicationName?: string;
   lotNumber?: string;
   expirationDate?: string;
   productCode?: string;
+  fabricationDate?: string;
  
 
 

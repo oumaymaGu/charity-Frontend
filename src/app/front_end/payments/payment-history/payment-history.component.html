@@ -7,60 +7,61 @@
     </div>
 
     <!-- Main Content -->
-    <div class="col-md-9 content">
-      <div class="payment-history-container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="payment-title">Payment History</h2>
-          <button class="btn btn-secondary btn-return" (click)="returnToDashboard()">Return to Dashboard</button>
-        </div>
-
-        <!-- Loading State -->
-        <div *ngIf="loading" class="loading-message text-center">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <p>Chargement en cours...</p>
-        </div>
-
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="alert alert-danger text-center">
-          {{ errorMessage }}
-        </div>
-
-        <table *ngIf="!loading && payments.length > 0" class="table table-striped table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th>Date</th>
-              <th>Email</th>
-              <th>Amount</th>
-              <th>Payment ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let payment of payments">
-              <td>{{ formatDate(payment.paymentDate) }}</td>
-              <td>{{ payment.email }}</td>
-              <td>{{ formatAmount(payment.amount, payment.currency) }}</td>
-             
-              <td class="text-truncate" style="max-width: 150px;">{{ payment.paymentIntentId }}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- No Results -->
-        <div *ngIf="payments.length === 0 && !loading" class="alert alert-info text-center">
-          No payments found.
-        </div>
-      </div>
+  <!-- Main Content -->
+<div class="col-md-9 content">
+  <div class="payment-history-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="payment-title">Payment History</h2>
+      <button class="btn btn-secondary btn-return" (click)="returnToDashboard()">Return to Dashboard</button>
     </div>
-  </div>
 
-  
-    <!-- Aucun résultat -->
-    <div *ngIf="payments.length === 0 && !loading" class="no-results">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-message text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Chargement en cours...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+      {{ errorMessage }}
+    </div>
+
+    <table *ngIf="!loading && payments.length > 0" class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Date</th>
+          <th>Email</th>
+          <th>Amount</th>
+          <th>Payment ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments">
+          <td>{{ formatDate(payment.paymentDate) }}</td>
+          <td>{{ payment.email }}</td>
+          <td>{{ formatAmount(payment.amount, payment.currency) }}</td>
+          <td>
+            <span *ngIf="!payment.showFullId">
+              ****{{ payment.paymentIntentId.slice(-4) }}
+            </span>
+            <span *ngIf="payment.showFullId">
+              {{ payment.paymentIntentId }}
+            </span>
+           
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- No Results -->
+    <div *ngIf="payments.length === 0 && !loading" class="alert alert-info text-center">
       Aucun paiement trouvé.
     </div>
   </div>
+</div>
+
   <!-- ✅ Styles mis à jour -->
 <style>
   /* Assurer que la page n’a pas de marges inutiles */

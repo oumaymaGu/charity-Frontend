@@ -73,14 +73,16 @@ export class StripeComponent implements OnInit, OnDestroy {
         email: formValue.email,
         donorName: formValue.name,
         description: formValue.description,
-        dateDon: new Date().toISOString()
+        dateDon: new Date().toISOString(),
+        
       };
 
       const paymentResponse = await this.stripeService.processPayment({
         amount: formValue.amount,
         currency: 'eur',
         email: formValue.email,
-        description: formValue.description
+        description: formValue.description,
+        
       }).toPromise();
 
       if (!paymentResponse?.clientSecret) {
@@ -162,4 +164,5 @@ export class StripeComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Erreur lors du téléchargement du reçu';
     }
   }
+  
 }

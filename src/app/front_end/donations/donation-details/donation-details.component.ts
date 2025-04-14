@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DonService } from '../../../back_end/services/donation.service';
-import { Donation } from 'src/app/front_end/pages/models/donation';
+
 import { DonationRequestService } from 'src/app/back_end/services/donation-request.service';
+import { Donation, MaterialCategory } from 'src/app/front_end/pages/models/donation';
 
 @Component({
   selector: 'app-donation-details',
@@ -10,6 +11,8 @@ import { DonationRequestService } from 'src/app/back_end/services/donation-reque
   styleUrls: ['./donation-details.component.css']
 })
 export class DonationDetailsComponent implements OnInit {
+  
+  
   donation: Donation | null = null;
   errorMessage: string | null = null;
   donorInfo: { email: string, name: string } | null = null; // Stocke les infos du donateur
@@ -17,6 +20,12 @@ export class DonationDetailsComponent implements OnInit {
   donationRequest: any = null; // Pour stocker la demande de don
   donationRequests: any[] = []; // Pour stocker toutes les demandes de don
   displayedColumns: string[] = ['date', 'fullName', 'userEmail', 'message', 'deliveryMethod', 'actions'];
+  medicationDonation = {
+    medicationName: '',
+    lotNumber: '',
+    expirationDate: ''
+  };
+ 
   
 
   constructor(
@@ -82,5 +91,22 @@ export class DonationDetailsComponent implements OnInit {
     
     this.donationRequestService.saveDonorInfo(contact, name);
     this.router.navigate(['/donor-contact', this.donation.idDon]);
+  }
+  isMedication(donation: Donation): boolean {
+    return donation.category === MaterialCategory.MEDICAMENT;
+  }
+  getDonorName(): string {
+    // Priorité 1: Nom du localStorage
+    if (this.donorInfo?.name) {
+      return this.donorInfo.name;
+    }
+    
+    // Priorité 2: Nom du don depuis l'API
+    if (this.donation?.donorName) {
+      return this.donation.donorName;
+    }
+    
+    // Par défaut
+    return 'Anonymous';
   }
 }

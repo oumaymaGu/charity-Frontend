@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MedicationInfo, OcrService } from 'src/app/back_end/services/ocr.service';
 
-
 @Component({
   selector: 'app-scan-medicament',
   templateUrl: './scan-medicament.component.html',
@@ -20,10 +19,9 @@ export class ScanMedicamentComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    
+
     if (!file) return;
 
-    // Validation
     if (!file.type.match('image.*')) {
       this.error = 'Seules les images sont acceptées';
       return;
@@ -38,7 +36,6 @@ export class ScanMedicamentComponent {
     this.error = null;
     this.medicationInfo = null;
 
-    // Prévisualisation
     const reader = new FileReader();
     reader.onload = () => this.previewUrl = reader.result;
     reader.readAsDataURL(file);
@@ -54,10 +51,18 @@ export class ScanMedicamentComponent {
       next: (info) => {
         this.medicationInfo = info;
         this.isLoading = false;
+
+        const expYear = new Date(info.expirationDate).getFullYear();
+        const currentYear = new Date().getFullYear();
+        if (expYear < currentYear + 1) {
+          this.error = `Le médicament expire trop tôt (exp: ${info.expirationDate}). Il doit expirer au minimum en ${currentYear + 1}`;
+          this.medicationInfo = null;
+        }
       },
       error: (err) => {
         this.error = err;
         this.isLoading = false;
+        this.medicationInfo = null;
       }
     });
   }

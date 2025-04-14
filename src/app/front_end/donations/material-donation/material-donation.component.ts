@@ -21,13 +21,13 @@ export class MaterialDonationComponent {
     category: MaterialCategory.CLOTHES,
   };
 
-  materials: { name: string; img: string; }[] = [
+  materials = [
     { name: 'Don Food', img: 'assets/img.don/R1.jpg' },
     { name: 'Don Clothes', img: 'assets/img.don/R2.jpg' },
     { name: 'Médicament', img: 'assets/img.don/R3.jpg' }
   ];
 
-  errorMessage: string = '';
+  errorMessage = '';
   successMessage: string | null = null;
   selectedMaterial: string | null = null;
   isMedication = false;
@@ -119,7 +119,6 @@ export class MaterialDonationComponent {
     
     if (file) {
       this.scannedImage = file;
-      // Générer la prévisualisation
       const reader = new FileReader();
       reader.onload = () => {
         this.medicationPreviewUrl = reader.result;
@@ -133,10 +132,21 @@ export class MaterialDonationComponent {
   scanMedication(file: File): void {
     this.isScanning = true;
     this.errorMessage = '';
-    
+
     this.ocrService.scanMedication(file).subscribe({
       next: (info) => {
-        this.medicationInfo = info;
+        const expDate = new Date(info.expirationDate);
+        const currentYear = new Date().getFullYear();
+
+        if (expDate.getFullYear() < currentYear + 1) {
+          this.errorMessage = `Le médicament expire trop tôt (exp: ${info.expirationDate}). Il doit expirer au minimum en ${currentYear + 1}.`;
+          this.medicationInfo = null;
+          this.scannedImage = null;
+          this.medicationPreviewUrl = null;
+        } else {
+          this.medicationInfo = info;
+        }
+
         this.isScanning = false;
       },
       error: (err) => {
@@ -151,7 +161,7 @@ export class MaterialDonationComponent {
   onSubmit() {
     if (!this.validateForm()) return;
 
-    const donationData: any = {
+    const donationData = {
       idDon: 0,
       donorContact: '',
       typeDon: TypeDon.MATERIEL,
@@ -159,8 +169,6 @@ export class MaterialDonationComponent {
       heure: new Date().toLocaleTimeString(),
       photoUrl: '',
       category: this.materialDonation.category
-      // Les champs OCR (medicationName, lotNumber, etc.) ne sont plus nécessaires ici,
-      // car ils seront détectés côté backend via l'endpoint /add-with-medication
     };
 
     const photoToUpload = this.isMedication ? this.scannedImage : this.materialDonation.photo;
