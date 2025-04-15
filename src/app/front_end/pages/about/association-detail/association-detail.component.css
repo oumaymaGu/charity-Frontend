@@ -1,41 +1,18 @@
-/* Ajout de style personnalisé */
-.container {
-    max-width: 800px;
-  }
-  
-  .card {
-    margin: 20px 0;
-  }
-  
-  .card-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-  
-  .card-text {
-    font-size: 1rem;
-  }
-  
-  .card-body {
-    padding: 30px;
-  }
-  
-  .card-text.text-muted {
-    font-style: italic;
-  }
-  
-  .card-body a {
-    text-decoration: none;
-    color: #007bff;
-  }
-  
-  .card-body a:hover {
-    color: #0056b3;
-    text-decoration: underline;
-  }
-  
-  .spinner-border {
-    width: 3rem;
-    height: 3rem;
-  }
-  
+.scrollable-comments {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+.scrollable-comments::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-comments::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable-comments::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}

@@ -49,4 +49,10 @@ export class AboutComponent implements OnInit {
           console.error('Erreur détaillée:', error);
         }
       });
-    }}
+    }
+    visibleAssociationsCount = 3;
+
+    showAllAssociations() {
+      this.visibleAssociationsCount = this.associations.length;
+    }
+    }

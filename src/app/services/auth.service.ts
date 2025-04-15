@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -15,12 +15,12 @@ export class AuthService {
 
   // Login method
   login(username: string, password: string): Observable<any> {
-    return this.http.post<{ token: string, role: string, username: string, email: string }>(
+    return this.http.post<{ accessToken: string, role: string, username: string, email: string }>(
       this.loginUrl, { username, password }
     ).pipe(
       tap((response) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
+        if (response.accessToken) {
+          localStorage.setItem('token', response.accessToken);
           localStorage.setItem('role', response.role);
           localStorage.setItem('username', response.username);
           localStorage.setItem('email', response.email); // Store email
@@ -62,5 +62,22 @@ export class AuthService {
 
   getRole(): string | null {
     return localStorage.getItem('role'); // Retrieve role
+  }
+
+  // Method to add token to HTTP request headers
+  getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    }
+    return new HttpHeaders();
+  }
+
+  // Example of how you can use this method to make authenticated requests
+  getDataFromApi(): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get('http://localhost:8089/api/protected-endpoint', { headers });
   }
 }
