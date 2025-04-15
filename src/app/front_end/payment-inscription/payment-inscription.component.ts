@@ -4,7 +4,7 @@ import { StripeService } from 'src/app/back_end/services/stripe.service';
 import { StripeCardElement } from '@stripe/stripe-js';
 import { EventService } from 'src/app/services/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-payment-inscription',
@@ -29,7 +29,8 @@ export class PaymentInscriptionComponent  implements OnInit, OnDestroy {
     private stripeService: StripeService,
     private eventService: EventService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     // Initialize the payment form
     this.paymentForm = this.fb.group({
@@ -217,14 +218,21 @@ export class PaymentInscriptionComponent  implements OnInit, OnDestroy {
       this.eventService.assignUserToEvent(this.userId, this.idEvent).subscribe(
         response => {
           console.log('User successfully assigned to event after payment:', response);
-          this.router.navigate(['/event-details', this.idEvent]);
+          // Afficher un message de succès
+          this.toastr.success('Paiement effectué avec succès!', 'Succès');
+          // Rediriger après un court délai pour permettre à l'utilisateur de voir le message
+          setTimeout(() => {
+            this.router.navigate([`/billet/${this.userId}/${this.idEvent}`]);
+          }, 2000);
         },
         (error: any) => {
           console.error('Error assigning user to event after payment:', error);
+          this.toastr.error('Une erreur est survenue lors du paiement', 'Erreur');
         }
       );
     } else {
       console.error('User ID or Event ID is missing. Cannot assign user to event.');
+      this.toastr.error('Informations manquantes pour compléter le paiement', 'Erreur');
     }
   }
   /**

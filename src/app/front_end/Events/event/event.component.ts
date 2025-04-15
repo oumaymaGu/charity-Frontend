@@ -56,8 +56,8 @@ export class EventComponent implements OnInit {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
 
-          // Call the service to get nearby events
-          const radius = 10; // Search radius in kilometers
+         
+          const radius = 80; // Search radius in kilometers
           this.eventService.getEventsNear(latitude, longitude, radius).subscribe(events => {
             console.log('Nearby events:', events);
 

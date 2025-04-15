@@ -10,5 +10,7 @@ export class Event {
     latitude: any;
     longitude: any;
     photoEvent: any;
+nom: any;
+logistiques: any;
 
   }

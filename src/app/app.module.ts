@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,8 +52,12 @@ import { PaymentHistoryComponent } from './front_end/payments/payment-history/pa
 import { MaskCardPipe } from './front_end/mask.pipe';
 import { StripeComponent } from './front_end/payments/stripe/stripe.component';
 import { PaymentInscriptionComponent } from './front_end/payment-inscription/payment-inscription.component'; // Ensure this path is correct
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { EventsLogestiquesComponent } from './back_end/LOG/events-logestiques/events-logestiques.component';
+import { BilletComponent } from './front_end/billet/billet.component';
 
-
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 
@@ -108,6 +112,9 @@ import { PaymentInscriptionComponent } from './front_end/payment-inscription/pay
       MaskCardPipe,
       StripeComponent,
       PaymentInscriptionComponent,
+      EventsLogestiquesComponent,
+      BilletComponent,
+  
       
 
 
@@ -119,15 +126,17 @@ import { PaymentInscriptionComponent } from './front_end/payment-inscription/pay
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-     
+      BrowserAnimationsModule,
+      ToastrModule.forRoot(),
       FormsModule,
-      ReactiveFormsModule
-
+      ReactiveFormsModule,
+      QRCodeModule
 
     ],
     providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
+
     bootstrap: [AppComponent]
   })
   export class AppModule { }

@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LogestiqueServiceService {
+  // Removed duplicate implementation of getEventsWithLogestiques
   url = 'http://localhost:8089/logestique';
 
   constructor(private http: HttpClient) { }
@@ -34,4 +35,11 @@ export class LogestiqueServiceService {
   findByRessourceName(ressourceName: string): Observable<Logistique[]> {
     return this.http.get<Logistique[]>(`${this.url}?ressourceName=${ressourceName}`);
   }
+  assignLogToEvent(logestiqueId: number, eventId: number): Observable<Logistique> {
+    return this.http.post<Logistique>(`${this.url}/${logestiqueId}/assign-to-event/${eventId}`, {});
+  }
+  
+  
+  
+  
 }

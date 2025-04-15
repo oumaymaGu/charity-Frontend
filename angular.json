@@ -32,6 +32,8 @@
               "src/assets/css/bootstrap.min.css",
               "node_modules/leaflet/dist/leaflet.css",
               "src/assets/css/demo.css",
+              "node_modules/ngx-toastr/toastr.css",
+             "src/styles.css",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/styles.css",
               "src/assets/css/testimonial.css"

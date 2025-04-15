@@ -33,6 +33,13 @@
               <button (click)="confirmDelete(logestique.idlogestique)" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash"></i> Delete
               </button>
+              <button (click)="assignToEvent(logestique.idlogestique)" class="btn btn-success btn-sm">
+                <i class="fa fa-link"></i> Assigner à un événement
+              </button>
+              <button (click)="viewAssignedEvents(logestique.idlogestique)" class="btn btn-info btn-sm">
+                <i class="fa fa-eye"></i> Voir événements assignés
+              </button>
+              
             </td>
           </tr>
         </tbody>

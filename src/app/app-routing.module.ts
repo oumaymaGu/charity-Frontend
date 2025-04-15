@@ -37,6 +37,8 @@ import { MaterialDonationComponent } from './front_end/donations/material-donati
 import { MaterialDonationListComponent } from './front_end/donations/material-donation-list/material-donation-list.component';
 import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
 import { StripeComponent } from './front_end/payments/stripe/stripe.component';
+import { EventsLogestiquesComponent } from './back_end/LOG/events-logestiques/events-logestiques.component';
+import { BilletComponent } from './front_end/billet/billet.component';
 
 
 
@@ -86,6 +88,10 @@ const routes: Routes = [
 {path:'material-donation-list' , component : MaterialDonationListComponent},
 { path: 'stripe-payment', component: StripeComponent },
 {path: 'payment-inscription', component: PaymentInscriptionComponent },
+{ path: 'events-logestiques', component: EventsLogestiquesComponent },
+{ path: 'events-logestiques/:id', component: EventsLogestiquesComponent },
+{ path: 'billet/:userId/:eventId', component: BilletComponent },
+
 
 { path: '**', redirectTo:"" , pathMatch: 'full' }
 

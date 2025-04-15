@@ -1,0 +1,43 @@
+.event-card {
+    background-color: #c8e8e8; /* Fond clair pour la carte */
+    border-radius: 15px; /* Coins arrondis */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    padding: 20px; /* Ajouter un peu d'espace */
+}
+
+.event-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000; /* Texte noir pour plus de lisibilité */
+}
+
+.separator {
+    height: 2px;
+    background-color: #007bff; /* Couleur bleue pour le séparateur */
+    border: none;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.info-box {
+    background-color: #c8e8e8;
+    border: 1px solid #c8e8e8; /* Bordure légère */
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.info-box p {
+    margin-bottom: 10px;
+    color: #000; /* Texte noir pour le contraste */
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
