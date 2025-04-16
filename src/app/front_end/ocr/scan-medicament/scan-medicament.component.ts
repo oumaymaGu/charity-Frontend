@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MedicationInfo, OcrService } from 'src/app/back_end/services/ocr.service';
+import { OcrService } from 'src/app/back_end/services/ocr.service';
 
 @Component({
   selector: 'app-scan-medicament',
@@ -9,7 +9,7 @@ import { MedicationInfo, OcrService } from 'src/app/back_end/services/ocr.servic
 export class ScanMedicamentComponent {
   selectedFile: File | null = null;
   previewUrl: string | ArrayBuffer | null = null;
-  medicationInfo: MedicationInfo | null = null;
+  medicationInfo: { name: string; lotNumber: string; expirationDate: string } | null = null;
   isLoading = false;
   error: string | null = null;
   showDebug = false;
@@ -49,7 +49,7 @@ export class ScanMedicamentComponent {
 
     this.ocrService.scanMedication(this.selectedFile).subscribe({
       next: (info) => {
-        this.medicationInfo = info;
+       
         this.isLoading = false;
 
         const expYear = new Date(info.expirationDate).getFullYear();

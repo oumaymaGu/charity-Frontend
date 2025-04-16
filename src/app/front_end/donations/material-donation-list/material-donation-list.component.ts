@@ -30,14 +30,14 @@ export class MaterialDonationListComponent implements OnInit {
   ngOnInit() {
     this.loadMaterialDonations();
   }
-
+  
   loadMaterialDonations() {
     this.isLoading = true;
     this.errorMessage = null;
-
-    this.donationService.getMaterialDons().subscribe({
+  
+    this.donationService.getMaterialDonsWithQuantity().subscribe({
       next: (data: Donation[]) => {
-        this.donations = data.filter(donation => donation.photoUrl && donation.photoUrl.trim() !== '');
+        this.donations = data; // Grouped donations with combined quantities
         this.filterDonations();
         this.isLoading = false;
       },
@@ -48,7 +48,8 @@ export class MaterialDonationListComponent implements OnInit {
       }
     });
   }
-
+  
+  
   filterDonations() {
     if (this.selectedCategory === 'ALL') {
       this.filteredDonations = [...this.donations];
@@ -58,6 +59,7 @@ export class MaterialDonationListComponent implements OnInit {
       );
     }
   }
+  
 
   onCategoryChange(category: MaterialCategory | 'ALL') {
     this.selectedCategory = category;

@@ -32,6 +32,7 @@ medicationName?: string;
   expirationDate?: string;
   productCode?: string;
   fabricationDate?: string;
+  quantity?: number;
  
 
 

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DonService } from '../../../back_end/services/donation.service';
 import { OcrService } from '../../../back_end/services/ocr.service';
 import { TypeDon, MaterialCategory } from '../../pages/models/donation';
-import { MedicationInfo } from '../../../back_end/services/ocr.service';
+import { MedicationInfo } from '../../pages/models/medication-info'; // Correct import
 
 export interface MaterialDonation {
   category: MaterialCategory;
@@ -29,6 +29,7 @@ export class MaterialDonationComponent {
 
   errorMessage = '';
   successMessage: string | null = null;
+  scanSuccessMessage: string | null = null;
   selectedMaterial: string | null = null;
   isMedication = false;
   medicationInfo: MedicationInfo | null = null;
@@ -132,21 +133,19 @@ export class MaterialDonationComponent {
   scanMedication(file: File): void {
     this.isScanning = true;
     this.errorMessage = '';
+    this.scanSuccessMessage = null;
 
     this.ocrService.scanMedication(file).subscribe({
-      next: (info) => {
-        const expDate = new Date(info.expirationDate);
-        const currentYear = new Date().getFullYear();
-
-        if (expDate.getFullYear() < currentYear + 1) {
-          this.errorMessage = `Le médicament expire trop tôt (exp: ${info.expirationDate}). Il doit expirer au minimum en ${currentYear + 1}.`;
+      next: (info: MedicationInfo) => {
+        if (!info.expirationValid) {
+          this.errorMessage = `Le don n'est pas accepté : le médicament est expiré ou expire trop tôt (exp: ${info.expirationDate}).`;
           this.medicationInfo = null;
           this.scannedImage = null;
           this.medicationPreviewUrl = null;
         } else {
           this.medicationInfo = info;
+          this.scanSuccessMessage = `Médicament valide : expire le ${info.expirationDate}. Vous pouvez soumettre le don.`;
         }
-
         this.isScanning = false;
       },
       error: (err) => {
@@ -178,10 +177,12 @@ export class MaterialDonationComponent {
         .subscribe({
           next: () => {
             this.successMessage = 'Don ajouté avec succès !';
+            this.errorMessage = '';
             setTimeout(() => this.router.navigate(['/material-donation-list']), 2000);
           },
           error: (err) => {
-            this.errorMessage = "Erreur: " + err.message;
+            this.successMessage = null;
+            this.errorMessage = err.error || "Erreur lors de l'ajout du don.";
           }
         });
     }

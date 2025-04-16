@@ -1,46 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Donation, TypeDon, MaterialCategory } from 'src/app/front_end/pages/models/donation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DonService {
-  private baseUrl = 'http://localhost:8089/dons'; // URL de base de l'API
+  private baseUrl = 'http://localhost:8089/dons';
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 Upload d'une photo et récupération de son URL (peut être conservé pour d'autres usages)
   uploadPhoto(file: File): Observable<string> {
     const formData = new FormData();
     formData.append('file', file);
-
     return this.http.post(`${this.baseUrl}/upload-photo`, formData, { responseType: 'text' }).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Ajouter un don (sans fichier, utilisé principalement pour les dons ARGENT)
   addDon(don: Donation): Observable<Donation> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
     return this.http.post<Donation>(`${this.baseUrl}/add`, don, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Ajouter un don matériel avec upload de photo et catégorie
   uploadDonMaterial(don: Partial<Donation>, file: File, category: MaterialCategory): Observable<Donation> {
     const formData = new FormData();
-    // Créer l'objet donationData sans les champs OCR (ils seront détectés côté backend)
     const donationData: Donation = {
       idDon: 0,
       donorContact: don.donorContact || '',
       typeDon: TypeDon.MATERIEL,
       dateDon: new Date().toISOString(),
-      photoUrl: '', // Laisser vide, sera rempli par le backend
+      photoUrl: '',
       category,
       amount: 0,
       heure: new Date().toLocaleTimeString(),
@@ -49,58 +43,79 @@ export class DonService {
       phone: undefined,
       email: undefined,
       donorName: undefined,
-      medicationName: undefined, // Pas besoin côté frontend
-      lotNumber: undefined,      // Pas besoin côté frontend
-      expirationDate: undefined, // Pas besoin côté frontend
-      productCode: undefined     // Pas besoin côté frontend
+      medicationName: undefined,
+      lotNumber: undefined,
+      expirationDate: undefined,
+      productCode: undefined,
+    
     };
-    // Ajouter les données du don et l'image dans le FormData
     formData.append('don', new Blob([JSON.stringify(donationData)], { type: 'application/json' }));
     formData.append('medicationImage', file);
-
     return this.http.post<Donation>(`${this.baseUrl}/add-with-medication`, formData).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Récupérer tous les dons
   getAllDons(): Observable<Donation[]> {
     return this.http.get<Donation[]>(`${this.baseUrl}/all`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Récupérer tous les dons matériels
   getMaterialDons(): Observable<Donation[]> {
     return this.http.get<Donation[]>(`${this.baseUrl}/all/material`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Récupérer un don par son ID
+  getMaterialDonsWithQuantity(): Observable<Donation[]> {
+    return this.http.get<Donation[]>(`${this.baseUrl}/all/material`).pipe(
+      map((data: Donation[]) => {
+        const groupedDonations = new Map<string, Donation>();
+
+        data.forEach(donation => {
+          if (donation.photoUrl && donation.category) {
+            // Utiliser photoUrl et category comme clé pour éviter de fusionner des dons de catégories différentes
+            const key = `${donation.photoUrl}_${donation.category}`;
+            if (groupedDonations.has(key)) {
+              const existingDonation = groupedDonations.get(key)!;
+              existingDonation.quantity = (existingDonation.quantity || 0) + (donation.quantity || 1);
+              const existingDate = new Date(existingDonation.dateDon);
+              const newDate = new Date(donation.dateDon);
+              if (newDate > existingDate) {
+                existingDonation.dateDon = donation.dateDon;
+              }
+            } else {
+              groupedDonations.set(key, { ...donation });
+            }
+          }
+        });
+
+        return Array.from(groupedDonations.values());
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   getDonById(id: number): Observable<Donation> {
     return this.http.get<Donation>(`${this.baseUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Mettre à jour un don
   updateDon(id: number, don: Donation): Observable<Donation> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
     return this.http.put<Donation>(`${this.baseUrl}/update/${id}`, don, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Supprimer un don
   deleteDon(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // 🔹 Gestion des erreurs API
   private handleError(error: any): Observable<never> {
     console.error('Erreur API:', error);
     return throwError(() => new Error('Erreur de communication avec le serveur. Vérifiez la console pour plus de détails.'));
