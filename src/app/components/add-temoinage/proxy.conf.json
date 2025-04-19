@@ -1,0 +1,11 @@
+{
+    "/api-translate": {
+      "target": "https://api.mymemory.translated.net",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api-translate": ""
+      }
+    }
+  }
+  

@@ -41,7 +41,9 @@ import { AddTemoinageComponent } from './components/add-temoinage/add-temoinage.
 import { EditTemoinageComponent } from './components/edit-temoinage/edit-temoinage.component';
 import { TemoinageListComponent } from './components/temoinage-list/temoinage-list.component';
 import { CommonModule } from '@angular/common';
+import { ReclamComponent } from './back_end/dashboard/reclam/reclam.component';
 
+ // Importez le composant
 
 
 
@@ -86,6 +88,9 @@ import { CommonModule } from '@angular/common';
       AddTemoinageComponent,
       EditTemoinageComponent,
       TemoinageListComponent,
+      ReclamComponent,
+      
+      
       
   
     

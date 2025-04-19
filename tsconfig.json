@@ -19,6 +19,8 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "allowSyntheticDefaultImports": true, // Ajouté pour compatibilité avec CommonJS
+    "esModuleInterop": true,              // Ajouté pour compatibilité avec CommonJS
     "lib": [
       "ES2022",
       "dom"
@@ -29,5 +31,10 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  
+  "include": [
+    "src/**/*",
+    "src/types/mapbox-gl-overrides.d.ts"
+  ]
 }

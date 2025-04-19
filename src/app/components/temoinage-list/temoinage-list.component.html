@@ -9,7 +9,6 @@
     <!-- Content -->
     <div class="col-md-9 content">
       <h2>Testimonials List</h2>
-
       <table class="table table-striped">
         <thead>
           <tr>
@@ -23,7 +22,10 @@
           <tr *ngFor="let temoinage of temoinages">
             <td>{{ temoinage.nom }}</td>
             <td>{{ temoinage.statut }}</td>
-            <td>{{ temoinage.description }}</td>
+            <td>
+              <p>{{ temoinage.description }}</p>
+              <button class="btn btn-warning" (click)="lireTemoinage(temoinage)">🔊 Lire</button>
+            </td>
             <td>
               <button class="btn btn-danger" (click)="deleteTemoinage(temoinage)">Supprimer</button>
             </td>

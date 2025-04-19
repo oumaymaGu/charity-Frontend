@@ -43,12 +43,11 @@
   
       <label>Description:</label>
       <textarea [(ngModel)]="temoinage.description" name="description" placeholder="Write your experience" required></textarea>
+      
+      <button type="button" class="btn-translate" (click)="traduireDescription()">Traduire en anglais</button>
+      
   
-      <label>Date of testimonial:</label>
-      <input type="date" [(ngModel)]="temoinage.date" name="date" required>
-  
-      <label>Localisation:</label>
-      <input type="text" [(ngModel)]="temoinage.localisation" name="localisation" placeholder="Ville / Pays" required>
+      
   
       <label>Photo:</label>
       <input type="file" (change)="onFileSelected($event)">

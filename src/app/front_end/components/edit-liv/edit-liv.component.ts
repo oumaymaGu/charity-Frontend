@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./edit-liv.component.css']
 })
 export class EditLivComponent implements OnInit {
-  livraison: Livraisons = { idLivr: 0, nom: '', adresseLivr: '', dateLivraison: new Date(), etatLivraisons: 'ENCOURS' };
+  livraison: Livraisons = { idLivr: 0, nom: '', adresseLivr: '', dateLivraison: new Date(), etatLivraisons: 'ENCOURS', emailClient: '' };
 
   constructor(
     private livraisonService: LivraisonService,

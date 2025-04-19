@@ -68,4 +68,11 @@ export class TemoinageListComponent implements OnInit {
       this.newComment = ''; // Réinitialise le champ de commentaire
     }
   }
+  // temoinage-list.component.ts
+lireTemoinage(temoinage: any) {
+  const synth = window.speechSynthesis;
+  const utterance = new SpeechSynthesisUtterance(temoinage.description);
+  synth.speak(utterance);
+}
+
 }

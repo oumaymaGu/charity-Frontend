@@ -8,7 +8,7 @@ import { Livraisons } from 'src/app/front_end/pages/models/livraison';
   styleUrls: ['./add-liv.component.css']
 })
 export class AddLivComponent {
-  livraison: Livraisons = { idLivr: 0, nom: '', adresseLivr: '', dateLivraison: new Date(), etatLivraisons: 'ENCOURS' };
+  livraison: Livraisons = { idLivr: 0, nom: '', adresseLivr: '', dateLivraison: new Date(), etatLivraisons: 'ENCOURS', emailClient: ''  };
   confirmChecked = false;
   successMessage: string | null = null;
   displayedReceipt: any = null;
@@ -39,7 +39,7 @@ export class AddLivComponent {
 
   clearForm() {
     // Réinitialise le formulaire
-    this.livraison = { idLivr: 0, nom: '', adresseLivr: '', dateLivraison: new Date(), etatLivraisons: 'ENCOURS' };
+    this.livraison = { idLivr: 0, nom: '', adresseLivr: '', dateLivraison: new Date(), etatLivraisons: 'ENCOURS' , emailClient: '' };
     this.confirmChecked = false;
   }
 }

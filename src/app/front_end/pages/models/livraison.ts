@@ -4,6 +4,7 @@ export interface Livraisons {
     adresseLivr: string;
     dateLivraison: Date;
     etatLivraisons: 'ENCOURS' | 'LIVREE' | 'ANNULEE';
+    emailClient: string; // 👈 ajouté ici
     
   }
   

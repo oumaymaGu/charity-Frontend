@@ -28,6 +28,7 @@ import { EditLivComponent } from './front_end/components/edit-liv/edit-liv.compo
 import { TemoinageListComponent } from './components/temoinage-list/temoinage-list.component';
 import { AddTemoinageComponent } from './components/add-temoinage/add-temoinage.component';
 import { EditTemoinageComponent } from './components/edit-temoinage/edit-temoinage.component';
+import { ReclamComponent } from './back_end/dashboard/reclam/reclam.component';
 // app-routing.module.ts
 
 
@@ -68,6 +69,9 @@ const routes: Routes = [
   { path: 'temoinages', component: TemoinageListComponent },
   { path: 'add-tem', component: AddTemoinageComponent },
   { path: 'edit-tem', component: EditTemoinageComponent },
+  
+  { path: 'reclam', component: ReclamComponent },
+  
 { path: '**', redirectTo:"" , pathMatch: 'full' }
 
 ];
