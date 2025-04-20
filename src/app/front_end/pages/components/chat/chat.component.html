@@ -1,0 +1,82 @@
+<div class="container my-5 chat-container">
+  <div class="card shadow-lg rounded-4 overflow-hidden">
+
+    <!-- Header -->
+    <div class="card-header bg-white py-3 px-4 d-flex align-items-center justify-content-between">
+      <h5 class="mb-0 text-primary">
+        <i class="bi bi-chat-dots me-2"></i>Messagerie avec l’administrateur
+      </h5>
+    </div>
+
+    <!-- Spinner -->
+    <div *ngIf="isLoading" class="text-center my-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+    </div>
+
+    <!-- Chat Body -->
+    <div
+      id="messageContainer"
+      class="card-body message-box px-4 py-3"
+      style="background-color: #f8f9fa; height: 400px; overflow-y: auto;"
+      *ngIf="!isLoading"
+    >
+      <div *ngFor="let msg of messages" class="mb-3">
+        <div
+          [ngClass]="{
+            'text-end': msg.senderId === senderId,
+            'text-start': msg.senderId !== senderId
+          }"
+        >
+          <small class="text-muted d-block mb-1 fw-bold">
+            {{ msg.senderId === senderId ? senderUsername : msg.senderUsername }}
+          </small>
+
+          <div
+            [ngClass]="{
+              'bg-primary text-white ms-auto': msg.senderId === senderId,
+              'bg-light text-dark me-auto': msg.senderId !== senderId
+            }"
+            class="px-3 py-2 rounded-pill d-inline-block shadow-sm"
+            style="max-width: 70%; word-wrap: break-word;"
+          >
+            {{ msg.content }}
+
+            <div
+              [ngClass]="{
+                'text-end text-white-50': msg.senderId === senderId,
+                'text-start text-muted': msg.senderId !== senderId
+              }"
+              class="small mt-1"
+              style="font-size: 0.7rem;"
+            >
+              {{ msg.timestamp | date: 'shortTime' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Zone -->
+    <div class="card-footer bg-white py-3 px-4 border-top">
+      <div class="input-group input-box">
+        <input
+          [(ngModel)]="messageContent"
+          type="text"
+          class="form-control rounded-pill shadow-sm px-4"
+          placeholder="Écrivez un message..."
+          (keyup.enter)="send()"
+        />
+        <button
+          class="btn btn-outline-primary rounded-circle ms-2 d-flex align-items-center justify-content-center"
+          style="width: 45px; height: 45px;"
+          (click)="send()"
+        >
+          <i class="bi bi-send-fill fs-5"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

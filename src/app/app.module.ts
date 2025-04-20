@@ -40,6 +40,9 @@ import { AjoutStockComponent } from './back_end/stock/ajout-stock/ajout-stock.co
 import { ListStockComponent } from './back_end/stock/list-stock/list-stock.component';
 import { ModifierStockComponent } from './back_end/stock/modifier-stock/modifier-stock.component';
 import { AssociationDetailComponent } from './front_end/pages/about/association-detail/association-detail.component';
+import { ChatComponent } from './front_end/pages/components/chat/chat.component';
+import { ChatAdminComponent } from './front_end/pages/chat-admin/chat-admin.component';
+
 
 
 
@@ -83,7 +86,10 @@ import { AssociationDetailComponent } from './front_end/pages/about/association-
       AjoutStockComponent,
       ListStockComponent,
       ModifierStockComponent,
-      AssociationDetailComponent
+      AssociationDetailComponent,
+      ChatComponent,
+      ChatAdminComponent,
+      
       
   
     

@@ -23,7 +23,9 @@ export class AuthService {
           localStorage.setItem('token', response.accessToken);
           localStorage.setItem('role', response.role);
           localStorage.setItem('username', response.username);
+          
           localStorage.setItem('email', response.email); // Store email
+
         }
       })
     );
@@ -46,6 +48,7 @@ export class AuthService {
     localStorage.removeItem('role');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
+    localStorage.removeItem('idUser');
     this.router.navigate(['/home']).then(() => {
       window.location.reload();
     });
@@ -62,6 +65,9 @@ export class AuthService {
 
   getRole(): string | null {
     return localStorage.getItem('role'); // Retrieve role
+  }
+  getIdUser(): string | null {
+    return localStorage.getItem('idUser'); // Retrieve user ID
   }
 
   // Method to add token to HTTP request headers

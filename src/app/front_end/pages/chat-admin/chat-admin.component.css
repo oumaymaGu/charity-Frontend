@@ -1,0 +1,41 @@
+.chat-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.message-box {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.user-msg {
+  background-color: #e6f7ff;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.admin-msg {
+  background-color: #d9f7be;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: right;
+}
+
+.input-box {
+  display: flex;
+  margin-top: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+}
+
+button {
+  padding: 10px;
+}

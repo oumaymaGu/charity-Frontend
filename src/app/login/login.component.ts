@@ -23,12 +23,14 @@ export class LoginComponent {
       console.log('Réponse du backend:', response); // Affiche la réponse complète
       if (response.accessToken) {
         console.log('Jeton JWT:', response.accessToken); // Affiche le jeton reçu
+        console.log('ID Utilisateur:', response.id);
       }
 
       localStorage.setItem('token', response.accessToken);
       localStorage.setItem('username', response.username);
       localStorage.setItem('role', response.roles[0]);
       localStorage.setItem('email', response.email); // Stocker l'email
+      localStorage.setItem('idUser', response.id); // Stocker l'ID
 
       this.successMessage = 'Connection successful! Redirecting...';
       this.errorMessage = '';
