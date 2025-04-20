@@ -33,6 +33,8 @@ medicationName?: string;
   productCode?: string;
   fabricationDate?: string;
   quantity?: number;
+  
+  donorEmail?: string;
  
 
 

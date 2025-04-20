@@ -186,15 +186,15 @@
                     <p *ngIf="donation.medicationName"><strong>Médicament :</strong> {{ donation.medicationName }}</p>
                     <p *ngIf="donation.lotNumber"><strong>N° de lot :</strong> {{ donation.lotNumber }}</p>
                     <p *ngIf="donation.expirationDate"><strong>Expiration :</strong> {{ donation.expirationDate }}</p>
-                    <p>Quantité : {{ donation.quantity }}</p>
+                    
                   </div>
                     
                     <div class="donor-contact-section">
                         <h3>Donor Information</h3>
+                          
                         
-                        <p><strong>👤 Name:</strong> {{ getDonorName() }}</p>
-                       
-                
+                            <p><strong>👤 Name:</strong> {{ getDonorName() }}</p>
+                            <p *ngIf="donorInfo?.email"><strong>📧 Email:</strong> {{ donorInfo?.email }}</p>                
                         <ng-template #noContactInfo>
                             <p class="no-info">Contact information not available</p>
                         </ng-template>

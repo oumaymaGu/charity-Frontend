@@ -7,13 +7,13 @@ import { DonationRequestService } from 'src/app/back_end/services/donation-reque
 @Component({
   selector: 'app-donor-contact',
   templateUrl: './donor-contact.component.html',
-  styleUrls: ['./donor-contact.component.css'],
-  animations: [] 
+  styleUrls: ['./donor-contact.component.css']
 })
 export class DonorContactComponent implements OnInit {
   contactForm: FormGroup;
   donorEmail: string = 'Chargement...';
   donorName: string = '';
+  donationId: string | null = null;
   isSubmitting: boolean = false;
   showSuccess: boolean = false;
 
@@ -35,7 +35,16 @@ export class DonorContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDonorInfo();
+    this.donationId = this.route.snapshot.paramMap.get('id');
+    if (this.donationId) {
+      this.loadDonorInfo();
+    } else {
+      this.snackBar.open('Invalid donation ID.', 'Close', {
+        duration: 5000,
+        panelClass: ['error-snackbar']
+      });
+      this.router.navigate(['/material-donation-list']);
+    }
   }
 
   loadDonorInfo(): void {
@@ -44,7 +53,7 @@ export class DonorContactComponent implements OnInit {
       this.donorEmail = donorInfo.email;
       this.donorName = donorInfo.name;
     } else {
-      this.snackBar.open('Impossible de charger les informations du donateur', 'Fermer', {
+      this.snackBar.open('Unable to load donor information.', 'Close', {
         duration: 5000,
         panelClass: ['error-snackbar']
       });
@@ -60,23 +69,30 @@ export class DonorContactComponent implements OnInit {
 
     this.isSubmitting = true;
 
-    const request = {
-      ...this.contactForm.value,
+    const request: any = {
+      donationId: this.donationId,
+      fullName: this.contactForm.value.fullName,
+      userEmail: this.contactForm.value.userEmail,
+      phone: this.contactForm.value.phone,
+      message: this.contactForm.value.message,
+      deliveryMethod: this.contactForm.value.deliveryMethod,
+      termsAccepted: this.contactForm.value.termsAccepted,
       donorEmail: this.donorEmail,
       donorName: this.donorName,
-      date: new Date()
+      status: 'pending'
     };
 
-    // Simulation d'un appel API
+    // Simulate API call
     setTimeout(() => {
       this.donationRequestService.addRequest(request);
       this.isSubmitting = false;
       this.showSuccess = true;
-      
-      // Réinitialiser le formulaire après 5 secondes
+
+      // Redirect after 5 seconds
       setTimeout(() => {
         this.contactForm.reset({
-          deliveryMethod: 'pickup'
+          deliveryMethod: 'pickup',
+          termsAccepted: false
         });
         this.showSuccess = false;
         this.router.navigate(['/material-donation-list']);

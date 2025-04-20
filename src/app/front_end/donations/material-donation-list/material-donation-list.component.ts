@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DonService } from '../../../back_end/services/donation.service';
+import { DonationRequestService } from 'src/app/back_end/services/donation-request.service';
 import { Donation, MaterialCategory } from 'src/app/front_end/pages/models/donation';
 
 @Component({
@@ -10,77 +11,93 @@ import { Donation, MaterialCategory } from 'src/app/front_end/pages/models/donat
 })
 export class MaterialDonationListComponent implements OnInit {
   MaterialCategory = MaterialCategory;
-  categories: (MaterialCategory | 'ALL')[] = ['ALL', MaterialCategory.FOOD, MaterialCategory.CLOTHES, MaterialCategory.MEDICAMENT];
   donations: Donation[] = [];
   filteredDonations: Donation[] = [];
   errorMessage: string | null = null;
   isLoading: boolean = true;
-  selectedCategory: MaterialCategory | 'ALL' = 'ALL';
+  searchQuery: string = '';
+  selectedCategory: MaterialCategory | '' = ''; // Add property for selected category
 
-  // Add medication specific properties to the Donation interface
-  medicationDonation = {
-    medicationName: '',
-    lotNumber: '',
-    expirationDate: ''
-  };
- 
-
-  constructor(private donationService: DonService, private router: Router) {}
+  constructor(
+    private donationService: DonService,
+    private donationRequestService: DonationRequestService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadMaterialDonations();
   }
-  
+
   loadMaterialDonations() {
     this.isLoading = true;
     this.errorMessage = null;
-  
+
+    const donorInfo = this.donationRequestService.getDonorInfo();
+
     this.donationService.getMaterialDonsWithQuantity().subscribe({
       next: (data: Donation[]) => {
-        this.donations = data; // Grouped donations with combined quantities
-        this.filterDonations();
+        this.donations = data.map(donation => ({
+          ...donation,
+          donorName: donorInfo?.name || 'Anonymous',
+          donorContact: donorInfo?.email || ''
+        }));
+        this.applyFilters();
         this.isLoading = false;
       },
       error: (error: any) => {
-        console.error('Erreur lors du chargement des dons matériels:', error);
-        this.errorMessage = 'Erreur lors du chargement des dons matériels. Veuillez réessayer plus tard.';
+        console.error('Error loading material donations:', error);
+        this.errorMessage = 'Error loading material donations. Please try again later.';
         this.isLoading = false;
       }
     });
   }
-  
-  
-  filterDonations() {
-    if (this.selectedCategory === 'ALL') {
-      this.filteredDonations = [...this.donations];
-    } else {
-      this.filteredDonations = this.donations.filter(
-        donation => donation.category === this.selectedCategory
+
+  onSearchChange(query: string) {
+    this.searchQuery = query;
+    this.applyFilters();
+  }
+
+  onCategoryChange(category: MaterialCategory | '') {
+    this.selectedCategory = category;
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    let filtered = [...this.donations];
+
+    // Apply search filter
+    if (this.searchQuery.trim()) {
+      const searchTerm = this.searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(donation =>
+        (donation.description?.toString().toLowerCase().includes(searchTerm) ||
+         this.getCategoryLabel(donation.category)?.toLowerCase().includes(searchTerm))
       );
     }
-  }
-  
 
-  onCategoryChange(category: MaterialCategory | 'ALL') {
-    this.selectedCategory = category;
-    this.filterDonations();
+    // Apply category filter
+    if (this.selectedCategory) {
+      filtered = filtered.filter(donation =>
+        donation.category === this.selectedCategory
+      );
+    }
+
+    this.filteredDonations = filtered;
   }
 
-  // Add this method to get category labels
-  getCategoryLabel(category: MaterialCategory | 'ALL'): string {
+  getCategoryLabel(category: MaterialCategory | undefined): string {
+    if (!category) return 'Not Specified';
     switch (category) {
-      case 'ALL': return 'Tous';
-      case MaterialCategory.CLOTHES: return 'Vêtements';
-      case MaterialCategory.MEDICAMENT: return 'Médicaments';
-      case MaterialCategory.FOOD: return 'Nourriture';
+      case MaterialCategory.CLOTHES: return 'Clothes';
+      case MaterialCategory.MEDICAMENT: return 'Medications';
+      case MaterialCategory.FOOD: return 'Food';
       default: return category;
     }
   }
 
   formatDateTime(dateString: string): string {
-    if (!dateString) return 'Date inconnue';
+    if (!dateString) return 'Unknown Date';
     const date = new Date(dateString);
-    return date.toLocaleString('fr-FR', {
+    return date.toLocaleString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -90,12 +107,16 @@ export class MaterialDonationListComponent implements OnInit {
   }
 
   goToDetails(donationId: number) {
+    const donorInfo = this.donationRequestService.getDonorInfo();
+    if (donorInfo) {
+      this.donationRequestService.saveDonorInfo(donorInfo.email, donorInfo.name);
+    }
     this.router.navigate(['/donation-details', donationId]);
   }
 
   contactDonor(donation: Donation) {
     if (!donation.donorContact) {
-      alert('Aucune information de contact disponible.');
+      alert('No contact information available.');
       return;
     }
 
@@ -104,7 +125,7 @@ export class MaterialDonationListComponent implements OnInit {
     } else if (donation.donorContact.includes('facebook.com')) {
       this.contactDonorByFacebook(donation.donorContact);
     } else {
-      alert('Informations de contact invalides.');
+      alert('Invalid contact information.');
     }
   }
 

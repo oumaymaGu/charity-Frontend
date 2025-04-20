@@ -47,7 +47,7 @@ export class DonService {
       lotNumber: undefined,
       expirationDate: undefined,
       productCode: undefined,
-    
+      quantity: 1
     };
     formData.append('don', new Blob([JSON.stringify(donationData)], { type: 'application/json' }));
     formData.append('medicationImage', file);
@@ -75,7 +75,34 @@ export class DonService {
 
         data.forEach(donation => {
           if (donation.photoUrl && donation.category) {
-            // Utiliser photoUrl et category comme clé pour éviter de fusionner des dons de catégories différentes
+            const key = `${donation.photoUrl}_${donation.category}`;
+            if (groupedDonations.has(key)) {
+              const existingDonation = groupedDonations.get(key)!;
+              existingDonation.quantity = (existingDonation.quantity || 0) + (donation.quantity || 1);
+              const existingDate = new Date(existingDonation.dateDon);
+              const newDate = new Date(donation.dateDon);
+              if (newDate > existingDate) {
+                existingDonation.dateDon = donation.dateDon;
+              }
+            } else {
+              groupedDonations.set(key, { ...donation });
+            }
+          }
+        });
+
+        return Array.from(groupedDonations.values());
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getDonsByCategory(category: string): Observable<Donation[]> {
+    return this.http.get<Donation[]>(`${this.baseUrl}/material/category/${category}`).pipe(
+      map((data: Donation[]) => {
+        const groupedDonations = new Map<string, Donation>();
+
+        data.forEach(donation => {
+          if (donation.photoUrl && donation.category) {
             const key = `${donation.photoUrl}_${donation.category}`;
             if (groupedDonations.has(key)) {
               const existingDonation = groupedDonations.get(key)!;
