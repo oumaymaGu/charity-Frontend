@@ -57,63 +57,63 @@
           <!-- Success Message -->
           <div *ngIf="showSuccess" class="success-message">
             <div class="success-icon">✓</div>
-            <h3>Demande envoyée avec succès !</h3>
-            <p>Votre message a bien été transmis au donateur. Vous allez être redirigé...</p>
+            <h3>Request Sent Successfully!</h3>
+            <p>Your message has been successfully sent to the donor. You will be redirected...</p>
           </div>
         
           <!-- Form (hidden after successful submission) -->
           <div *ngIf="!showSuccess">
-            <h2>Contacter le Donateur</h2>
+            <h2>Contact the Donor</h2>
             
             <form [formGroup]="contactForm" (ngSubmit)="submitRequest()">
               <!-- Full Name -->
               <div class="form-group">
-                <label>Votre nom complet *</label>
-                <input type="text" formControlName="fullName" placeholder="Votre nom">
+                <label>Your Full Name *</label>
+                <input type="text" formControlName="fullName" placeholder="Your full name">
                 <div *ngIf="f['fullName'].invalid && (f['fullName'].dirty || f['fullName'].touched)"
                      class="error-message">
-                  Ce champ est obligatoire
+                  This field is required
                 </div>
               </div>
         
               <!-- Email -->
               <div class="form-group">
-                <label>Votre email *</label>
-                <input type="email" formControlName="userEmail" placeholder="Votre email">
+                <label>Your Email *</label>
+                <input type="email" formControlName="userEmail" placeholder="Your email">
                 <div *ngIf="f['userEmail'].invalid && (f['userEmail'].dirty || f['userEmail'].touched)"
                      class="error-message">
-                  <span *ngIf="f['userEmail'].errors?.['required']">Ce champ est obligatoire</span>
-                  <span *ngIf="f['userEmail'].errors?.['email']">Email invalide</span>
+                  <span *ngIf="f['userEmail'].errors?.['required']">This field is required</span>
+                  <span *ngIf="f['userEmail'].errors?.['email']">Invalid email</span>
                 </div>
               </div>
         
               <!-- Phone -->
               <div class="form-group">
-                <label>Votre téléphone</label>
-                <input type="tel" formControlName="phone" placeholder="Votre numéro">
+                <label>Your Phone</label>
+                <input type="tel" formControlName="phone" placeholder="Your phone number">
               </div>
         
               <!-- Message -->
               <div class="form-group">
-                <label>Votre message *</label>
-                <textarea formControlName="message" placeholder="Écrivez votre message ici..." rows="4"></textarea>
+                <label>Your Message *</label>
+                <textarea formControlName="message" placeholder="Write your message here..." rows="4"></textarea>
                 <div *ngIf="f['message'].invalid && (f['message'].dirty || f['message'].touched)"
                      class="error-message">
-                  Ce champ est obligatoire
+                  This field is required
                 </div>
               </div>
         
               <!-- Delivery Method -->
               <div class="form-group">
-                <label>Méthode de récupération *</label>
+                <label>Retrieval Method *</label>
                 <div class="radio-options">
                   <label>
                     <input type="radio" formControlName="deliveryMethod" value="pickup">
-                    Je viendrai chercher
+                    I will pick up
                   </label>
                   <label>
                     <input type="radio" formControlName="deliveryMethod" value="delivery">
-                    Livraison
+                    Delivery
                   </label>
                 </div>
               </div>
@@ -122,18 +122,18 @@
               <div class="form-group terms">
                 <label>
                   <input type="checkbox" formControlName="termsAccepted">
-                  J'accepte le partage de mes coordonnées *
+                  I agree to share my contact information *
                 </label>
                 <div *ngIf="f['termsAccepted'].invalid && f['termsAccepted'].touched"
                      class="error-message">
-                  Vous devez accepter cette condition
+                  You must agree to this condition
                 </div>
               </div>
         
               <!-- Submit Button -->
               <button type="submit" class="submit-btn" [disabled]="contactForm.invalid || isSubmitting">
-                <span *ngIf="!isSubmitting">Envoyer la demande</span>
-                <span *ngIf="isSubmitting">Envoi en cours...</span>
+                <span *ngIf="!isSubmitting">Send Request</span>
+                <span *ngIf="isSubmitting">Sending...</span>
               </button>
             </form>
           </div>

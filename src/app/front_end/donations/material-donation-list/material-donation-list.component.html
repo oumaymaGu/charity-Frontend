@@ -112,9 +112,7 @@
                 <p><span class="icon quantity-icon"></span><strong>Quantity:</strong> {{ donation.quantity || 1 }}</p>
         
                 <!-- Contact Button -->
-                <button *ngIf="donation.donorContact" class="contact-btn" (click)="contactDonor(donation); $event.stopPropagation()">
-                  Contact Donor
-                </button>
+                
               </div>
             </div>
           </div>

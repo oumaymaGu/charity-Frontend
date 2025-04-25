@@ -154,60 +154,60 @@
     </div>
 
     <!-- Main Content -->
-    <div class="donation-details-container">
-        <div class="donation-card-details">
-            <h2>Donation Details</h2>
-
-            <!-- Chargement -->
-            <div *ngIf="!donation && !errorMessage" class="loading">
-                <div class="spinner"></div>
-                Loading...
-            </div>
-
-            <!-- Erreur -->
-            <div *ngIf="errorMessage" class="error-message">
-                ⚠️ {{ errorMessage }}
-            </div>
-
-            <!-- Détails du don -->
-            <div *ngIf="donation" class="donation-content">
-                <div class="image-container">
-                    <img *ngIf="donation.photoUrl" [src]="donation.photoUrl" alt="Donation Image" class="donation-image">
-                    <div *ngIf="!donation.photoUrl" class="no-image">No image available</div>
-                </div>
-
-                <div class="donation-details">
-                    <p><strong>📅 Date & Time:</strong> {{ formatDateTime(donation.dateDon) }}</p>
-                    <p><strong>📦 Category:</strong> {{ donation.category }}</p>
-                    <p *ngIf="donation.description"><strong>📝 Description:</strong> {{ donation.description }}</p>
-                     
-                <!-- Détails spécifiques aux médicaments -->
-                <div *ngIf="isMedication(donation)" class="medication-details">
-                    <p *ngIf="donation.medicationName"><strong>Médicament :</strong> {{ donation.medicationName }}</p>
-                    <p *ngIf="donation.lotNumber"><strong>N° de lot :</strong> {{ donation.lotNumber }}</p>
-                    <p *ngIf="donation.expirationDate"><strong>Expiration :</strong> {{ donation.expirationDate }}</p>
-                    
-                  </div>
-                    
-                    <div class="donor-contact-section">
-                        <h3>Donor Information</h3>
-                          
-                        
-                            <p><strong>👤 Name:</strong> {{ getDonorName() }}</p>
-                            <p *ngIf="donorInfo?.email"><strong>📧 Email:</strong> {{ donorInfo?.email }}</p>                
-                        <ng-template #noContactInfo>
-                            <p class="no-info">Contact information not available</p>
-                        </ng-template>
-                
-                        <button class="contact-btn" (click)="contactDonor()">
-                            Contact Donor
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <div class="donation-container" *ngIf="donation">
+        <div class="donation-header">
+          <h2>Donation Details</h2>
+          <span class="donation-date">{{ formatDateTime(donation.dateDon) }}</span>
         </div>
-    </div>
-
+      
+        <div class="donation-content">
+          <div class="donation-image">
+            <img [src]="donation.photoUrl" alt="Donation image">
+          </div>
+      
+          <div class="donation-info">
+            <div class="category-section" *ngIf="donation.category">
+              <h3>Category</h3>
+              <p>{{ donation.category }}</p>
+            </div>
+      
+            <div class="medication-details" *ngIf="isMedication(donation) && donation.medicationName">
+              <h3>Medication Details</h3>
+              <p><strong>Name:</strong> {{ donation.medicationName }}</p>
+              <p *ngIf="donation.lotNumber"><strong>Lot Number:</strong> {{ donation.lotNumber }}</p>
+              <p *ngIf="donation.expirationDate"><strong>Expiration Date:</strong> {{ donation.expirationDate }}</p>
+            </div>
+      
+            <div class="donor-info-section">
+              <h3>Donor Information</h3>
+              <div class="donor-detail">
+                <strong>Name:</strong>
+                <span>{{ getDonorName() }}</span>
+              </div>
+              <div class="donor-detail">
+                <strong>Email:</strong>
+                <span>{{ getDonorEmail() }}</span>
+              </div>
+              <button mat-raised-button color="primary" (click)="contactDonor()">
+                Contact Donor
+              </button>
+            </div>
+      
+            <div class="description-section" *ngIf="donation.description">
+              <h3>Description</h3>
+              <p>{{ donation.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="!donation && !errorMessage" class="loading-message">
+        Loading donation details...
+      </div>
+      
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
     <!-- Footer -->
     <footer id="footer"> 
         <div class="footer-content container">

@@ -19,3 +19,4 @@ export interface DonorContactInfo {
     deliveryMethod: 'pickup' | 'delivery';
     availability: string;
   }
+  

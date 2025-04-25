@@ -112,10 +112,27 @@ textarea {
   color: white;
 }
 .success-message {
-  background-color: #4CAF50;
-  color: white;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 4px;
+  background-color: #e6f4ea; /* Light green background */
+  color: #2e7d32; /* Dark green text */
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 2px solid #4caf50; /* Green border */
+  border-radius: 8px;
   text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.success-message h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.success-message p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.success-message .success-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
