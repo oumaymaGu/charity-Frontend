@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
 
 @Component({
@@ -9,7 +10,7 @@ import * as L from 'leaflet';
 export class MapComponent implements AfterViewInit, OnChanges {
   private map!: L.Map;
   private markers: L.Marker[] = []; // Store markers
-
+  constructor(private router: Router) {}
   @Input() eventsNearby: any[] = []; // Receive nearby events from parent component
 
   // Define a custom icon for events
@@ -55,18 +56,25 @@ export class MapComponent implements AfterViewInit, OnChanges {
     // Remove old markers
     this.markers.forEach(marker => this.map.removeLayer(marker));
     this.markers = [];
-
+  
     // Filter events with valid coordinates
     const validEvents = this.eventsNearby.filter(event => event.latitude && event.longitude);
-
+  
     // Add new markers for valid events
     validEvents.forEach(event => {
       const marker = L.marker([event.latitude, event.longitude], { icon: this.eventIcon })
         .addTo(this.map)
-        .bindPopup(`<b>${event.nomEvent}</b><br>${event.lieu}`);
+        .on('click', () => {
+          // Redirection vers la page des détails de l'événement avec Angular Router
+          this.router.navigate(['/event-details', event.idEvent]);
+        })
+        .bindPopup(`
+          <b>${event.nomEvent}</b><br>
+          ${event.lieu}
+        `);
       this.markers.push(marker);
     });
-
+  
     // Adjust the map view to fit all markers
     if (validEvents.length > 0) {
       const bounds = L.latLngBounds(validEvents.map(event => [event.latitude, event.longitude]));
@@ -74,5 +82,4 @@ export class MapComponent implements AfterViewInit, OnChanges {
     } else {
       console.warn("❗ No valid events with coordinates to display on the map.");
     }
-  }
-}
+  }}

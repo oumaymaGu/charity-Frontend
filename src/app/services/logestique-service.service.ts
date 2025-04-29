@@ -38,7 +38,10 @@ export class LogestiqueServiceService {
   assignLogToEvent(logestiqueId: number, eventId: number): Observable<Logistique> {
     return this.http.post<Logistique>(`${this.url}/${logestiqueId}/assign-to-event/${eventId}`, {});
   }
-  
+  assignLogToEventWithQuantity(idlogestique: number, idEvent: number, quantity: number) {
+    return this.http.post(`${this.url}/${idlogestique}/assign-to-event/${idEvent}?quantity=${quantity}`, {});
+  }
+      
   
   
   

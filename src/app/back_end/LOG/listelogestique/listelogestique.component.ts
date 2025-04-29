@@ -14,6 +14,7 @@ export class ListelogestiqueComponent implements OnInit {
   logestiques: any[] = [];
   events: any[] = []; // Liste des événements
   searchTerm: string = '';
+  isLoading: boolean = false; // Pour afficher un spinner pendant les requêtes
 
   constructor(
     private logestiqueService: LogestiqueServiceService,
@@ -89,65 +90,71 @@ export class ListelogestiqueComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  assignToEvent(logestiqueId: number): void {
-    // Vérification si la liste d'événements est bien chargée
+  // Assigner une logistique à un événement avec une quantité
+  assignToEvent(logestique: any): void {
     if (this.events.length === 0) {
       Swal.fire('Erreur', 'Aucun événement disponible pour l’assignation.', 'error');
       return;
     }
-  
-    // Préparer les options pour la liste déroulante
+
     const eventOptions = this.events.reduce((options, event) => {
-      // Utilisez les noms de propriétés corrects (par exemple, idEvent et nomEvent)
       if (event && event.idEvent !== undefined && event.nomEvent) {
-        options[event.idEvent.toString()] = event.nomEvent; // Ajouter l'événement à la liste
-      } else {
-        console.warn("⚠️ Événement invalide détecté :", event); // Debug si erreur
+        options[event.idEvent.toString()] = event.nomEvent;
       }
       return options;
     }, {});
-  
-    // Vérification si des options valides ont été générées
+
     if (Object.keys(eventOptions).length === 0) {
       Swal.fire('Erreur', 'Aucun événement valide disponible pour l’assignation.', 'error');
       return;
     }
-  
-    // Afficher la boîte de dialogue SweetAlert
+
     Swal.fire({
       title: 'Assigner à un événement',
-      input: 'select',
-      inputOptions: eventOptions,
-      inputPlaceholder: 'Sélectionnez un événement',
+      html: `
+        <select id="event-select" class="swal2-input">
+          ${Object.keys(eventOptions).map(key => `<option value="${key}">${eventOptions[key]}</option>`).join('')}
+        </select>
+        <input id="quantity" type="number" class="swal2-input" placeholder="Quantité" min="1" max="${logestique.quantity}">
+      `,
+      focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Assigner',
-      cancelButtonText: 'Annuler'
-    }).then((result) => {
-      console.log("Résultat SweetAlert:", result); // Log debug
-  
-      if (result.isConfirmed && result.value !== undefined && result.value !== '') {
-        const eventId = Number(result.value); // Convertir l'ID en nombre
-  
-        if (isNaN(eventId)) {
-          Swal.fire('Erreur', 'ID d\'événement invalide.', 'error');
-          return;
+      cancelButtonText: 'Annuler',
+      preConfirm: () => {
+        const eventId = (document.getElementById('event-select') as HTMLSelectElement).value;
+        const quantity = (document.getElementById('quantity') as HTMLInputElement).value;
+
+        if (!eventId || !quantity || parseInt(quantity, 10) <= 0 || parseInt(quantity, 10) > logestique.quantity) {
+          Swal.showValidationMessage('Veuillez sélectionner un événement et entrer une quantité valide.');
+          return null;
         }
-  
-        // Appeler le service pour assigner la logistique à l'événement
-        this.logestiqueService.assignLogToEvent(logestiqueId, eventId).subscribe({
+
+        return { eventId: parseInt(eventId, 10), quantity: parseInt(quantity, 10) };
+      }
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        const { eventId, quantity } = result.value;
+
+        this.isLoading = true; // Afficher le spinner
+
+        this.logestiqueService.assignLogToEventWithQuantity(logestique.idlogestique, eventId, quantity).subscribe({
           next: () => {
-            Swal.fire('Succès', 'Logistique assignée à l\'événement avec succès.', 'success');
+            Swal.fire('Succès', 'Logistique assignée avec succès.', 'success');
+            logestique.quantity -= quantity; // Mettre à jour la quantité localement
+            this.isLoading = false; // Masquer le spinner
           },
           error: (err) => {
-            console.error("Erreur API:", err); // Log erreur
+            console.error("Erreur API:", err);
             Swal.fire('Erreur', 'Impossible d\'assigner la logistique.', 'error');
+            this.isLoading = false; // Masquer le spinner
           }
         });
       }
     });
   }
 
-  
+  // Voir les événements assignés à une logistique
   viewAssignedEvents(logestiqueId: number): void {
     this.router.navigate(['/events-logestiques', logestiqueId]);
   }

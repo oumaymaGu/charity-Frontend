@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../../../services/event.service';
 // @ts-ignore
 import { EventModel } from '../../../models/event.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-details',
@@ -17,11 +18,16 @@ export class EventDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private eventService: EventService
   ) {}
 
   
+  rejoindreEvent(eventId: number): void {
  
+     console.log(`Joining event with ID: ${Event}`);
+     this.router.navigate(['/inscription', eventId]);
+   }
 
 
   ngOnInit(): void {

@@ -41,3 +41,15 @@
 .shadow-sm {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Positionner le bouton Join */
+.join-button {
+    font-size: 1 rem; /* Taille de texte plus petite */
+    padding: 20px 10px; /* Réduire la taille du bouton */
+    margin-top: 10px; /* Ajouter un espace au-dessus */
+  }
+  
+  /* Centrer le bouton */
+  .text-center {
+    text-align: center;
+  }
