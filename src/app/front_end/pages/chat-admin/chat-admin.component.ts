@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { WebSocketService } from 'src/app/web-socket.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -19,13 +19,15 @@ interface Message {
   styleUrls: ['./chat-admin.component.css']
 })
 export class ChatAdminComponent implements OnInit, OnDestroy {
+  @Input() selectedUserId: number | null = null;
+  @Input() selectedUsername: string | null = null;
+  @Input() selectedAssId: number | null = null;
+
   messages: Message[] = [];
   replyContent = '';
 
   // Les 3 infos passées en query params
-  selectedUserId: number | null = null;
-  selectedUsername: string | null = null;
-  selectedAssId: number | null = null;
+  // Removed duplicate declaration of selectedUsername
 
   private messageSub?: Subscription;
 

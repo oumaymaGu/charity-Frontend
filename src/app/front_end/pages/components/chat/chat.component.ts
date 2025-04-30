@@ -3,6 +3,8 @@ import { WebSocketService } from 'src/app/web-socket.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Input } from '@angular/core';
+
 
 interface Message {
   senderId: number;
@@ -18,10 +20,12 @@ interface Message {
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
 })
+
 export class ChatComponent implements OnInit, OnDestroy {
+  @Input() idAss: number | null = null; 
   senderId = 0;
   receiverId = 1; // Admin ID
-  idAss: number | null = null;
+  // Removed duplicate declaration of idAss
   messageContent = '';
   messages: Message[] = [];
   senderUsername = '';
@@ -35,32 +39,39 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const idParam = params['associationId'];
-      this.idAss = idParam && !isNaN(+idParam) ? +idParam : null;
-
+    if (this.idAss === null) {
+      this.route.queryParams.subscribe((params) => {
+        const idParam = params['associationId'];
+        this.idAss = idParam && !isNaN(+idParam) ? +idParam : null;
+        this.setupChat();
+      });
+    } else {
+      this.setupChat();
+    }
+  }
+  
+  setupChat(): void {
+    if (this.idAss !== null) {
       this.senderId = this.getLoggedInUserId();
       this.senderUsername = localStorage.getItem('username') || 'Utilisateur';
-
-      if (this.idAss !== null) {
-        this.loadConversation();
-        this.wsService.connect(this.senderId, this.idAss);
-        this.messageSub = this.wsService.messages$.subscribe((msg: Message | null) => {
-          if (
-            msg &&
-            msg.idAss === this.idAss &&
-            ((msg.senderId === this.senderId && msg.receiverId === this.receiverId) ||
-              (msg.receiverId === this.senderId && msg.senderId === this.receiverId))
-          ) {
-            this.messages.push(msg);
-            this.scrollToBottom();
-          }
-        });
-      } else {
-        console.warn('Paramètre idAss manquant ou invalide');
-      }
-    });
+      this.loadConversation();
+      this.wsService.connect(this.senderId, this.idAss);
+      this.messageSub = this.wsService.messages$.subscribe((msg: Message | null) => {
+        if (
+          msg &&
+          msg.idAss === this.idAss &&
+          ((msg.senderId === this.senderId && msg.receiverId === this.receiverId) ||
+            (msg.receiverId === this.senderId && msg.senderId === this.receiverId))
+        ) {
+          this.messages.push(msg);
+          this.scrollToBottom();
+        }
+      });
+    } else {
+      console.warn('Paramètre idAss manquant ou invalide');
+    }
   }
+  
 
   loadConversation(): void {
     this.isLoading = true;
@@ -126,4 +137,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.messageSub?.unsubscribe();
     this.wsService.disconnect();
   }
+
+  isChatOpen: boolean = false;
+
+toggleChat() {
+  this.isChatOpen = !this.isChatOpen;
+}
+
 }

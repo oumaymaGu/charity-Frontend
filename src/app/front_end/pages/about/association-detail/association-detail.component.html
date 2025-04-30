@@ -70,11 +70,17 @@
   </div>
 </div>
 
-<!-- Bouton vers la messagerie -->
-<div class="mt-4 text-end">
-  <a [routerLink]="['/chat']" [queryParams]="{ associationId: association?.idAss }" class="btn btn-primary btn-lg shadow-sm">
-    <i class="bi bi-chat-dots-fill"></i> Contacter l'administrateur
-  </a>
-  
+
+
+
+
+<div *ngIf="association">
+  <!-- Chat visible uniquement si l'association est chargée -->
+  <app-chat [idAss]="association.idAss"></app-chat>
 </div>
+
+
+
+  
+
 
