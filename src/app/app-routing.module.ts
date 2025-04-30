@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './front_end/pages/home/home.component';
 import { AboutComponent } from './front_end/pages/about/about.component';
+import { ServiceComponent } from './front_end/pages/service/service.component';
 import { ContactComponent } from './front_end/pages/contact/contact.component';
 import { DonateComponent } from './front_end/pages/donate/donate.component';
 import { GalleryComponent } from './front_end/pages/gallery/gallery.component';
@@ -51,6 +52,7 @@ const routes: Routes = [
 
   // Routes pour les autres pages
   { path: 'about', component: AboutComponent },
+  { path: 'service', component: ServiceComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'donate', component: DonateComponent },
   { path: 'gallery', component: GalleryComponent },
@@ -100,5 +102,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
+
 })
 export class AppRoutingModule { }

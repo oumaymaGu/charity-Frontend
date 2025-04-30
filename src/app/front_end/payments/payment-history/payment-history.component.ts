@@ -31,7 +31,7 @@ export class PaymentHistoryComponent implements OnInit {
   }
 
   loadPaymentHistory(): void {
-    this.http.get<Payment[]>('${this.apiUrl}/api/stripe-payments/all', { responseType: 'json' }).subscribe({
+    this.http.get<Payment[]>(`${this.apiUrl}/api/stripe-payments/all`).subscribe({
       next: (data) => {
         // Ajoute la propriété showFullId à chaque paiement
         this.payments = data.map(payment => ({

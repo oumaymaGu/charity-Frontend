@@ -55,46 +55,85 @@
             </div>
         </div>
 
-<div class="material-donation-container">
-  <h2>Add a Material Donation</h2>
-  
-  <form (ngSubmit)="onSubmit()" class="donation-form">
-    <!-- Category -->
-    <div class="form-group">
-      <label>Category:</label>
-      <div class="material-choices">
-        <div *ngFor="let material of materials" class="material-card" 
-             [class.selected]="selectedMaterial === material.name">
-          <input class="form-check-input" type="radio" name="materialType" 
-                 [value]="material.name" (change)="onCategorySelect(material.name)">
-          <label class="form-check-label">
-            <img [src]="material.img" alt="{{material.name}}" class="material-img">
-            <p>{{ material.name }}</p>
-          </label>
+        <div class="material-donation-container">
+          <h2>Ajouter un don matériel</h2>
+          
+          <form (ngSubmit)="onSubmit()" class="donation-form">
+            <!-- Sélection de la catégorie -->
+            <div class="form-group">
+              <label>Catégorie:</label>
+              <div class="material-choices">
+                <div *ngFor="let material of materials" class="material-card" 
+                     [class.selected]="selectedMaterial === material.name">
+                  <input type="radio" name="materialType" 
+                         [value]="material.name" (change)="onCategorySelect(material.name)">
+                  <label>
+                    <img [src]="material.img" [alt]="material.name" class="material-img">
+                    <p>{{ material.name }}</p>
+                  </label>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Section pour les dons normaux -->
+            <div *ngIf="!isMedication">
+              <div class="form-group">
+                <label>Photo du don:</label>
+                <input type="file" (change)="handleFile($event)" accept="image/*" required>
+              </div>
+        
+              <!-- Prévisualisation de l'image -->
+              <div *ngIf="materialDonation.uploadedImagePreview" class="preview-container">
+                <p>Aperçu:</p>
+                <img [src]="materialDonation.uploadedImagePreview" class="preview-img">
+              </div>
+            </div>
+        
+            <!-- Section pour les médicaments -->
+            <div *ngIf="isMedication">
+              <div class="form-group">
+                <label>Scanner le médicament:</label>
+                <input type="file" (change)="handleFile($event, true)" accept="image/*" required>
+                <p class="help-text">Prenez une photo claire de l'emballage du médicament</p>
+              </div>
+        
+              <!-- Prévisualisation du scan -->
+              <div *ngIf="medicationPreviewUrl" class="preview-container">
+                <p>Aperçu:</p>
+                <img [src]="medicationPreviewUrl" class="preview-img">
+              </div>
+        
+              <!-- Indicateur de scan en cours -->
+              <div *ngIf="isScanning" class="scanning-indicator">
+                <div class="spinner"></div>
+                <span>Analyse en cours...</span>
+              </div>
+        
+              <!-- Résultats du scan -->
+              <div *ngIf="medicationInfo" class="medication-info">
+                <h4>Informations détectées:</h4>
+                <div class="info-grid">
+                  <div><strong>Nom:</strong> {{medicationInfo.medicationName || 'Non détecté'}}</div>
+                  <div><strong>N° de lot:</strong> {{medicationInfo.lotNumber || 'Non détecté'}}</div>
+                  <div><strong>Date d'expiration:</strong> {{medicationInfo.expirationDate || 'Non détectée'}}</div>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Messages d'erreur et de succès -->
+            <div *ngIf="errorMessage" class="error-message">
+              {{errorMessage}}
+            </div>
+            <div *ngIf="successMessage" class="success-message">
+              {{successMessage}}
+            </div>
+        
+            <!-- Bouton de soumission -->
+            <button type="submit" class="submit-btn" [disabled]="isSubmitting">
+              {{isSubmitting ? 'Envoi en cours...' : 'Valider le don'}}
+            </button>
+          </form>
         </div>
-      </div>
-    </div>
-
-    <!-- Photo -->
-    <div class="form-group">
-      <label>Photo:</label>
-      <input type="file" (change)="onFileChange($event)" required>
-    </div>
-
-    <!-- Photo Preview -->
-    <div *ngIf="materialDonation.uploadedImagePreview" class="preview-container">
-      <p>Preview:</p>
-      <img [src]="materialDonation.uploadedImagePreview" class="preview-img">
-    </div>
-
-    <!-- Error and Success Messages -->
-    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
-    <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
-
-    <!-- Submit Button -->
-    <button type="submit" class="submit-btn">Add Donation</button>
-  </form>
-</div>
 <!-- ============FOOTER============= -->
 
     

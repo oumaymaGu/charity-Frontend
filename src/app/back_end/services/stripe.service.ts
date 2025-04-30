@@ -101,4 +101,20 @@ export class StripeService {
     const errorMsg = error.error?.message || error.message || 'An unknown error occurred';
     return throwError(() => new Error(errorMsg));
   }
+  // Ajoutez cette méthode à votre service existant
+  generateReceipt(receiptData: {
+    paymentIntentId: string;
+    customerName: string;
+    email: string;
+    amount: number;
+  }): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/receipt/${receiptData.paymentIntentId}`, {
+      params: {
+        customerName: receiptData.customerName,
+        email: receiptData.email,
+        amount: receiptData.amount.toString()
+      },
+      responseType: 'blob' // Corrected this line
+    });
+  }
 }

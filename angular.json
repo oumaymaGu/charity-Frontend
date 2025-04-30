@@ -16,9 +16,20 @@
             "outputPath": "dist/pi_dev",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "allowedCommonJsDependencies": [
+  "sockjs-client",
+  "stripe-js",
+  "@stomp/stompjs",
+  "vm",
+  "crypto-browserify",
+  "buffer",
+  "process"
+],
+"polyfills": [
+  "zone.js",
+  "src/polyfills.ts",
+  "node_modules/vm-browserify/index.js"
+],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -72,6 +83,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pi_dev:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "pi_dev:build:production"

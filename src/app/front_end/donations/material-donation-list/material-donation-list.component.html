@@ -57,44 +57,64 @@
         <div class="donation-list">
           <h2>Material Donations List</h2>
         
-          <!-- Indicateur de chargement -->
-          <div *ngIf="isLoading" class="loading">
-            <div class="spinner"></div>
-            Chargement en cours...
+          <!-- Search and Filter Container -->
+          <div class="search-filter-container">
+            <!-- Search Bar -->
+            <div class="search-bar">
+              <span class="search-icon"></span>
+              <input type="text" placeholder="Search donations..." [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange($event)">
+            </div>
+        
+            <!-- Category Filter -->
+            <div class="category-filter">
+              
+              <select id="category" [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange($event)">
+                <option value="">All Categories</option>
+                <option *ngFor="let category of MaterialCategory | keyvalue" [value]="category.value">
+                  {{ getCategoryLabel(category.value) }}
+                </option>
+              </select>
+            </div>
           </div>
         
-          <!-- Message d'erreur -->
+          <!-- Loading Indicator -->
+          <div *ngIf="isLoading" class="loading">
+            <div class="spinner"></div>
+            Loading...
+          </div>
+        
+          <!-- Error Message -->
           <div *ngIf="errorMessage" class="error-message">
             ⚠️ {{ errorMessage }}
           </div>
         
-          <!-- Liste des dons -->
-          <div *ngIf="!isLoading && donations.length > 0" class="donation-cards">
-            <div *ngFor="let donation of donations" class="donation-card" (click)="goToDetails(donation.idDon)">
-              <!-- Image du don (cliquable) -->
-              <div class="image-container">
+          <!-- Donations List -->
+          <div *ngIf="!isLoading" class="donation-cards">
+            <!-- No Donations Message -->
+            <div *ngIf="filteredDonations.length === 0" class="no-donations">
+              No donations found.
+            </div>
+        
+            <!-- Donation Card -->
+            <div *ngFor="let donation of filteredDonations" class="donation-card">
+              <!-- Donation Image -->
+              <div class="image-container" (click)="goToDetails(donation.idDon)">
                 <img *ngIf="donation.photoUrl" [src]="donation.photoUrl" alt="Donation Image" class="donation-image">
                 <div *ngIf="!donation.photoUrl" class="no-image">
-                  No image available
+                  No Image Available
                 </div>
               </div>
         
-              <!-- Détails du don -->
+              <!-- Donation Details -->
               <div class="donation-details">
-                <p><strong>📅 Date & Time :</strong> {{ formatDateTime(donation.dateDon) }}</p>
-                <p><strong>📦 Category :</strong> {{ donation.category }}</p>
+                <p><span class="icon date-icon"></span><strong>Date:</strong> {{ formatDateTime(donation.dateDon) }}</p>
+                <p><span class="icon category-icon"></span><strong>Category:</strong> {{ donation.category ? getCategoryLabel(donation.category) : 'Not Specified' }}</p>
+                <p><span class="icon quantity-icon"></span><strong>Quantity:</strong> {{ donation.quantity || 1 }}</p>
+        
+                <!-- Contact Button -->
+                
               </div>
             </div>
-          </div>
-        
-          <!-- Message si aucune donation n'est trouvée -->
-          <div *ngIf="!isLoading && donations.length === 0" class="no-donations">
-            No material donations found.
-          </div>
-        
-          <!-- Message si aucun don n'est disponible -->
-          <div *ngIf="!isLoading && donations.length === 0" class="no-donations">
-            No material donations available at the moment.
           </div>
         </div>
  <!-- ============FOOTER============= -->

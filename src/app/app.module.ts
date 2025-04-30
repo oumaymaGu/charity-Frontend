@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +9,7 @@ import { BlogComponent } from './front_end/blog/blog.component';
 import { FooterComponent } from './front_end/footer/footer.component';
 import { TestimonialsComponent } from './front_end/testimonials/testimonials.component';
 import { HomeComponent } from './front_end/pages/home/home.component';
+import { ServiceComponent } from './front_end/pages/service/service.component';
 import { ContactComponent } from './front_end/pages/contact/contact.component';
 import { DonateComponent } from './front_end/pages/donate/donate.component';
 import { GalleryComponent } from './front_end/pages/gallery/gallery.component';
@@ -51,8 +52,28 @@ import { FilterByTypePipe } from 'src/filter-by-type.pipe';
 import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
 import { MaskCardPipe } from './front_end/mask.pipe';
 import { StripeComponent } from './front_end/payments/stripe/stripe.component';
+import { CommonModule } from '@angular/common';
+import { NotificationComponent } from './front_end/notification/notification.component';
+import { NotificationTypePipe } from 'src/app/notification-type.pipe';
+import { ScanMedicamentComponent } from './front_end/ocr/scan-medicament/scan-medicament.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DonorContactComponent } from './front_end/donor-contact/donor-contact.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { PaymentInscriptionComponent } from './front_end/payment-inscription/payment-inscription.component'; // Ensure this path is correct
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RequestListComponent } from './front_end/request-list/request-list.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+    import { MatTooltipModule } from '@angular/material/tooltip';
+
+
+
 import { ToastrModule } from 'ngx-toastr';
 import { EventsLogestiquesComponent } from './back_end/LOG/events-logestiques/events-logestiques.component';
 import { BilletComponent } from './front_end/billet/billet.component';
@@ -73,6 +94,7 @@ import { QRCodeModule } from 'angularx-qrcode';
       FooterComponent,
       TestimonialsComponent,
       HomeComponent,
+      ServiceComponent,
       ContactComponent,
       DonateComponent,
       GalleryComponent,
@@ -111,11 +133,16 @@ import { QRCodeModule } from 'angularx-qrcode';
       PaymentHistoryComponent,
       MaskCardPipe,
       StripeComponent,
+
+      NotificationComponent,
+      ScanMedicamentComponent,
+      DonorContactComponent,
+      RequestListComponent,
       PaymentInscriptionComponent,
       EventsLogestiquesComponent,
       BilletComponent,
-  
-      
+
+
 
 
 
@@ -130,7 +157,27 @@ import { QRCodeModule } from 'angularx-qrcode';
       ToastrModule.forRoot(),
       FormsModule,
       ReactiveFormsModule,
-      QRCodeModule
+      QRCodeModule,
+      NotificationTypePipe,
+      MatIconModule,
+      MatProgressSpinnerModule,
+      MatSnackBarModule,
+      MatCardModule,
+      MatButtonModule,
+      BrowserAnimationsModule,
+      MatTableModule,
+      MatInputModule,
+    MatFormFieldModule,
+    MatTooltipModule
+
+
+
+
+
+
+
+
+
 
     ],
     providers: [
