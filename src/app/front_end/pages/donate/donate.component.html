@@ -170,16 +170,7 @@
             <li><a routerLink="/contact">Contact</a></li>
             <li><a routerLink="/singin">Sign In</a></li>
             <li><a routerLink="/signup">Sign Up</a></li>
-            <li>
-              <a (click)="toggleNotificationsPanel()" class="notification-bell">
-                <i class="material-icons">notifications</i>
-                <ng-container *ngIf="notificationService.getUnreadCount() | async as unreadCount">
-                  <span class="badge" *ngIf="unreadCount > 0">
-                    {{ unreadCount }}
-                  </span>
-                </ng-container>
-              </a>
-            </li>
+           
         </ul>
     </div>
 </div>
@@ -208,57 +199,7 @@
     </div>
 </div>
 
-<!-- ... (contenu existant jusqu'au footer) ... -->
 
-<div class="modern-notifications" *ngIf="showNotificationsPanel">
-  <div class="notifications-header">
-    <h3>Notifications</h3>
-    <div class="header-actions">
-      <button class="clear-all-btn" (click)="clearAllNotifications()">
-        <i class="fas fa-trash-alt"></i> Effacer tout
-      </button>
-      <button class="close-btn" (click)="toggleNotificationsPanel()">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="notifications-list">
-    <div *ngFor="let notification of (filteredNotifications | async)" 
-         class="notification-item"
-         [class.unread]="!notification.isRead">
-      
-      <div class="notification-icon">
-        <i [class]="getNotificationIcon(notification.type)"></i>
-      </div>
-      
-      <div class="notification-content">
-        <div class="notification-title">
-          {{ getNotificationTitle(notification) }}
-          <span class="notification-time">
-            {{ notification.timestamp | date:'HH:mm' }}
-          </span>
-        </div>
-        <div class="notification-message">
-          {{ notification.message }}
-        </div>
-        <div class="notification-date">
-          {{ notification.timestamp | date:'EEEE d MMMM' | titlecase }}
-        </div>
-      </div>
-      
-      <div class="notification-actions">
-        <button class="action-btn delete-btn" (click)="removeNotification($event, notification.id)">
-          <i class="fas fa-trash"></i>
-        </button>
-        <button *ngIf="!notification.isRead" class="action-btn mark-read-btn"
-                (click)="notificationService.markAsRead(notification.id).subscribe()">
-          ✓
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ... (footer existant) ... -->
 
