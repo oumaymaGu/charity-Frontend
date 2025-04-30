@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DonService } from '../../../back_end/services/donation.service';
 import { OcrService } from '../../../back_end/services/ocr.service';
 import { TypeDon, MaterialCategory } from '../../pages/models/donation';
-import { MedicationInfo } from '../../pages/models/medication-info'; // Correct import
+import { MedicationInfo } from '../../pages/models/medication-info';
 
 export interface MaterialDonation {
   category: MaterialCategory;
@@ -36,6 +36,7 @@ export class MaterialDonationComponent {
   scannedImage: File | null = null;
   isScanning = false;
   medicationPreviewUrl: string | ArrayBuffer | null = null;
+  isSubmitting = false;
 
   constructor(
     private donService: DonService,
@@ -67,25 +68,35 @@ export class MaterialDonationComponent {
 
   setErrorMessage(message: string): boolean {
     this.errorMessage = message;
+    console.error('Form validation error:', message);
     return false;
   }
 
-  onFileChange(event: Event): void {
+  handleFile(event: Event, isMedication: boolean = false): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     
     if (file) {
-      this.materialDonation.photo = file;
       const reader = new FileReader();
       reader.onload = () => {
-        this.materialDonation.uploadedImagePreview = reader.result;
+        if (isMedication) {
+          this.scannedImage = file;
+          this.medicationPreviewUrl = reader.result;
+          console.log('Medication image selected:', file.name);
+          this.scanMedication(file);
+        } else {
+          this.materialDonation.photo = file;
+          this.materialDonation.uploadedImagePreview = reader.result;
+          console.log('Material donation image selected:', file.name);
+        }
       };
       reader.readAsDataURL(file);
     }
   }
 
-  onCategorySelect(materialName: string) {
+  onCategorySelect(materialName: string): void {
     this.selectedMaterial = materialName;
+    console.log('Selected material:', materialName);
     switch (materialName) {
       case 'Don Food':
         this.materialDonation.category = MaterialCategory.FOOD;
@@ -105,35 +116,11 @@ export class MaterialDonationComponent {
     }
   }
 
-  handleRegularFile(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    
-    if (file) {
-      this.onFileChange(event);
-    }
-  }
-
-  handleMedicationFile(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    
-    if (file) {
-      this.scannedImage = file;
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.medicationPreviewUrl = reader.result;
-      };
-      reader.readAsDataURL(file);
-      
-      this.scanMedication(file);
-    }
-  }
-
   scanMedication(file: File): void {
     this.isScanning = true;
     this.errorMessage = '';
     this.scanSuccessMessage = null;
+    console.log('Starting medication scan for file:', file.name);
 
     this.ocrService.scanMedication(file).subscribe({
       next: (info: MedicationInfo) => {
@@ -142,33 +129,60 @@ export class MaterialDonationComponent {
           this.medicationInfo = null;
           this.scannedImage = null;
           this.medicationPreviewUrl = null;
+          console.warn('Medication scan failed: Expired or soon to expire:', info.expirationDate);
         } else {
           this.medicationInfo = info;
           this.scanSuccessMessage = `Médicament valide : expire le ${info.expirationDate}. Vous pouvez soumettre le don.`;
+          console.log('Medication scan successful:', info);
         }
         this.isScanning = false;
       },
       error: (err) => {
-        this.errorMessage = 'Erreur lors du scan: ' + err;
+        this.errorMessage = 'Erreur lors du scan: ' + err.message;
         this.isScanning = false;
         this.scannedImage = null;
         this.medicationPreviewUrl = null;
+        console.error('Medication scan error:', err);
       }
     });
   }
 
-  onSubmit() {
-    if (!this.validateForm()) return;
+  onSubmit(): void {
+    if (this.isSubmitting) {
+      console.warn('Submission already in progress. Ignoring duplicate submission.');
+      return;
+    }
+    if (!this.validateForm()) {
+      console.warn('Form validation failed. Submission aborted.');
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.errorMessage = '';
+    this.successMessage = null;
+
+    const donorContact = localStorage.getItem('email') || 'No email provided';
+    const donorName = localStorage.getItem('username') || 'Anonymous';
 
     const donationData = {
       idDon: 0,
-      donorContact: '',
+      donorContact,
+      donorName,
       typeDon: TypeDon.MATERIEL,
       dateDon: new Date().toISOString(),
       heure: new Date().toLocaleTimeString(),
       photoUrl: '',
-      category: this.materialDonation.category
+      category: this.materialDonation.category,
+      ...(this.isMedication && this.medicationInfo ? {
+        medicationName: this.medicationInfo.medicationName,
+        expirationDate: this.medicationInfo.expirationDate,
+        fabricationDate: this.medicationInfo.fabricationDate,
+        lotNumber: this.medicationInfo.lotNumber,
+        productCode: this.medicationInfo.productCode
+      } : {})
     };
+
+    console.log('Submitting donation data:', donationData);
 
     const photoToUpload = this.isMedication ? this.scannedImage : this.materialDonation.photo;
 
@@ -177,14 +191,39 @@ export class MaterialDonationComponent {
         .subscribe({
           next: () => {
             this.successMessage = 'Don ajouté avec succès !';
-            this.errorMessage = '';
-            setTimeout(() => this.router.navigate(['/material-donation-list']), 2000);
+            console.log('Donation submitted successfully');
+            setTimeout(() => {
+              this.router.navigate(['/material-donation-list']);
+              this.resetForm();
+            }, 2000);
           },
           error: (err) => {
-            this.successMessage = null;
-            this.errorMessage = err.error || "Erreur lors de l'ajout du don.";
+            this.errorMessage = err.error?.message || err.message || "Erreur lors de l'ajout du don.";
+            this.isSubmitting = false;
+            console.error('Donation submission error:', err);
           }
         });
+    } else {
+      this.isSubmitting = false;
+      this.setErrorMessage('Aucune photo à uploader.');
+      console.warn('No photo to upload. Submission aborted.');
     }
+  }
+
+  resetForm(): void {
+    this.materialDonation = {
+      category: MaterialCategory.CLOTHES,
+    };
+    this.scannedImage = null;
+    this.medicationPreviewUrl = null;
+    this.medicationInfo = null;
+    this.isMedication = false;
+    this.selectedMaterial = null;
+    this.errorMessage = '';
+    this.successMessage = null;
+    this.scanSuccessMessage = null;
+    this.isScanning = false;
+    this.isSubmitting = false;
+    console.log('Form reset');
   }
 }
