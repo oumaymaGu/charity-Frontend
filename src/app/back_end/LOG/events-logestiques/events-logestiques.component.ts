@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class EventsLogestiquesComponent implements OnInit {
   logestiqueId!: number;
   events: any[] = [];
+  currentLogestiqueId!: number; // Stocke l'ID de la logistique actuelle
 
   constructor(
     private route: ActivatedRoute,
@@ -22,17 +23,21 @@ export class EventsLogestiquesComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.logestiqueId = +(params.get('id')!); 
+      this.currentLogestiqueId = this.logestiqueId; // Stocke l'ID de la logistique actuelle
       this.getEventsForLogestique(this.logestiqueId);
     });
   }
 
   getEventsForLogestique(logestiqueId: number): void {
     this.eventService.getEventsWithLogistics().subscribe((events: any[]) => {
-      
+      console.log('Réponse API complète :', events);
+
       this.events = events.filter(event =>
         event.logestiques && event.logestiques.some((log: { idlogestique: number; }) => log.idlogestique === logestiqueId)
       );
-      
+
+      console.log('Événements filtrés :', this.events);
+
       if (this.events.length === 0) {
         Swal.fire('Aucun événement', 'Aucun événement n\'est assigné à cette logistique.', 'info');
       }
@@ -41,4 +46,5 @@ export class EventsLogestiquesComponent implements OnInit {
       Swal.fire('Erreur', 'Impossible de récupérer les événements.', 'error');
     });
   }
+ 
 }

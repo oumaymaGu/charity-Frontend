@@ -220,6 +220,7 @@ export class PaymentInscriptionComponent  implements OnInit, OnDestroy {
           console.log('User successfully assigned to event after payment:', response);
           // Afficher un message de succès
           this.toastr.success('Paiement effectué avec succès!', 'Succès');
+          
           // Rediriger après un court délai pour permettre à l'utilisateur de voir le message
           setTimeout(() => {
             this.router.navigate([`/billet/${this.userId}/${this.idEvent}`]);

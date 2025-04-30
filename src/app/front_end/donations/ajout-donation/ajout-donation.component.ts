@@ -54,7 +54,7 @@ export class AjoutDonationComponent {
     if (this.donationFrequency) {
       this.donation.donationFrequency = this.donationFrequency;
       // Navigate to payment page with donation data
-      this.router.navigate(['/ajout-payment'], { state: { donation: this.donation } });
+      this.router.navigate(['/stripe-payment'], { state: { donation: this.donation } });
     } else {
       alert("Veuillez sélectionner un type de donation.");
     }
