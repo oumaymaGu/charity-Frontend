@@ -42,6 +42,7 @@ import { ModifierStockComponent } from './back_end/stock/modifier-stock/modifier
 import { AssociationDetailComponent } from './front_end/pages/about/association-detail/association-detail.component';
 import { ChatComponent } from './front_end/pages/components/chat/chat.component';
 import { ChatAdminComponent } from './front_end/pages/chat-admin/chat-admin.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 
 
@@ -98,7 +99,9 @@ import { ChatAdminComponent } from './front_end/pages/chat-admin/chat-admin.comp
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      PickerModule,
+      
 
     ],
     providers: [

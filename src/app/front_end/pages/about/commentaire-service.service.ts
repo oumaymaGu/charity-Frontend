@@ -8,6 +8,7 @@ import { Commentaire } from './Commentaire.models';
 })
 export class CommentaireService {
   private baseUrl = 'http://localhost:8089/api/commentaires';
+  newCommentaire: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -22,4 +23,15 @@ export class CommentaireService {
     
     return this.http.post<Commentaire>(`${this.baseUrl}/add`, {}, { params });
   }
+
+   showEmojiPicker = false;
+
+toggleEmojiPicker() {
+  this.showEmojiPicker = !this.showEmojiPicker;
+}
+
+addEmoji(event: any) {
+  const emoji = event.detail.unicode || event.detail.emoji?.native; // selon la lib
+  this.newCommentaire += emoji;
+}
 }

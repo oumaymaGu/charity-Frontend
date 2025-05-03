@@ -1,10 +1,10 @@
 <!-- Floating Chat Button -->
 <button
-  class="btn btn-primary rounded-circle shadow-lg"
+  class="btn btn-light rounded-circle shadow-lg d-flex align-items-center justify-content-center"
   style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; z-index: 1050;"
   (click)="toggleChat()"
 >
-  <i class="bi bi-chat-dots-fill fs-4"></i>
+  <i class="bi bi-messenger fs-3 text-primary"></i>
 </button>
 
 <!-- Chatbox Container -->
@@ -59,7 +59,6 @@
             style="max-width: 70%; word-wrap: break-word;"
           >
             {{ msg.content }}
-
             <div
               [ngClass]="{
                 'text-end text-white-50': msg.senderId === senderId,
@@ -75,18 +74,46 @@
       </div>
     </div>
 
-    <!-- Input Zone -->
-    <div class="card-footer bg-white py-3 px-4 border-top">
-      <div class="input-group input-box">
-        <input
-          [(ngModel)]="messageContent"
-          type="text"
-          class="form-control rounded-pill shadow-sm px-4"
-          placeholder="Écrivez un message..."
-          (keyup.enter)="send()"
-        />
+    <!-- Input Zone with Emoji embedded inside input -->
+    <div class="card-footer bg-white py-3 px-4 border-top position-relative">
+
+      <!-- Emoji Picker -->
+      <emoji-mart
+        *ngIf="showEmojiPicker"
+        (emojiSelect)="addEmoji($event)"
+        set="google"
+        [ngStyle]="{
+          position: 'absolute',
+          bottom: '60px',
+          right: '55px',
+          zIndex: 2000
+        }"
+      ></emoji-mart>
+
+      <div class="d-flex align-items-center w-100">
+        <!-- Container with relative position -->
+        <div class="position-relative flex-grow-1 me-2">
+          <input
+            [(ngModel)]="messageContent"
+            type="text"
+            class="form-control rounded-pill shadow-sm pe-5 ps-4"
+            placeholder="Écrivez un message..."
+            (keyup.enter)="send()"
+          />
+          <!-- Emoji Button inside input -->
+          <button
+            type="button"
+            class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0"
+            (click)="toggleEmojiPicker()"
+            style="width: 30px; height: 30px;"
+          >
+            😊
+          </button>
+        </div>
+
+        <!-- Send Button -->
         <button
-          class="btn btn-outline-primary rounded-circle ms-2 d-flex align-items-center justify-content-center"
+          class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center"
           style="width: 45px; height: 45px;"
           (click)="send()"
         >

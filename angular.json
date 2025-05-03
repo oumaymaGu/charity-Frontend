@@ -38,6 +38,8 @@
               "src/assets/css/styles.css",
               "src/assets/css/testimonial.css"
               
+        
+              
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -101,6 +103,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ctrl-ngx-emoji-mart/picker.css",
               "src/styles.css"
                 ],
             "scripts": []

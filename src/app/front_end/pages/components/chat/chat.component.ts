@@ -144,4 +144,21 @@ toggleChat() {
   this.isChatOpen = !this.isChatOpen;
 }
 
+showEmojiPicker: boolean = false;
+
+toggleEmojiPicker() {
+  this.showEmojiPicker = !this.showEmojiPicker;
+  console.log('Emoji picker ouvert:', this.showEmojiPicker);
+}
+
+
+addEmoji(event: any) {
+  const emoji = event.emoji.native; // Récupère l'emoji sélectionné
+  this.messageContent = (this.messageContent || '') + emoji; // Ajoute l'emoji au message
+  console.log('Emoji ajouté:', emoji);
+}
+
+
+
+
 }

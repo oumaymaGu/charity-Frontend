@@ -1,64 +1,97 @@
 <div class="container my-5">
-    <div class="card shadow-lg rounded-4 overflow-hidden">
+  <div class="card shadow-lg rounded-4 overflow-hidden">
   
-      <!-- Header -->
-      <div class="card-header bg-white py-3 px-4 d-flex align-items-center justify-content-between">
-        <h5 class="mb-0 text-primary">
-          <i class="bi bi-person-lines-fill me-2"></i>
-          {{ selectedUsername }}
-        </h5>
-        <small class="text-muted" *ngIf="selectedAssId">
-          📎 Association ID: {{ selectedAssId }}
-        </small>
-      </div>
+    <!-- Header -->
+    <div class="card-header bg-white py-3 px-4 d-flex align-items-center justify-content-between">
+      <h5 class="mb-0 text-primary">
+        <i class="bi bi-person-lines-fill me-2"></i>
+        {{ selectedUsername }}
+      </h5>
+      <small class="text-muted" *ngIf="selectedAssId">
+        📎 Association ID: {{ selectedAssId }}
+      </small>
+    </div>
   
-      <!-- Chat Body -->
-      <div id="adminMessageContainer"
-           class="card-body px-4 py-3"
-           style="max-height:450px; overflow-y:auto; background:#f8f9fa;">
-        <div *ngFor="let msg of messages" class="mb-3">
-          <div [ngClass]="{'text-end': msg.senderId===1, 'text-start': msg.senderId!==1}">
-            <small class="text-muted d-block mb-1 fw-bold">
-              {{ msg.senderId===1 ? 'Admin' : msg.senderUsername }}
-            </small>
-            <div [ngClass]="{
-                   'bg-primary text-white ms-auto': msg.senderId===1,
-                   'bg-light text-dark me-auto': msg.senderId!==1
-                 }"
-                 class="px-3 py-2 rounded-pill d-inline-block shadow-sm"
-                 style="max-width:70%; word-wrap:break-word;">
-              {{ msg.content }}
-              <div *ngIf="msg.senderId===1"
-                   class="text-end text-white-50 small mt-1"
-                   style="font-size:0.7rem;">
-                {{ msg.timestamp | date:'shortTime' }}
-              </div>
-              <div *ngIf="msg.senderId!==1"
-                   class="text-start text-muted small mt-1"
-                   style="font-size:0.7rem;">
-                {{ msg.timestamp | date:'shortTime' }}
-              </div>
+    <!-- Chat Body -->
+    <div id="adminMessageContainer"
+         class="card-body px-4 py-3"
+         style="max-height:450px; overflow-y:auto; background:#f8f9fa;">
+      <div *ngFor="let msg of messages" class="mb-3">
+        <div [ngClass]="{'text-end': msg.senderId===1, 'text-start': msg.senderId!==1}">
+          <small class="text-muted d-block mb-1 fw-bold">
+            {{ msg.senderId===1 ? 'Admin' : msg.senderUsername }}
+          </small>
+          <div [ngClass]="{
+                 'bg-primary text-white ms-auto': msg.senderId===1,
+                 'bg-light text-dark me-auto': msg.senderId!==1
+               }"
+               class="px-3 py-2 rounded-pill d-inline-block shadow-sm"
+               style="max-width:70%; word-wrap:break-word;">
+            {{ msg.content }}
+            <div *ngIf="msg.senderId===1"
+                 class="text-end text-white-50 small mt-1"
+                 style="font-size:0.7rem;">
+              {{ msg.timestamp | date:'shortTime' }}
+            </div>
+            <div *ngIf="msg.senderId!==1"
+                 class="text-start text-muted small mt-1"
+                 style="font-size:0.7rem;">
+              {{ msg.timestamp | date:'shortTime' }}
             </div>
           </div>
         </div>
       </div>
+    </div>
   
-      <!-- Input Zone -->
-      <div class="card-footer bg-white py-3 px-4 border-top">
-        <div class="input-group">
-          <input [(ngModel)]="replyContent"
-                 type="text"
-                 class="form-control rounded-pill shadow-sm px-4"
-                 placeholder="Écrivez un message..."
-                 (keyup.enter)="sendReply()">
-          <button class="btn btn-outline-primary rounded-circle ms-2"
-                  style="width:45px; height:45px"
-                  (click)="sendReply()">
+    <!-- Input Zone -->
+    <div class="card-footer bg-white py-3 px-4 border-top">
+      <div class="input-group">
+        <!-- Message Input Field -->
+        <div class="d-flex align-items-center w-100">
+          <!-- Container with relative position -->
+          <div class="position-relative flex-grow-1 me-2">
+            <input
+              [(ngModel)]="replyContent"
+              type="text"
+              class="form-control rounded-pill shadow-sm pe-5 ps-4"
+              placeholder="Écrivez un message..."
+              (keyup.enter)="sendReply()"
+            />
+            <!-- Emoji Button inside input -->
+            <button
+              type="button"
+              class="emoji-button position-absolute top-50 end-0 translate-middle-y me-2 p-0"
+              (click)="toggleEmojiPicker()"
+              style="width: 30px; height: 30px; z-index: 9999;"
+            >
+              😊
+            </button>
+          </div>
+    
+          <!-- Send Button -->
+          <button
+            class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center"
+            style="width: 45px; height: 45px;"
+            (click)="sendReply()"
+          >
             <i class="bi bi-send-fill fs-5"></i>
           </button>
         </div>
       </div>
   
+   <!-- Emoji Picker (only shown when toggled) -->
+<emoji-mart *ngIf="showEmojiPicker"
+(emojiSelect)="addEmoji($event)"
+set="google"
+[ngStyle]="{
+  'position': 'absolute',
+  'bottom': '60px',
+  'right': '20px',
+  'z-index': '9999'
+}">
+</emoji-mart>
+
+      
     </div>
   </div>
-  
+</div>

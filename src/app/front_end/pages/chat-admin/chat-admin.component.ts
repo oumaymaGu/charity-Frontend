@@ -120,4 +120,20 @@ export class ChatAdminComponent implements OnInit, OnDestroy {
     this.messageSub?.unsubscribe();
     this.wsService.disconnect();
   }
+
+  showEmojiPicker: boolean = false;
+
+toggleEmojiPicker() {
+  this.showEmojiPicker = !this.showEmojiPicker;
+  console.log('Emoji picker ouvert:', this.showEmojiPicker);
+}
+
+
+addEmoji(event: any) {
+  const emoji = event.emoji.native; // Récupère l'emoji sélectionné
+  this.replyContent = (this.replyContent || '') + emoji; // Ajoute l'emoji au message
+  console.log('Emoji ajouté:', emoji);
+}
+
+  
 }

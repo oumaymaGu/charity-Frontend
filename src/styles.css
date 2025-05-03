@@ -1,7 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+
+
 /*@import "bootstrap/dist/css/bootstrap.min.css";*/
 
-@charset "UTF-8";
+
 /*!
 * Start Bootstrap - SB Admin v7.0.7 (https://startbootstrap.com/template/sb-admin)
 * Copyright 2013-2023 Start Bootstrap
@@ -13,6 +16,14 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+ /**** Styles personnalisés pour emoji-mart ****/
+ .emoji-mart {
+  max-height: 300px; /* Limite la hauteur */
+  overflow-y: scroll; /* Active le défilement vertical */
+}
+
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -386,7 +397,11 @@ button,
 [type=button],
 [type=reset],
 [type=submit] {
-  -webkit-appearance: button;
+-webkit-appearance: button;
+appearance: button;
+appearance: button;
+appearance: button;
+ appearance: button;
 }
 button:not(:disabled),
 [type=button]:not(:disabled),
@@ -445,6 +460,7 @@ legend + * {
 [type=search] {
   outline-offset: -2px;
   -webkit-appearance: textfield;
+  appearance: textfield;
 }
 
 /* rtl:raw:
