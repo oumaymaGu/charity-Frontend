@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Humanity</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/demo.css" />
+    <link rel="stylesheet" href="/assets/css/testimonial.css" />
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <style>
+        .event-description {
+            font-size: 1.2em;
+        }
+        .event-name {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+<div class="header container">
+  <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
+    <a rel="home" routerLink="/home">
+      <img src="/assets/img/logo.png" width="200" alt="logo">
+    </a>
+  </div>
+</div>
+<div class="navbar" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/about">Associations</a></li>
+            <li><a routerLink="/service">Logements</a></li>
+            <li><a routerLink="/gallery">Delivery</a></li>
+            <li class= "hidden-xs hidden-sm">
+             <a rel="home" routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
+            </li>
+            <li class="selected"><a routerLink="/event">Events</a></li>
+            <li><a routerLink="/team">Testimonials</a></li>
+            <li><a routerLink="/donate">Donate</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
+            <li ><a routerLink="/join">Sign In</a></li>
+            
+        </ul>
+    </div>
+</div>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Humanity - Events</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>
+    <div class="header container">
+        <div class="header-text">Our <span>Events</span></div>
+    </div>
+
+    <div class="card-container">
+        <!-- Loop through events -->
+        <div class="card" *ngFor="let event of events">
+            <img [src]="event.photoEvent" class="card-img-top" alt="{{ event.nomEvent }}">
+            <div class="card-body">
+                <h3 class="card-title">{{ event.nomEvent }}</h3>
+                <p class="card-text">{{ event.description }}</p>
+                <p class="card-text">
+                    <small class="text-muted">{{ event.dateEvent | date }}</small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">{{ event.lieu }}</small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">{{ event.prixevent }} dt</small>
+                </p>
+
+                <!-- Show a message if the event is in the past -->
+                <div *ngIf="isEventInPast(event.dateEvent)" class="alert-warning">
+                    This event has already passed.
+                </div>
+            </div>
+            <div class="card-footer" *ngIf="!isEventInPast(event.dateEvent)">
+                <button (click)="viewEventDetails(event)" class="btn-info">More Info</button>
+                <button (click)="rejoindreEvent(event.idEvent)" class="btn-primary">Join</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button to find nearby events -->
+    <div class="text-center" style="margin-top: 30px;">
+        <button (click)="findEventsNearMe()" class="btn-info">
+            <i class="fa fa-map-marker"></i> Find Events Near Me
+        </button>
+    </div>
+
+    <!-- Map component to display nearby events -->
+    <div class="map-container">
+        <app-map [eventsNearby]="filteredEvents"></app-map>
+    </div>
+
+    <script src="/assets/js/bootstrap.min.js"></script>
+</body>
+

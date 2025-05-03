@@ -1,0 +1,38 @@
+/* Barre de navigation */
+.navbar {
+  padding: 10px;
+  overflow: visible;
+  position: relative;
+  z-index: 10;
+}
+
+/* Cloche de notification */
+.notification-bell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.notification-bell .badge {
+  position: absolute;
+  top: 3px; /* <-- Avant : -5px ou -8px */
+  right: -5px;
+  background-color: #ff5252;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  border: 2px solid white;
+  z-index: 100;
+}
+
+
+/* Parents globaux potentiellement bloquants */
+body, html, .layout-container, #layoutSidenav, .topbar {
+  overflow: visible !important;
+  position: relative;
+  z-index: 1;
+}

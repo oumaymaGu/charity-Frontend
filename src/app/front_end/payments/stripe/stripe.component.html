@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Humanity</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" routerLink="/assets/css/bootstrap.min.css">
+        <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link routerLink="/assets/css/styles.css" rel="stylesheet">
+        <link rel="stylesheet" routerLink="/assets/css/demo.css" />
+        <link rel="stylesheet" routerLink="/assets/css/testimonial.css" />
+        <link rel="stylesheet" routerLink="/assets/css/font-awesome.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+    <div class="header container">
+      <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
+        <a rel="home" routerLink="/home">
+          <img src="/assets/img/logo.png" width="200" alt="logo">
+        </a>
+      </div>
+    </div>
+        <div class="navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a routerLink="/home">Home</a></li>
+                    <li><a routerLink="/about">Associations</a></li>
+                    <li><a routerLink="/service">Logements</a></li>
+                    <li class="selected"><a routerLink="/gallery">Delivery</a></li>
+                    <li class= "hidden-xs hidden-sm">
+                     <a rel="home" routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
+                    </li>
+                    <li><a routerLink="/event">Events</a></li>
+                    <li><a routerLink="/team">Testimonials</a></li>
+                    <li><a routerLink="/donate">Donate</a></li>
+                    <li><a routerLink="/contact">Contact</a></li>
+                    <li ><a routerLink="/singin">Sign In</a></li>
+                    <li ><a routerLink="/signup">Sign Up</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="payment-container">
+          <div *ngIf="!paymentSuccess" class="payment-form">
+            <h2>Secure Payment</h2>
+            
+            <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+              <!-- Amount -->
+              <div class="form-group">
+                <label for="amount">Amount (€)</label>
+                <input type="number" id="amount" formControlName="amount" step="0.01" min="1" class="form-input">
+                <div class="error-message" 
+                     *ngIf="paymentForm.get('amount')?.invalid && (paymentForm.get('amount')?.dirty || paymentForm.get('amount')?.touched)">
+                  <div *ngIf="paymentForm.get('amount')?.errors?.['required']">This field is required</div>
+                  <div *ngIf="paymentForm.get('amount')?.errors?.['min']">Minimum €1 required</div>
+                </div>
+              </div>
+              
+              <!-- Full Name -->
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" formControlName="name" class="form-input" placeholder="As shown on the card">
+                <div class="error-message" 
+                     *ngIf="paymentForm.get('name')?.invalid && (paymentForm.get('name')?.dirty || paymentForm.get('name')?.touched)">
+                  This field is required
+                </div>
+              </div>
+              
+              <!-- Email -->
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" formControlName="email" class="form-input" placeholder="Your receipt will be sent here">
+                <div class="error-message" 
+                     *ngIf="paymentForm.get('email')?.invalid && (paymentForm.get('email')?.dirty || paymentForm.get('email')?.touched)">
+                  <div *ngIf="paymentForm.get('email')?.errors?.['required']">This field is required</div>
+                  <div *ngIf="paymentForm.get('email')?.errors?.['email']">Invalid email</div>
+                </div>
+              </div>
+        
+              <!-- Description (hidden with default value) -->
+              <input type="hidden" formControlName="description">
+        
+              <!-- Stripe Card Details -->
+              <div class="form-group">
+                <label>Card Details</label>
+                <div id="card-element" class="card-element"></div>
+                <div *ngIf="cardError" class="error-message">{{ cardError }}</div>
+              </div>
+              
+              <!-- Submit Button -->
+              <button type="submit" [disabled]="paymentForm.invalid || loading" class="payment-button">
+                <span *ngIf="!loading">Pay {{ paymentForm.get('amount')?.value | currency:'EUR':'symbol':'1.2-2' }}</span>
+                <span *ngIf="loading">
+                  <span class="spinner"></span> Processing...
+                </span>
+              </button>
+              
+              <!-- General Error Message -->
+              <div *ngIf="errorMessage" class="error-message">
+                <i class="icon-warning">⚠️</i> {{ errorMessage }}
+              </div>
+            </form>
+          </div>
+          
+          <!-- Payment Confirmation -->
+          <div *ngIf="paymentSuccess" class="success-container">
+            <div class="success-content">
+              <div class="success-icon">✓</div>
+              <h3>Payment Successful!</h3>
+              <p>Thank you for your contribution.</p>
+              <p class="amount-receipt">Amount: <strong>{{ paymentForm.get('amount')?.value | currency:'EUR':'symbol':'1.2-2' }}</strong></p>
+              <button (click)="downloadReceipt()" class="download-button">Download Receipt</button>
+            </div>
+          </div>
+        </div>
+<!-- ============FOOTER============= -->
+
+    
+<footer id="footer"> 
+  <div class="footer-content container">
+      <div class="footer-adress text-center col-xs-12 col-sm-4 col-md-4">
+          <h4>Great love for humanity</h4>
+          <ul class="footer-menus">
+            <li>Home /</li>
+            <li>About </li><br />
+            <li>Service /</li>
+            <li>Gallery /</li>
+            <li>Contact</li>
+          </ul>
+      </div>
+      <div class="footer-second col-xs-12 col-sm-4 col-md-4">
+        <div class="social-block text-center">
+          <div class="social-share">
+            <i class="fa fa-2x fa-facebook"></i>
+            <i class="fa fa-2x  fa-twitter"></i>
+            <i class="fa fa-2x  fa-google-plus"></i>
+            <i class="fa fa-2x  fa-instagram"></i>
+          </div>
+        </div>
+         <p class="text-center footer-text1">123 456 7890</p>
+          <p class="text-center footer-text">humanity@shuvohabib.com</p></div>
+      <div class="footer-third col-xs-12 col-sm-4 col-md-4">
+        <div class="copyright">
+            <span>Copyright 2014 Theme</span><br>
+            <span>All Rights Reserved</span>
+        </div>
+      </div>
+  </div>
+  <div class="move-top-page">
+</div>
+</footer>
+
+<!-- script references -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/nav-hover.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<!-- Place in the <head>, after the three links -->
+<script>
+$('.testimonials-slider').bxSlider({
+slideWidth: 800,
+minSlides: 1,
+maxSlides: 1,
+slideMargin: 32,
+auto: true,
+autoControls: true
+});
+</script>
+<script type="text/javascript">
+</script>
+</body>
+</html>
+
+  

@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <h2>Événements assignés à la logistique</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom de l'événement</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.nomEvent }}</td>
+          <td>{{ event.dateEvent | date:'dd/MM/yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
