@@ -25,6 +25,7 @@ import { DashboardComponent } from './back_end/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AjoutEventComponent } from './front_end/Events/ajout-event/ajout-event.component';
 import { FormsModule } from '@angular/forms';
+
 import { EditEventComponent } from './front_end/Events/edit-event/edit-event.component';
 import { EventPageComponent } from './front_end/Events/event-page/event-page.component';
 import { EventDetailsComponent } from './front_end/Events/event-details/event-details.component';
@@ -42,6 +43,8 @@ import { EditTemoinageComponent } from './components/edit-temoinage/edit-temoina
 import { TemoinageListComponent } from './components/temoinage-list/temoinage-list.component';
 import { CommonModule } from '@angular/common';
 import { ReclamComponent } from './back_end/dashboard/reclam/reclam.component';
+import { TemoinagesPublicComponent } from './temoinages-public/temoinages-public.component';
+
 
  // Importez le composant
 
@@ -89,6 +92,7 @@ import { ReclamComponent } from './back_end/dashboard/reclam/reclam.component';
       EditTemoinageComponent,
       TemoinageListComponent,
       ReclamComponent,
+      TemoinagesPublicComponent,
       
       
       
@@ -101,6 +105,7 @@ import { ReclamComponent } from './back_end/dashboard/reclam/reclam.component';
       HttpClientModule,
       FormsModule,
       CommonModule,
+      
       
 
     ],

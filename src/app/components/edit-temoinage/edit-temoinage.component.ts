@@ -22,7 +22,9 @@ export class EditTemoinageComponent implements OnInit {
     localisation: '',
     note: 0,
     categorie: '',
-    contact: ''
+    contact: '',
+    description_en: '',
+    id:0,
   };
   selectedFile: File | null = null;
 
@@ -55,12 +57,12 @@ export class EditTemoinageComponent implements OnInit {
       // Handle file upload if necessary
     }
 
-    this.temoinageService.updateTemoinage(this.temoinage).subscribe(
-      (data: Temoinage) => {
-        console.log('Témoignage mis à jour avec succès', data);
-        this.router.navigate(['/temoinages']);
+    this.temoinageService.updateTemoinage( this.temoinage).subscribe(
+      (response) => {
+        console.log('Témoignage mis à jour avec succès', response);
+        // Ajoutez ici une logique supplémentaire si nécessaire
       },
-      (error: any) => {
+      (error) => {
         console.error('Erreur lors de la mise à jour du témoignage', error);
       }
     );

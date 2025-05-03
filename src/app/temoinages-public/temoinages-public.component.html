@@ -33,59 +33,36 @@
       </ul>
     </div>
   </div>
-  
-  <!-- Main Content: Add Testimonial Form -->
-  <div class="form-container">
-    <h2>Add Testimonial</h2>
-    <form (ngSubmit)="saveTemoinage()">
-      <label>Name:</label>
-      <input type="text" [(ngModel)]="temoinage.nom" name="name" placeholder="your name" required>
-  
-      <label>Description:</label>
-      <textarea [(ngModel)]="temoinage.description" name="description" placeholder="Write your experience" required></textarea>
-      
-      <button type="button" class="btn-translate" (click)="traduireDescription()">Traduire en anglais</button>
-      
-  
-      
-  
-      <label>Photo:</label>
-      <input type="file" (change)="onFileSelected($event)">
-  
-      <label>Rate:</label>
-      <select [(ngModel)]="temoinage.note" name="note" required>
-        <option value="1">⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="3">⭐⭐⭐</option>
-        <option value="4">⭐⭐⭐⭐</option>
-        <option value="5">⭐⭐⭐⭐⭐</option>
-      </select>
-  
-      <label>Category:</label>
-      <select [(ngModel)]="temoinage.categorie" name="categorie" required>
-        <option value="Logement">Donor</option>
-        <option value="Santé">Beneficiary</option>
-        
-        <option value="Autre">Autre</option>
-      </select>
-  
-      <label>Contact (facultatif):</label>
-      <input type="email" [(ngModel)]="temoinage.contact" name="contact" placeholder="Email or phone">
-  <!-- 🎤 Section Enregistrement Vocal -->
-<div class="mb-3">
-  <label>🎙️ Enregistrement vocal (optionnel)</label>
-  <div>
-    <button type="button" class="btn btn-primary" (click)="startRecording()" [disabled]="isRecording">Démarrer</button>
-    <button type="button" class="btn btn-danger" (click)="stopRecording()" [disabled]="!isRecording">Arrêter</button>
+ <!-- Main Content -->
+<div class="container mt-5">
+  <h2 class="text-center mb-5 display-4 text-uppercase text-gradient">🌟 Témoignages Approuvés 🌟</h2>
+  <div class="row">
+    <div *ngFor="let t of temoinages" class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 h-100">
+        <!-- Affichage de l'image si disponible -->
+        <div *ngIf="t.photo" class="card-img-top position-relative overflow-hidden">
+          <img [src]="t.photo" alt="photo" class="img-fluid rounded-top" style="max-height: 200px; object-fit: cover;">
+          <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+            <span class="badge bg-primary text-white p-2 rounded-pill">🌟 {{ t.note }}/5</span>
+          </div>
+        </div>
+
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-center text-uppercase text-primary fw-bold">{{ t.categorie }}</h5>
+          <p class="card-text text-secondary text-center">{{ t.nom }}</p>
+          <p class="card-text text-muted text-justify">{{ t.description }}</p>
+          <small class="text-muted mt-auto text-center">Par : {{ t.contact || 'Anonyme' }}</small>
+        </div>
+
+        <div class="card-footer bg-gradient text-center">
+          <button class="btn btn-outline-light btn-sm" (click)="lireTemoinage(t)">🎧 Écouter</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <audio *ngIf="audioUrl" [src]="audioUrl" controls></audio>
 </div>
 
-      <button type="submit" class="btn-ajouter">Add</button>
-    </form>
-  </div>
- 
-
+  
   <!-- Footer -->
   <footer id="footer">
     <div class="footer-content container">

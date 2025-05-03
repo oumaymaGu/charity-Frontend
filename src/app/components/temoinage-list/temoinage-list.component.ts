@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TemoinageService } from 'src/app/services/temoinage.service';
 import { Temoinage } from 'src/app/front_end/pages/models/temoinage';
+import { HttpClient } from '@angular/common/http';
+import { TemoinageStatut } from 'src/app/front_end/pages/models/TemoinageStatut';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-temoinage-list',
@@ -12,16 +17,17 @@ export class TemoinageListComponent implements OnInit {
   newComment: string = '';
   notification: string = '';
 
-  constructor(private temoinageService: TemoinageService) {}
+  constructor(private temoinageService: TemoinageService , private http: HttpClient,private router: Router) {}
 
   ngOnInit(): void {
     this.loadTemoinages();
-  }
+    }
 
   // Charger les témoignages depuis l'API
   loadTemoinages(): void {
     this.temoinageService.getTemoinages().subscribe(
       (data) => {
+        console.log("Témoignages reçus:", data);
         this.temoinages = data;
       },
       (error) => {
@@ -30,6 +36,23 @@ export class TemoinageListComponent implements OnInit {
       }
     );
   }
+  accepterTemoinage(temoinage: any) {
+    temoinage.statut = TemoinageStatut.ACCEPTE;
+  
+    this.temoinageService.updateTemoinage(temoinage).subscribe(() => {
+      // ✅ Après mise à jour, rediriger vers la page publique
+      this.router.navigate(['/temoinages-public']);
+    });
+  }
+  
+  
+  refuserTemoinage(temoinage: any) {
+    temoinage.statut = 'REFUSE';
+    this.temoinageService.updateTemoinage( temoinage).subscribe(() => {
+      this.loadTemoinages(); // Recharge la liste après mise à jour
+    });
+  }
+  
 
   // Suppression d'un témoignage
   deleteTemoinage(temoinage: Temoinage): void {
@@ -74,5 +97,9 @@ lireTemoinage(temoinage: any) {
   const utterance = new SpeechSynthesisUtterance(temoinage.description);
   synth.speak(utterance);
 }
+getTemoinagesAcceptes() {
+  return this.http.get<any[]>('http://localhost:8089/temoinages/acceptes');
+}
+
 
 }

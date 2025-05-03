@@ -29,6 +29,7 @@ import { TemoinageListComponent } from './components/temoinage-list/temoinage-li
 import { AddTemoinageComponent } from './components/add-temoinage/add-temoinage.component';
 import { EditTemoinageComponent } from './components/edit-temoinage/edit-temoinage.component';
 import { ReclamComponent } from './back_end/dashboard/reclam/reclam.component';
+import { TemoinagesPublicComponent } from './temoinages-public/temoinages-public.component';
 // app-routing.module.ts
 
 
@@ -71,8 +72,9 @@ const routes: Routes = [
   { path: 'edit-tem', component: EditTemoinageComponent },
   
   { path: 'reclam', component: ReclamComponent },
-  
-{ path: '**', redirectTo:"" , pathMatch: 'full' }
+  { path: 'temoinages-public', component: TemoinagesPublicComponent },
+{ path: '**', redirectTo:"" , pathMatch: 'full' },
+
 
 ];
 

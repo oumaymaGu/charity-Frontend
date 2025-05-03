@@ -41,27 +41,63 @@
       <label for="nom">Name</label>
       <input id="nom" [(ngModel)]="livraison.nom" name="nom" required>
   
-      <label for="adresseLivr">Adresse</label>
-      <input id="adresseLivr" [(ngModel)]="livraison.adresseLivr" name="adresseLivr" required>
+      <div class="form-group">
+        <label for="adresse">Adresse</label>
+        <input type="text" id="adresse" [(ngModel)]="address" [ngModelOptions]="{standalone: true}" (ngModelChange)="logAddressChange($event)" name="adresse" class="form-control" placeholder="Entrez l'adresse de départ (ex: 123 Rue de Rivoli, Paris)">
+      </div>
+      <button type="button" (click)="estimateDeliveryTime()" class="btn btn-info">Estimer le Temps</button>
+      <div *ngIf="estimatedTime" class="mt-2">
+        Temps estimé : {{ estimatedTime }}
+      </div>
+      <div *ngIf="errorMessage" class="mt-2 text-danger">
+        {{ errorMessage }}
+      </div>
+      
   
       <label for="dateLivraison">Date</label>
       <input id="dateLivraison" type="date" [(ngModel)]="livraison.dateLivraison" name="dateLivraison" required>
-      <label for="emailClient">Email</label>
-      <input id="emailClient" type="email" [(ngModel)]="livraison.emailClient" name="emailClient" required>
-      
+  <label for="emailClient">Email</label>
+<input id="emailClient" type="email" [(ngModel)]="livraison.emailClient" name="emailClient" required>
+
       <label for="etatLivraisons">État</label>
       <select [(ngModel)]="livraison.etatLivraisons" name="etatLivraisons" required>
         <option value="ENCOURS">In Progress</option>
         <option value="LIVREE">Delivered</option>
         <option value="ANNULEE">Cancelled</option>
       </select>
+      <!-- Affichage de l'image -->
+<img *ngIf="randomImageUrl" [src]="randomImageUrl" alt="Random Image" class="img-fluid" />
+
+<!-- Formulaire de livraison -->
+<form (ngSubmit)="saveLivraison()">
+  <!-- Ton formulaire ici -->
+   <button type="button" (click)="loadRandomImage()">Change Image</button>
+
   
+</form>
+<h3>Signature du client :</h3>
+<canvas #canvas width="400" height="200" style="border:1px solid black;"></canvas>
+<br>
+<button (click)="signaturePad.clear()">Effacer la signature</button>
+
+
+<!-- Messages de succès ou erreur -->
+<div *ngIf="successMessage" class="success">
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</div>
+
+
       <label for="confirm">Confirm</label>
       <input type="checkbox" [(ngModel)]="confirmChecked" name="confirm" required>
   
       <button type="submit">Add</button>
+      <button *ngIf="displayedReceipt" (click)="generatePDF()">Télécharger le Reçu PDF</button>
     </form>
-  
+   
     <!-- Button to access payment page -->
     <button class="btn btn-secondary" style="margin-top: 10px;">
       <i class="fa fa-arrow-right"></i> Go to Payment
@@ -80,8 +116,6 @@
     <p><strong>Address:</strong> {{ displayedReceipt.adresseLivr }}</p>
     <p><strong>Date:</strong> {{ displayedReceipt.dateLivraison }}</p>
     <p><strong>Status:</strong> {{ displayedReceipt.etatLivraisons }}</p>
-    <p><strong>Email:</strong> {{ displayedReceipt.emailClient }}</p>
-
     <button class="btn btn-primary" [routerLink]="['/edit-liv', displayedReceipt.idLivr]">Edit</button>
   </div>
   <h2>Suivi de Livraison</h2>

@@ -16,6 +16,8 @@
             <th>Address</th>
             <th>State</th>
             <th>Actions</th>
+            <th>PIN Code</th>
+
           </tr>
         </thead>
         <tbody>
@@ -23,6 +25,10 @@
             <td>{{ livraison.nom }}</td>
             <td>{{ livraison.adresseLivr }}</td>
             <td>{{ livraison.etatLivraisons }}</td>
+            
+
+            <td><img *ngIf="livraison.signatureImage" [src]="livraison.signatureImage" alt="Signature" width="150"></td>
+            <td>{{ livraison.pinCode }}</td>
             <td>
               <button class="btn btn-danger" (click)="deleteLivraison(livraison.idLivr)">Delete</button>
               <!-- Button for confirmation -->

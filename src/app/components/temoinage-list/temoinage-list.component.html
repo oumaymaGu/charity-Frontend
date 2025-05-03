@@ -13,6 +13,7 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Photo</th>
             <th>Statut</th>
             <th>Description</th>
             <th>Actions</th>
@@ -21,12 +22,35 @@
         <tbody>
           <tr *ngFor="let temoinage of temoinages">
             <td>{{ temoinage.nom }}</td>
+            <td>
+              
+              <img src="http://localhost:8089/images/logo.png" alt="Logo">
+
+
+
+
+
+
+
+            </td>
             <td>{{ temoinage.statut }}</td>
             <td>
               <p>{{ temoinage.description }}</p>
-              <button class="btn btn-warning" (click)="lireTemoinage(temoinage)">🔊 Lire</button>
+            
+              <audio *ngIf="temoinage.audioUrl" 
+                     [src]="'http://localhost:8089/uploads/audio/' + temoinage.audioUrl" 
+                     controls
+                     style="margin-top: 10px; width: 100%;">
+              </audio>
+            
+              <p *ngIf="!temoinage.audioUrl"><i>Aucun fichier audio</i></p>
+            
+              <button class="btn btn-warning mt-2" (click)="lireTemoinage(temoinage)">🔊 Lire</button>
             </td>
+            
             <td>
+              <button class="btn btn-success me-2" (click)="accepterTemoinage(temoinage)">Accepter</button>
+              <button class="btn btn-secondary me-2" (click)="refuserTemoinage(temoinage)">Refuser</button>
               <button class="btn btn-danger" (click)="deleteTemoinage(temoinage)">Supprimer</button>
             </td>
           </tr>

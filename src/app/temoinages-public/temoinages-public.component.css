@@ -1,0 +1,47 @@
+/* Effet d'ombre et transition pour les cartes */
+.card {
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Overlay sur l'image */
+  .overlay {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .card-img-top:hover .overlay {
+    opacity: 1;
+  }
+  
+  /* Titre principal */
+  .text-gradient {
+    background: linear-gradient(90deg, #00aeff, #2ecae5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Footer de la carte */
+  .card-footer {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border-top: none;
+  }
+  
+  /* Bouton dans le footer */
+  .btn-outline-light {
+    border-color: white;
+    color: white;
+  }
+  
+  .btn-outline-light:hover {
+    background-color: white;
+    color: #6a11cb;
+  }
+  

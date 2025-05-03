@@ -31,7 +31,17 @@ export class TemoinageService {
     return this.http.get<Temoinage>(`${this.apiUrl}/get-temoinage/${id}`);
   }
 
+ 
   updateTemoinage(temoinage: Temoinage): Observable<Temoinage> {
-    return this.http.put<Temoinage>(`${this.apiUrl}/update-temoinage`, temoinage);
+    return this.http.put<Temoinage>('http://localhost:8089/temoinage/temoinage/update-temoinage', temoinage);
   }
+  
+  getTemoinagesPublic(): Observable<Temoinage[]> {
+    return this.http.get<Temoinage[]>('http://localhost:8089/temoinage/public');
+  }
+  getTemoinagesAcceptes(): Observable<Temoinage[]> {
+    return this.http.get<Temoinage[]>(`${this.apiUrl}/public`);
+  }
+  
+  
 }

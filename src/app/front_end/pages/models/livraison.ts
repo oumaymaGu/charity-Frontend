@@ -5,6 +5,9 @@ export interface Livraisons {
     dateLivraison: Date;
     etatLivraisons: 'ENCOURS' | 'LIVREE' | 'ANNULEE';
     emailClient: string; // 👈 ajouté ici
+    signatureImage?: string; 
+    pinCode?: string;      // <-- nouveau champ (optionnel)
+    enteredPin?: string;
     
   }
   

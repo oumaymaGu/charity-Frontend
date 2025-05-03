@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators'; // Ajoutez cette ligne
+import { tap } from 'rxjs/operators';
 import { Livraisons } from 'src/app/front_end/pages/models/livraison';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LivraisonService {
-  private apiUrl = 'http://localhost:8089/livraison'; // URL de l'API Spring Boot
+  private apiUrl = 'http://localhost:8089/livraison';
+  private baseUrl = 'http://localhost:8089/livraison';
   private livraisonAddedSource = new Subject<Livraisons>();
+  private stompClient: any;
 
   livraisonAdded$ = this.livraisonAddedSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+   
+  }
 
+ 
   getAllLivraisons(): Observable<Livraisons[]> {
     return this.http.get<Livraisons[]>(`${this.apiUrl}/retrieve-all-Livraison`);
   }
@@ -35,5 +42,15 @@ export class LivraisonService {
 
   getLivraisonById(id: number): Observable<Livraisons> {
     return this.http.get<Livraisons>(`${this.apiUrl}/get-livraison/${id}`);
+  }
+
+  updateLivraisonStatus(livraison: Livraisons): Observable<Livraisons> {
+    return this.http.put<Livraisons>(`${this.baseUrl}/modifyLivraison`, livraison);
+  }
+
+  downloadRecu(idLivr: number): Observable<Blob> {
+    return this.http.get(`http://localhost:8089/pdf/recu/${idLivr}`, {
+      responseType: 'blob'
+    });
   }
 }
