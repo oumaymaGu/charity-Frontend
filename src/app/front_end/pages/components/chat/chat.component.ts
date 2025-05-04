@@ -31,6 +31,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   senderUsername = '';
   isLoading = false;
   private messageSub?: Subscription;
+  audio = new Audio('assets/message.mp3');
+
 
   constructor(
     private wsService: WebSocketService,
@@ -65,6 +67,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         ) {
           this.messages.push(msg);
           this.scrollToBottom();
+          
         }
       });
     } else {

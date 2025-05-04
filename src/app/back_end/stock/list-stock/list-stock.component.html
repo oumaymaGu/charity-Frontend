@@ -1,6 +1,5 @@
 <app-navbar></app-navbar>
 
-<!-- Sidebar -->
 <div class="col-md-3 sidebar">
   <app-sidebar></app-sidebar>
 </div>
@@ -12,17 +11,14 @@
     ❌ {{ error }}
   </div>
 
-  <!-- Zone de recherche -->
   <div class="mb-3">
     <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Search by ID" (input)="searchStock()" />
   </div>
 
-  <!-- Spinner de chargement -->
   <div *ngIf="loading" class="spinner-border" role="status">
     <span class="sr-only">Chargement...</span>
   </div>
 
-  <!-- Tableau des stocks -->
   <table *ngIf="!loading && stocks.length > 0" class="table table-bordered table-striped table-hover shadow-sm">
     <thead class="table-primary">
       <tr>
@@ -35,13 +31,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let stock of stocks">
-        <td>{{ stock.capaciteTotale }}</td>
+        <td>{{ stock.capaciteDisponible }}</td>
         <td>{{ stock.typeStock }}</td>
         <td>{{ stock.lieu }}</td>
         <td>{{ stock.associations?.nomAss || 'Non affectée' }}</td>
         <td>
           <button class="btn btn-sm btn-outline-success me-2" (click)="modifierStock(stock)">✏ Modifier</button>
           <button class="btn btn-sm btn-outline-danger" (click)="deleteStock(stock.idStock)">🗑 Supprimer</button>
+          <button class="btn btn-sm btn-outline-warning" (click)="ouvrirModaleRetrait(stock)">🛒 Retrait</button>
         </td>
       </tr>
     </tbody>
@@ -51,6 +48,14 @@
     😕 Aucun stock disponible.
   </div>
 </div>
+
+<app-stock-retrait
+  *ngIf="stockSelectionnePourRetrait"
+  [stock]="stockSelectionnePourRetrait"
+  (retraitEffectue)="refreshStocks()"
+  (fermerModal)="fermerModaleRetrait()">
+</app-stock-retrait>
+
 
 
 <style>
@@ -130,3 +135,7 @@
     margin: 0 auto;
   }
 </style>
+
+
+
+

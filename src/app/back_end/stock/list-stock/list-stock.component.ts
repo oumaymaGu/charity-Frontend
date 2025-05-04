@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 interface Stock {
   idStock: number;
   capaciteTotale: number;
+  capaciteDisponible: number;
   typeStock: string;
   lieu: string;
   associations?: {
@@ -12,9 +13,6 @@ interface Stock {
     nomAss: string;
   };
 }
-
-
-
 
 @Component({
   selector: 'app-list-stock',
@@ -26,6 +24,8 @@ export class ListStockComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
   searchTerm: string = '';
+
+  stockSelectionnePourRetrait: any = null;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -87,6 +87,23 @@ export class ListStockComponent implements OnInit {
         });
     } else {
       this.loadStocks();
+    }
+  }
+
+  fermerModaleRetrait() {
+    this.stockSelectionnePourRetrait = null;
+  }
+
+  ouvrirModaleRetrait(stock: any): void {
+    this.stockSelectionnePourRetrait = { ...stock }; // Créer une copie de l'objet stock
+  }
+
+  refreshStocks(): void {
+    // Recherche et mise à jour du stock dans la liste
+    const updatedStock = this.stockSelectionnePourRetrait;
+    const index = this.stocks.findIndex(stock => stock.idStock === updatedStock.idStock);
+    if (index !== -1) {
+      this.stocks[index] = updatedStock;  // Mettre à jour le stock dans la liste
     }
   }
 }

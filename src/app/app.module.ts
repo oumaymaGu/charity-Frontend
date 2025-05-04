@@ -43,6 +43,7 @@ import { AssociationDetailComponent } from './front_end/pages/about/association-
 import { ChatComponent } from './front_end/pages/components/chat/chat.component';
 import { ChatAdminComponent } from './front_end/pages/chat-admin/chat-admin.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { StockRetraitComponent } from './back_end/stock/stock-retrait/stock-retrait.component';
 
 
 
@@ -90,6 +91,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
       AssociationDetailComponent,
       ChatComponent,
       ChatAdminComponent,
+      StockRetraitComponent,
       
       
   

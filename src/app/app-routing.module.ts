@@ -30,6 +30,7 @@ import { ModifierStockComponent } from './back_end/stock/modifier-stock/modifier
 import { AssociationDetailComponent } from './front_end/pages/about/association-detail/association-detail.component';
 import { ChatComponent } from './front_end/pages/components/chat/chat.component';
 import { ChatAdminComponent } from 'src/app/front_end/pages/chat-admin/chat-admin.component';
+import { StockRetraitComponent } from './back_end/stock/stock-retrait/stock-retrait.component';
 
 
 
@@ -70,6 +71,7 @@ const routes: Routes = [
 {path: 'association-detail/:id', component: AssociationDetailComponent},
 {path: 'chat', component: ChatComponent},
 {path: 'chat-admin', component: ChatAdminComponent},
+{path: 'stock-retrait', component: StockRetraitComponent},
 
 { path: '**', redirectTo:"" , pathMatch: 'full' }
 
