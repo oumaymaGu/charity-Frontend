@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 
 interface Commentaire {
   id?: number;
@@ -44,7 +46,8 @@ export class AssociationDetailComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -106,6 +109,11 @@ export class AssociationDetailComponent implements OnInit {
   }
 
   showEmojiPicker = false;
+  // Pour Giphy
+gifSearchTerm: string = '';
+gifs: any[] = [];
+showGifPicker: boolean = false;
+
 
 toggleEmojiPicker() {
   this.showEmojiPicker = !this.showEmojiPicker;
@@ -182,6 +190,52 @@ autoResize(event: Event): void {
 }
 
  
+searchGifsFromBackend() {
+  const query = this.gifSearchTerm.trim();
+  if (!query) return;
+
+  this.http.get<any>(`http://localhost:8089/api/giphy/search?query=${encodeURIComponent(query)}`).subscribe({
+    next: (res) => {
+      console.log('Giphy API response:', res);
+      // Assigner directement la réponse des URLs à this.gifs
+      this.gifs = res;  // Si la réponse est simplement un tableau d'URLs
+      console.log('GIFs:', this.gifs);
+    },
+    error: (err) => {
+      console.error('Erreur lors de la recherche de GIFs depuis le backend', err);
+    }
+  });
+}
+
+
+
+
+
+
+addGifToComment(gifUrl: string) {
+  if (!gifUrl) {
+    console.error('URL du GIF non valide');
+    return;
+  }
+  // On s'assure que l'URL commence par "http"
+  if (!gifUrl.startsWith('http')) {
+    gifUrl = 'https://media.giphy.com/' + gifUrl;
+  }
+  // Ajoute l'image GIF au commentaire sous forme d'élément <img>
+  this.newCommentaire += ` <img src="${gifUrl}" alt="gif" style="max-height: 150px;" /> `;
+}
+
+
+
+toggleGifPicker() {
+  this.showGifPicker = !this.showGifPicker; //Méthode pour ouvrir/fermer le sélecteur de GIFs
+}
+
+sanitizeHtml(contenu: string): SafeHtml {
+  return this.sanitizer.bypassSecurityTrustHtml(contenu);
+}
+
+
 
 
   
