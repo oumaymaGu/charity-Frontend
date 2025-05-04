@@ -20,7 +20,7 @@ interface Notification {
   changeDetection: ChangeDetectionStrategy.OnPush // Ajout de la stratégie OnPush
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  showNotificationsPanel = true;
+  showNotificationsPanel = false; // Le panneau est masqué par défaut
   filteredNotifications: Observable<Notification[]> | undefined;
   private destroy$ = new Subject<void>();
 
@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   toggleNotificationsPanel(): void {
     this.showNotificationsPanel = !this.showNotificationsPanel;
     console.log('Panneau de notifications visible:', this.showNotificationsPanel);
-    this.cdr.markForCheck();
   }
 
   getNotificationIcon(type: string): string {
