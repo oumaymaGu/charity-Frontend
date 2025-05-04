@@ -42,6 +42,11 @@ export class EditlogestiqueComponent {
   }
 
   updateLogestique(): void {
+    if (this.logestique.quantity < 1) {
+      console.error('La quantité doit être supérieure à 0.');
+      return;
+    }
+
     console.log('Mise à jour logistique:', this.logestique);
     this.logestiqueService.updateLogestique(this.logestique).subscribe(
       (res) => {

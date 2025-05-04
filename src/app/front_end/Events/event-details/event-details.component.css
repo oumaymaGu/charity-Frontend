@@ -45,7 +45,7 @@
 /* Positionner le bouton Join */
 .join-button {
     font-size: 1 rem; /* Taille de texte plus petite */
-    padding: 20px 10px; /* Réduire la taille du bouton */
+    padding: 15px 50px; /* Réduire la taille du bouton */
     margin-top: 10px; /* Ajouter un espace au-dessus */
   }
   

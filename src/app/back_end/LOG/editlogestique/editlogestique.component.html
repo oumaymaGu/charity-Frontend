@@ -10,66 +10,45 @@
     <div class="col-md-9 content">
       <h2>Modifier la Logistique</h2>
       <form (ngSubmit)="updateLogestique()">
+        <!-- Ressource Name -->
         <div class="mb-3">
-          <label for="ressourceName" class="form-label">Ressource Name</label>
-          <input type="text" id="ressourceName" class="form-control" [(ngModel)]="logestique.ressourceName" name="ressourceName" required>
+          <label for="ressourceName" class="form-label">Nom de la Ressource</label>
+          <input 
+            type="text" 
+            id="ressourceName" 
+            class="form-control" 
+            [(ngModel)]="logestique.ressourceName" 
+            name="ressourceName" 
+            required
+          >
         </div>
 
+        <!-- Quantity -->
         <div class="mb-3">
-          <label for="quantity" class="form-label">Quantity</label>
-          <input type="number" id="quantity" class="form-control" [(ngModel)]="logestique.quantity" name="quantity" required>
+          <label for="quantity" class="form-label">Quantité</label>
+          <input 
+            type="number" 
+            id="quantity" 
+            class="form-control" 
+            [(ngModel)]="logestique.quantity" 
+            name="quantity" 
+            required 
+            min="1"
+          >
+          <!-- Message d'erreur si la quantité est invalide -->
+          <div *ngIf="logestique.quantity < 1" class="text-danger">
+            La quantité doit être supérieure à 0.
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update</button>
+        <!-- Boutons -->
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">Mettre à jour</button>
+          <a routerLink="/liste-log" class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Retour à la liste
+          </a>
+        </div>
       </form>
     </div>
   </div>
 </div>
-
-<!-- ✅ Styles mis à jour -->
-<style>
-  /* Assurer que la page n’a pas de marges inutiles */
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-
-  .container-fluid {
-    padding: 0;
-  }
-
-  .row {
-    margin: 0;
-    display: flex;
-  }
-
-  /* ✅ Sidebar en noir sur toute la hauteur */
-  .sidebar {
-    background-color: #212529 !important; /* Noir Bootstrap */
-    color: white;
-    padding: 20px;
-    border-right: 1px solid #dee2e6;
-    height: 100vh; /* Pleine hauteur */
-    position: fixed;
-    width: 250px; /* Fixer une largeur */
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* ✅ Ajuster le contenu pour éviter chevauchement */
-  .content {
-    margin-left: 250px; /* Décaler le contenu */
-    padding: 30px;
-    width: calc(100% - 250px); /* Ajustement largeur */
-    background-color: #d5e6e3; /* Garder le fond bleu clair */
-  }
-
-  .form-group label {
-    font-weight: bold;
-  }
-
-  .btn-primary {
-    margin-top: 10px;
-  }
-</style>

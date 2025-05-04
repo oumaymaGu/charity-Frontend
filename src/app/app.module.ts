@@ -84,6 +84,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 
 
 
+
   @NgModule({
     declarations: [
       AppComponent,
@@ -148,6 +149,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 
 
 
+
     ],
     imports: [
       BrowserModule,
@@ -167,8 +169,8 @@ import { QRCodeModule } from 'angularx-qrcode';
       BrowserAnimationsModule,
       MatTableModule,
       MatInputModule,
-      MatFormFieldModule,
-      MatTooltipModule
+    MatFormFieldModule,
+    MatTooltipModule
 
 
 

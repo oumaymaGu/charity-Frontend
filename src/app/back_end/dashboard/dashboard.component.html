@@ -55,20 +55,11 @@
                                     </div>
                                 </div>
                                 <div class="notification-actions">
-                                    <button
-                                      class="action-btn delete-btn rounded-icon"
-                                      (click)="removeNotification($event, notification.id)"
-                                    >
-                                      <i class="fas fa-trash-alt"></i>
+                                    <button class="action-btn delete-btn rounded-icon" (click)="removeNotification($event, notification.id)">
+                                        <i class="fas fa-trash-alt"></i>
                                     </button>
-                                    <button
-                                      *ngIf="!notification.isRead"
-                                      class="action-btn mark-read-btn rounded-icon"
-                                      (click)="markAsRead(notification.id)"
-                                    >
-                                      ✓
-                                    </button>
-                                  </div>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>

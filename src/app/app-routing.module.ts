@@ -47,6 +47,7 @@ import { ScanMedicamentComponent } from './front_end/ocr/scan-medicament/scan-me
 
 
 
+
 const routes: Routes = [
 
   // Route pour la page d'accueil
@@ -86,11 +87,8 @@ const routes: Routes = [
 {path : 'ajout-donation', component: AjoutDonationComponent },
 {path: 'donation-details/:id', component: DonationDetailsComponent },
 {path:'list-donation' , component : ListDonationComponent},
-{ path: 'donor-contact/:id', component: DonorContactComponent },
-{ path: 'Request-liste', component: RequestListComponent },
 
-{ path: 'notifications', component: NotificationComponent },
-{ path: 'scan', component: ScanMedicamentComponent },
+
 {path:'ajout-payment' , component : AddPaymentComponent},
 {path:'material-donation' , component : MaterialDonationComponent},
 { path: 'payment-history', component: PaymentHistoryComponent },
@@ -100,6 +98,13 @@ const routes: Routes = [
 { path: 'events-logestiques', component: EventsLogestiquesComponent },
 { path: 'events-logestiques/:id', component: EventsLogestiquesComponent },
 { path: 'billet/:userId/:eventId', component: BilletComponent },
+{ path: 'donor-contact/:id', component: DonorContactComponent },
+{ path: 'Request-liste', component: RequestListComponent },
+
+{ path: 'notifications', component: NotificationComponent },
+{ path: 'scan', component: ScanMedicamentComponent },
+
+
 
 
 { path: '**', redirectTo:"" , pathMatch: 'full' }

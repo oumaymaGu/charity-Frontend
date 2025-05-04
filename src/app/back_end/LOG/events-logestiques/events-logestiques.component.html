@@ -1,22 +1,36 @@
 <app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
 
-<div class="container mt-4">
-  <h2>Événements assignés à la logistique</h2>
+    <!-- Main Content -->
+    <div class="col-md-9 content">
+      <div class="container mt-4">
+        <h2 class="mb-4 text-center">Événements assignés à la logistique</h2>
 
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>Nom de l'événement</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let event of events">
-          <td>{{ event.nomEvent }}</td>
-          <td>{{ event.dateEvent | date:'dd/MM/yyyy' }}</td>
-        </tr>
-      </tbody>
-    </table>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Nom de l'événement</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let event of events">
+                <td>{{ event.nomEvent }}</td>
+                <td>{{ event.dateEvent | date:'dd/MM/yyyy' }}</td>
+              </tr>
+              <tr *ngIf="events.length === 0">
+                <td colspan="2" class="text-center text-muted">Aucun événement assigné à cette logistique.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

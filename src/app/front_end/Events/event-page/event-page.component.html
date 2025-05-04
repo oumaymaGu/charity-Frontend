@@ -8,15 +8,22 @@
 
     <!-- Content -->
     <div class="col-md-9 content">
-      <h2>Event List</h2>
+      <h2 class="text-center text-primary mb-4">Event List</h2>
 
+      <!-- Search Bar -->
       <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="searchTerm" (input)="searchEvents(searchTerm)">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Search by name" 
+          [(ngModel)]="searchTerm" 
+          (input)="searchEvents(searchTerm)"
+        >
       </div>
 
-
-      <table class="table table-striped">
-        <thead>
+      <!-- Event Table -->
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
           <tr>
             <th>Name</th>
             <th>Description</th>
@@ -28,79 +35,25 @@
         </thead>
         <tbody>
           <tr *ngFor="let event of events">
-            
             <td>{{ event.nomEvent }}</td>
             <td>{{ event.description }}</td>
-            <td>{{ event.dateEvent | date }}</td>
+            <td>{{ event.dateEvent | date:'dd/MM/yyyy' }}</td>
             <td>{{ event.lieu }}</td>
             <td>{{ event.prixevent }} dt</td>
             <td>
               <button (click)="editEvent(event)" class="btn btn-warning btn-sm">
                 <i class="fa fa-pencil"></i>
               </button>
-
               <button (click)="confirmDelete(event.idEvent)" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash"></i>
               </button>
               <a [routerLink]="['/event', event.idEvent, 'users']" class="btn btn-info btn-sm">
-                <i class="fa fa-users"></i> Show inscriptions
+                <i class="fa fa-users"></i> 
               </a>
             </td>
           </tr>
         </tbody>
       </table>
-
-      <a routerLink="/dash" class="btn btn-primary mb-3">
-        <i class="fa fa-arrow-left"></i> back to Dashboard
-      </a>
     </div>
   </div>
 </div>
-
-<!-- ✅ Styles mis à jour -->
-<style>
-  /* Assurer que la page n’a pas de marges inutiles */
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-
-  .container-fluid {
-    padding: 0;
-  }
-
-  .row {
-    margin: 0;
-    display: flex;
-  }
-
-  /* ✅ Sidebar en noir sur toute la hauteur */
-  .sidebar {
-    background-color: #212529 !important; /* Noir Bootstrap */
-    color: white;
-    padding: 20px;
-    border-right: 1px solid #dee2e6;
-    height: 100vh; /* Pleine hauteur */
-    position: fixed;
-    width: 250px; /* Fixer une largeur */
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* ✅ Ajuster le contenu pour éviter chevauchement */
-  .content {
-    margin-left: 250px; /* Décaler le contenu */
-    padding: 30px;
-    width: calc(100% - 250px); /* Ajustement largeur */
-    background-color: #d5e6e3; /* Garder le fond bleu clair */
-  }
-
-  .form-group label {
-    font-weight: bold;
-  }
-
-  .btn-primary {
-    margin-top: 10px;
-  }
-</style>

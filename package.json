@@ -36,7 +36,7 @@
     "rxjs": "~7.8.0",
     "sockjs-client": "^1.6.1",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.19.1",
+    "sweetalert2": "^11.17.2",
     "tslib": "^2.3.0",
     "util": "^0.12.5",
     "vm-browserify": "^1.1.2",
