@@ -69,3 +69,18 @@ emoji-mart::-webkit-scrollbar-track {
   }
 }
 
+.gif-picker::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gif-picker::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
+}
+
+.gif-picker {
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #eee;
+}
+
+

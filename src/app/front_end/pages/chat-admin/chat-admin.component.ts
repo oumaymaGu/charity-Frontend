@@ -135,5 +135,10 @@ addEmoji(event: any) {
   console.log('Emoji ajouté:', emoji);
 }
 
+isImageUrl(url: string): boolean {
+  return typeof url === 'string' && url.startsWith('http') && /\.(jpeg|jpg|gif|png)$/i.test(url);
+}
+
+
   
 }

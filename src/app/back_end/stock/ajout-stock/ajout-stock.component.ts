@@ -8,6 +8,9 @@ interface Stock {
   capaciteTotale: number;
   typeStock: string;
   lieu: string;
+  associations?: {
+    idAss: number;
+  };
 }
 
 interface Association {
@@ -56,34 +59,30 @@ export class AjoutStockComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+  
     if (!this.isValid()) {
       this.errorMessage = "Veuillez remplir correctement tous les champs.";
       return;
     }
-
+  
+    // 👉 Injecter l'association dans l'objet `stock` AVANT l'envoi
+    this.stock['associations'] = {
+      idAss: this.associationId
+    };
+  
     this.http.post<Stock>('http://localhost:8089/stock/add-stock', this.stock)
       .subscribe({
         next: (createdStock) => {
-          if (createdStock.idStock && this.associationId > 0) {
-            this.http.put<Stock>(`http://localhost:8089/stock/affecter-association/${createdStock.idStock}/${this.associationId}`, {})
-              .subscribe({
-                next: () => {
-                  this.successMessage = "Stock ajouté et association affectée avec succès !";
-                  this.resetForm();
-                  setTimeout(() => this.router.navigate(['/list-stock']), 1000);
-                },
-                error: () => {
-                  this.errorMessage = "Stock ajouté mais échec de l'affectation de l'association.";
-                }
-              });
-          }
+          this.successMessage = "Stock ajouté avec succès !";
+          this.resetForm();
+          setTimeout(() => this.router.navigate(['/list-stock']), 1000);
         },
         error: () => {
           this.errorMessage = "Erreur lors de l'ajout. Veuillez réessayer.";
         }
       });
   }
+  
 
   isValid(): boolean {
     const { capaciteTotale, typeStock, lieu } = this.stock;

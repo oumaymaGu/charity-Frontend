@@ -58,7 +58,15 @@
             class="px-3 py-2 rounded-pill d-inline-block shadow-sm"
             style="max-width: 70%; word-wrap: break-word;"
           >
-            {{ msg.content }}
+            <!-- Si c'est un lien d'image, affiche l'image -->
+            <ng-container *ngIf="msg.content.startsWith('http') && isImageUrl(msg.content); else textContent">
+              <img [src]="msg.content" alt="Image"
+              style="max-width:100%; max-height:250px; border-radius: 12px;">
+            </ng-container>
+            <ng-template #textContent>
+              {{ msg.content }}
+            </ng-template>
+
             <div
               [ngClass]="{
                 'text-end text-white-50': msg.senderId === senderId,
@@ -74,9 +82,8 @@
       </div>
     </div>
 
-    <!-- Input Zone with Emoji embedded inside input -->
+    <!-- Input Zone -->
     <div class="card-footer bg-white py-3 px-4 border-top position-relative">
-
       <!-- Emoji Picker -->
       <emoji-mart
         *ngIf="showEmojiPicker"
@@ -91,7 +98,23 @@
       ></emoji-mart>
 
       <div class="d-flex align-items-center w-100">
-        <!-- Container with relative position -->
+        <!-- Upload Image Button -->
+        <button
+          class="btn btn-light border rounded-circle me-2"
+          style="width: 36px; height: 36px;"
+          (click)="fileInput.click()"
+        >
+          <i class="bi bi-paperclip"></i>
+        </button>
+        <input
+          type="file"
+          #fileInput
+          style="display: none"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+        />
+
+        <!-- Input message -->
         <div class="position-relative flex-grow-1 me-2">
           <input
             [(ngModel)]="messageContent"
@@ -100,6 +123,7 @@
             placeholder="Écrivez un message..."
             (keyup.enter)="send()"
           />
+
           <!-- Emoji Button inside input -->
           <button
             type="button"
@@ -121,6 +145,5 @@
         </button>
       </div>
     </div>
-
   </div>
 </div>

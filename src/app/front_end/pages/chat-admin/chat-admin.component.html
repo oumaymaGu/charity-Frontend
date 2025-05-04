@@ -22,23 +22,34 @@
             {{ msg.senderId===1 ? 'Admin' : msg.senderUsername }}
           </small>
           <div [ngClass]="{
-                 'bg-primary text-white ms-auto': msg.senderId===1,
-                 'bg-light text-dark me-auto': msg.senderId!==1
-               }"
-               class="px-3 py-2 rounded-pill d-inline-block shadow-sm"
-               style="max-width:70%; word-wrap:break-word;">
-            {{ msg.content }}
-            <div *ngIf="msg.senderId===1"
-                 class="text-end text-white-50 small mt-1"
-                 style="font-size:0.7rem;">
-              {{ msg.timestamp | date:'shortTime' }}
-            </div>
-            <div *ngIf="msg.senderId!==1"
-                 class="text-start text-muted small mt-1"
-                 style="font-size:0.7rem;">
-              {{ msg.timestamp | date:'shortTime' }}
-            </div>
-          </div>
+            'bg-primary text-white ms-auto': msg.senderId===1,
+            'bg-light text-dark me-auto': msg.senderId!==1
+          }"
+          class="px-3 py-2 rounded-4 d-inline-block shadow-sm"
+          style="max-width:70%; word-wrap:break-word; background-color: #ffffff;">
+       
+       <ng-container *ngIf="isImageUrl(msg.content); else textMessage">
+         <img [src]="msg.content"
+              alt="Image"
+              style="max-width:100%; max-height:250px; border-radius: 12px;" />
+       </ng-container>
+     
+       <ng-template #textMessage>
+         <span [innerText]="msg.content"></span>
+       </ng-template>
+     
+       <div *ngIf="msg.senderId===1"
+            class="text-end text-muted small mt-1"
+            style="font-size:0.7rem;">
+         {{ msg.timestamp | date:'shortTime' }}
+       </div>
+       <div *ngIf="msg.senderId!==1"
+            class="text-start text-muted small mt-1"
+            style="font-size:0.7rem;">
+         {{ msg.timestamp | date:'shortTime' }}
+       </div>
+     </div>
+     
         </div>
       </div>
     </div>

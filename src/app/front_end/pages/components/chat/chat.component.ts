@@ -159,6 +159,47 @@ addEmoji(event: any) {
 }
 
 
+onFileSelected(event: any): void {
+  const file: File = event.target.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  this.http.post('http://localhost:8089/upload', formData, { responseType: 'text' })
+    .subscribe({
+      next: (imagePath: string) => {
+        const imageUrl = 'http://localhost:8089' + imagePath;
+
+        const imageMessage: Message = {
+          senderId: this.senderId,
+          receiverId: this.receiverId,
+          content: imageUrl,
+          timestamp: new Date().toISOString(),
+          idAss: this.idAss,
+          senderUsername: this.senderUsername,
+        };
+
+        this.wsService.sendMessage({
+          ...imageMessage,
+          idAss: this.idAss as number // On assure que c’est bien un `number` ici
+        });
+        
+        this.messages.push(imageMessage);
+        this.scrollToBottom();
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'upload de l\'image :', err);
+      }
+    });
+}
+
+isImageUrl(url: string): boolean {
+  return /\.(jpeg|jpg|gif|png)$/i.test(url);
+}
+
+
+
 
 
 }

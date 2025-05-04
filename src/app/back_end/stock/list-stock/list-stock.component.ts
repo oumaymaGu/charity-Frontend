@@ -4,11 +4,17 @@ import { Router } from '@angular/router';
 
 interface Stock {
   idStock: number;
-  capacite: number;
-  acheminement: string;
+  capaciteTotale: number;
   typeStock: string;
-  associationId: number;
+  lieu: string;
+  associations?: {
+    idAss: number;
+    nomAss: string;
+  };
 }
+
+
+
 
 @Component({
   selector: 'app-list-stock',
@@ -21,10 +27,7 @@ export class ListStockComponent implements OnInit {
   error: string | null = null;
   searchTerm: string = '';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.loadStocks();
@@ -58,10 +61,8 @@ export class ListStockComponent implements OnInit {
             console.error('Erreur détaillée lors de la suppression:', error);
             if (error.status === 404) {
               alert('Stock non trouvé');
-            } else if (error.status === 0) {
-              alert('Erreur de connexion au serveur');
             } else {
-              alert(`Erreur lors de la suppression: ${error.message}`);
+              alert('Erreur lors de la suppression');
             }
           }
         });
