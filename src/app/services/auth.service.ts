@@ -23,7 +23,7 @@ export class AuthService {
           localStorage.setItem('token', response.accessToken);
           localStorage.setItem('role', response.role);
           localStorage.setItem('username', response.username);
-          
+
           localStorage.setItem('email', response.email); // Store email
 
         }

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./donate.component.css']
 })
 export class DonateComponent {
-
+  selectedDonationType: string | null = null;
 }

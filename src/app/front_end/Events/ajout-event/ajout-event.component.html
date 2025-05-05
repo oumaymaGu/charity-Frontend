@@ -1,26 +1,120 @@
-<div class="container">
-    <h2>Add New Event</h2>
-    <form (ngSubmit)="addEvent()">
-      <div class="form-group">
-        <label for="nomEvent">Event Name:</label>
-        <input type="text" id="nomEvent" class="form-control" [(ngModel)]="event.nomEvent" name="nomEvent" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Event Description:</label>
-        <textarea id="description" class="form-control" [(ngModel)]="event.description" name="description" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="lieu">Event Location:</label>
-        <input type="text" id="lieu" class="form-control" [(ngModel)]="event.lieu" name="lieu" required>
-      </div>
-      <div class="form-group">
-        <label for="prixevent">Event Price:</label>
-        <input type="number" id="prixEvent" class="form-control" [(ngModel)]="event.prixevent" name="prixevent" required>
-      </div>
-      <div class="form-group">
-        <label for="dateEvent">Event Date:</label>
-        <input type="date" id="dateEvent" class="form-control" [(ngModel)]="event.dateEvent" name="dateEvent" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Add Event</button>
-    </form>
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9 content">
+      <h2 class="text-center text-primary mb-4">Add New Event</h2>
+      <form (ngSubmit)="addEvent()" #eventForm="ngForm" class="form-horizontal">
+        <!-- Event Name -->
+        <div class="form-group row">
+          <label for="nomEvent" class="col-sm-3 col-form-label text-right">Event Name:</label>
+          <div class="col-sm-9">
+            <input 
+              type="text" 
+              id="nomEvent" 
+              class="form-control" 
+              [(ngModel)]="event.nomEvent" 
+              name="nomEvent" 
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Event Description -->
+        <div class="form-group row">
+          <label for="description" class="col-sm-3 col-form-label text-right">Event Description:</label>
+          <div class="col-sm-9">
+            <textarea 
+              id="description" 
+              class="form-control" 
+              [(ngModel)]="event.description" 
+              name="description" 
+              required
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Event Location -->
+        <div class="form-group row">
+          <label for="lieu" class="col-sm-3 col-form-label text-right">Event Location:</label>
+          <div class="col-sm-9">
+            <input 
+              type="text" 
+              id="lieu" 
+              class="form-control" 
+              [(ngModel)]="event.lieu" 
+              name="lieu" 
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Event Price -->
+        <div class="form-group row">
+          <label for="prixEvent" class="col-sm-3 col-form-label text-right">Event Price:</label>
+          <div class="col-sm-9">
+            <input 
+              type="number" 
+              id="prixEvent" 
+              class="form-control" 
+              [(ngModel)]="event.prixevent" 
+              name="prixevent" 
+              required 
+              min="0"
+            >
+            <div *ngIf="eventForm.controls['prixevent']?.invalid && (eventForm.controls['prixevent']?.dirty || eventForm.controls['prixevent']?.touched)" class="text-danger mt-1">
+              Price must be a positive number.
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Date -->
+        <div class="form-group row">
+          <label for="dateEvent" class="col-sm-3 col-form-label text-right">Event Date:</label>
+          <div class="col-sm-9">
+            <input 
+              type="date" 
+              id="dateEvent" 
+              class="form-control" 
+              [(ngModel)]="event.dateEvent" 
+              name="dateEvent" 
+              required 
+              [min]="minDate"
+            >
+            <div *ngIf="eventForm.controls['dateEvent']?.invalid && (eventForm.controls['dateEvent']?.dirty || eventForm.controls['dateEvent']?.touched)" class="text-danger mt-1">
+              Date cannot be in the past.
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Event Image -->
+        <div class="form-group row">
+          <label for="photoEvent" class="col-sm-3 col-form-label text-right">Upload Event Image:</label>
+          <div class="col-sm-9">
+            <input 
+              type="file" 
+              id="photoEvent" 
+              class="form-control" 
+              (change)="onFileSelected($event)" 
+              accept="image/*" 
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-3">
+            <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">Add Event</button>
+        
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
+</div>

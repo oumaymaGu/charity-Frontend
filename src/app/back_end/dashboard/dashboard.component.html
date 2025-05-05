@@ -10,10 +10,11 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body class="sb-nav-fixed">
         <!-- Navbar -->
-        <app-navbar></app-navbar>
+        <app-navbar (toggleNotifications)="toggleNotificationsPanel()"></app-navbar>
 
         <div id="layoutSidenav">
             <!-- Sidebar -->
@@ -24,6 +25,45 @@
             <!-- Main Content -->
             <div id="layoutSidenav_content">
                 <main>
+                    <!-- Panneau de Notifications -->
+                    <div class="modern-notifications notification-panel" *ngIf="showNotificationsPanel">
+                        <div class="notification-header">
+                            <h3>Notifications</h3>
+                            <div class="header-actions">
+                                <button class="clear-all-btn" (click)="clearAllNotifications()">
+                                    <i class="fas fa-trash-alt"></i> remove
+                                </button>
+                                <button class="close-btn" (click)="toggleNotificationsPanel()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="notifications-list">
+                            <div *ngFor="let notification of (filteredNotifications | async)" 
+                                 class="notification"
+                                 [class.unread]="!notification.isRead">
+                                <div class="notification-icon">
+                                    <i [class]="getNotificationIcon(notification.type)"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <h4>{{ getNotificationTitle(notification) }}</h4>
+                                    <p>{{ notification.message }}</p>
+                                    <small>{{ notification.timestamp | date:'HH:mm' }}</small>
+                                    <div class="notification-date">
+                                        {{ notification.timestamp | date:'EEEE d MMMM' | titlecase }}
+                                    </div>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="action-btn delete-btn rounded-icon" (click)="removeNotification($event, notification.id)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
@@ -125,8 +165,6 @@
 
                 <!-- Footer -->
                 <app-footer></app-footer>
-
-            
             </div>
         </div>
 
@@ -137,25 +175,5 @@
         <script src="/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="assets/js/datatables-simple-demo.js"></script>
-
-        
-
     </body>
-
-
-
-   
 </html>
-
-<div *ngIf="showChat" class="floating-chat">
-    <button class="close-chat" (click)="closeChat()">×</button>
-  
-    <app-chat-admin
-      [selectedUserId]="selectedUserId"
-      [selectedUsername]="selectedUsername"
-      [selectedAssId]="selectedAssId">
-    </app-chat-admin>
-  </div>
-
-
-
