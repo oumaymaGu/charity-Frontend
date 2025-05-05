@@ -1,4 +1,3 @@
-
 import { Event } from '../../pages/models/event';
 import {Component, OnInit} from "@angular/core";
 import {EventService} from "../../../services/event.service";
@@ -91,7 +90,7 @@ export class EventComponent implements OnInit {
 
   rejoindreEvent(eventId: number): void {
 
-    console.log(`Joining event with ID: ${Event}`);
+    console.log(`Joining event with ID: ${eventId}`);
     this.router.navigate(['/inscription', eventId]);
   }
   logout(): void {

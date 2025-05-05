@@ -4,6 +4,8 @@ import { EventService } from '../../../services/event.service';
 // @ts-ignore
 import { EventModel } from '../../../models/event.model';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-event-details',
@@ -14,18 +16,23 @@ export class EventDetailsComponent implements OnInit {
   event: EventModel | undefined;
   location: string = '';
   eventDate: string = '';
+  isLoggedIn: boolean = false;
+  Events: any[] = [];
+  userName: string = '';
+  username: string | null = null;
 
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private eventService: EventService
+    private eventService: EventService,
+     private authService: AuthService
   ) {}
 
   
   rejoindreEvent(eventId: number): void {
  
-     console.log(`Joining event with ID: ${Event}`);
+     console.log(`Joining event with ID: ${eventId}`);
      this.router.navigate(['/inscription', eventId]);
    }
 
@@ -42,6 +49,14 @@ export class EventDetailsComponent implements OnInit {
           console.error("Error fetching event details", error);
         }
       );
+      this.username = this.authService.getUsername();
+
     }
+  }
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
   }
 }

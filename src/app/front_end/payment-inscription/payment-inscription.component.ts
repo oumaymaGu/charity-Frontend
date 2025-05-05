@@ -5,6 +5,8 @@ import { StripeCardElement } from '@stripe/stripe-js';
 import { EventService } from 'src/app/services/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-payment-inscription',
@@ -23,6 +25,9 @@ export class PaymentInscriptionComponent  implements OnInit, OnDestroy {
   event?: Event & { prixevent?: number };
   user: any = {};
   userId!: number;
+  isLoggedIn: boolean = false;
+  userName: string = '';
+  username: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +35,9 @@ export class PaymentInscriptionComponent  implements OnInit, OnDestroy {
     private eventService: EventService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService
+
   ) {
     // Initialize the payment form
     this.paymentForm = this.fb.group({
@@ -58,6 +65,9 @@ export class PaymentInscriptionComponent  implements OnInit, OnDestroy {
       // Load event details and user data
       this.loadEventDetails();
       this.loadUserData();
+
+      this.username = this.authService.getUsername();
+
     });
   
  
@@ -273,5 +283,14 @@ export class PaymentInscriptionComponent  implements OnInit, OnDestroy {
     }
 
     return error.message || 'Une erreur inattendue est survenue';
+  }
+
+
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
   }
 }
