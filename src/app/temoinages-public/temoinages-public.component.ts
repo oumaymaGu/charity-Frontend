@@ -3,6 +3,7 @@ import { TemoinageService } from 'src/app/services/temoinage.service';
 import { Temoinage } from 'src/app/front_end/pages/models/temoinage';
 import { TemoinageStatut } from 'src/app/front_end/pages/models/TemoinageStatut';
 
+
 @Component({
   selector: 'app-temoinages-public',
   templateUrl: './temoinages-public.component.html',
@@ -16,7 +17,8 @@ export class TemoinagesPublicComponent implements OnInit {
   ngOnInit(): void {
     this.temoinageService.getTemoinages().subscribe((data: Temoinage[]) => {
       // ⚠️ Filtrer pour ne garder que ceux ACCEPTÉS
-      this.temoinages = data.filter(t => t.statut === TemoinageStatut.ACCEPTE);
+      this.temoinages = data.filter(t => t.statut === 'ACCEPTE');
+      this.temoinages = data;
     });
   }
   lireTemoinage(temoinage: any) {

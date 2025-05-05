@@ -23,18 +23,13 @@
           <tr *ngFor="let temoinage of temoinages">
             <td>{{ temoinage.nom }}</td>
             <td>
-              
-              <img src="http://localhost:8089/images/logo.png" alt="Logo">
-
-
-
-
-
-
-
-            </td>
+            <img *ngIf="temoinage.photoUrl" [src]="'http://localhost:8089/uploads/photos/' + temoinage.photoUrl" alt="{{ temoinage.nom }}" style="max-width: 100px; max-height: 100px;">
+        <p *ngIf="!temoinage.photoUrl"><i>Aucune photo</i></p>
+      </td>
             <td>{{ temoinage.statut }}</td>
+            
             <td>
+              
               <p>{{ temoinage.description }}</p>
             
               <audio *ngIf="temoinage.audioUrl" 
@@ -46,6 +41,11 @@
               <p *ngIf="!temoinage.audioUrl"><i>Aucun fichier audio</i></p>
             
               <button class="btn btn-warning mt-2" (click)="lireTemoinage(temoinage)">🔊 Lire</button>
+              <p><strong>Note :</strong>
+                <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                  <i class="fa fa-star" [ngClass]="{'fas': (i + 1) <= temoinage.note, 'far': (i + 1) > temoinage.note}" style="color: gold;"></i>
+                </span>
+              </p>
             </td>
             
             <td>

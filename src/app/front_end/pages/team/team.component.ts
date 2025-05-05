@@ -12,4 +12,7 @@ export class TeamComponent {
   navigateToAddTestimonial(): void {
     this.router.navigate(['/add-temoinage']);
   }
+  onClick() {
+    console.log('Clicked, navigating to:', '/temoignages-public');
+  }
 }

@@ -35,6 +35,6 @@
   
   "include": [
     "src/**/*",
-    "src/types/mapbox-gl-overrides.d.ts"
-  ]
+    "src/types/mapbox-gl-overrides.d.ts",
+     "custom-webpack.config.js"  ]
 }

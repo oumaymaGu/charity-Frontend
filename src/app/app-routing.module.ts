@@ -72,8 +72,9 @@ const routes: Routes = [
   { path: 'edit-tem', component: EditTemoinageComponent },
   
   { path: 'reclam', component: ReclamComponent },
-  { path: 'temoinages-public', component: TemoinagesPublicComponent },
+{ path: 'temoinages-public', component: TemoinagesPublicComponent },
 { path: '**', redirectTo:"" , pathMatch: 'full' },
+
 
 
 ];

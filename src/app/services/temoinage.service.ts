@@ -10,13 +10,18 @@ export class TemoinageService {
   private apiUrl = 'http://localhost:8089/temoinage'; // URL de l'API Spring Boot
 
   constructor(private http: HttpClient) { }
+  
 
   getTemoinages(): Observable<Temoinage[]> {
     return this.http.get<Temoinage[]>(`${this.apiUrl}/retrieve-all-temoinages`);
   }
-
   addTemoinage(temoinage: Temoinage): Observable<Temoinage> {
-    return this.http.post<Temoinage>(`${this.apiUrl}/add-temoinage`, temoinage);
+    const formData = new FormData();
+    formData.append('nom', temoinage.nom || 'Test Nom');
+    formData.append('description', temoinage.description || 'Test Description');
+    formData.append('statut', temoinage.statut || 'ACCEPTE');
+
+    return this.http.post<Temoinage>(`${this.apiUrl}/temoinages`, formData);
   }
 
   modifyTemoinage(temoinage: Temoinage): Observable<Temoinage> {

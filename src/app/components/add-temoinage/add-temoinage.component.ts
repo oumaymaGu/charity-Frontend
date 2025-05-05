@@ -17,6 +17,10 @@ export class AddTemoinageComponent {
   isRecording = false;
   audioFile: File | null = null;
 
+  // Ajouter des variables pour la reconnaissance vocale
+  isSpeechRecognitionActive = false;
+  recognition: any;
+
   temoinage: Temoinage = {
     nom: '',
     description: '',
@@ -30,12 +34,11 @@ export class AddTemoinageComponent {
     note: 0,
     categorie: '',
     contact: '',
-    description_en: '', 
+    description_en: '',
     id: 0,
-    
   };
 
-  photoPreview: string | null = null;  // Pour afficher la prévisualisation de l'image
+  photoPreview: string | null = null;
   selectedFile: File | null = null;
 
   apiKey = 'VUJQOVWJUDSMUUX9F0FP5';
@@ -44,21 +47,60 @@ export class AddTemoinageComponent {
     private temoinageService: TemoinageService,
     private router: Router,
     private http: HttpClient
-  ) {}
+  ) {
+    // Initialiser SpeechRecognition
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      this.recognition = new SpeechRecognition();
+      this.recognition.lang = 'en-US'; // Langue française (vous pouvez fr-FR changer pour 'en-US' si nécessaire)
+      this.recognition.interimResults = true; // Afficher les résultats intermédiaires en temps réel
+      this.recognition.continuous = true; // Continuer à écouter jusqu'à ce qu'on arrête
+
+      // Mettre à jour la description en temps réel avec les résultats de la reconnaissance vocale
+      this.recognition.onresult = (event: any) => {
+        const transcript = Array.from(event.results)
+          .map((result: any) => result[0].transcript)
+          .join('');
+        this.temoinage.description = transcript;
+      };
+
+      // Gérer les erreurs
+      this.recognition.onerror = (event: any) => {
+        console.error('Erreur de reconnaissance vocale :', event.error);
+        if (event.error === 'no-speech') {
+          alert('Aucune parole détectée. Veuillez parler plus fort ou vérifier votre microphone.');
+        } else if (event.error === 'not-allowed') {
+          alert('Accès au microphone refusé. Veuillez autoriser l\'accès au microphone dans les paramètres de votre navigateur.');
+        }
+      };
+
+      // Réinitialiser lorsque la reconnaissance vocale s'arrête
+      this.recognition.onend = () => {
+        if (this.isSpeechRecognitionActive) {
+          this.recognition.start(); // Redémarrer si on est encore en mode écoute
+        }
+      };
+    } else {
+      alert('La reconnaissance vocale n\'est pas prise en charge par votre navigateur. Veuillez utiliser un navigateur compatible comme Chrome.');
+    }
+  }
 
   // Méthode pour gérer la sélection d'un fichier
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => this.photoPreview = e.target?.result as string;
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
 
   // Méthode pour enregistrer un témoignage
   saveTemoinage(): void {
     const formData = new FormData();
-  
-    // Ajout des champs de texte dans le FormData
     formData.append('nom', this.temoinage.nom);
     formData.append('description', this.temoinage.description);
-    formData.append('description_en', this.temoinage.description_en);  // Assure-toi que ce champ existe maintenant
+    formData.append('description_en', this.temoinage.description_en);
     formData.append('statut', this.temoinage.statut);
     formData.append('typeTemoinage', this.temoinage.typeTemoinage);
     formData.append('photoUrl', this.temoinage.photoUrl);
@@ -67,17 +109,15 @@ export class AddTemoinageComponent {
     formData.append('note', this.temoinage.note.toString());
     formData.append('categorie', this.temoinage.categorie);
     formData.append('contact', this.temoinage.contact);
-  
-    // Ajouter les fichiers audio et photo
+
     if (this.audioFile) {
       formData.append('audio', this.audioFile, 'audioFile.wav');
     }
-  
+
     if (this.selectedFile) {
       formData.append('photo', this.selectedFile);
     }
-  
-    // Envoi de la requête POST
+
     this.http.post<any>('http://localhost:8089/temoinage/temoinages', formData).subscribe({
       next: res => {
         alert("Témoignage ajouté avec succès !");
@@ -89,32 +129,25 @@ export class AddTemoinageComponent {
       }
     });
   }
-  
-  // Méthode pour traduire la description
-  traduireDescription(): void {
-    const texte = this.temoinage.description;
 
-    if (!texte) {
-      console.error('Aucune description à traduire');
-      return;
+  // Méthode pour démarrer la reconnaissance vocale
+  startSpeechRecognition(): void {
+    if (this.recognition) {
+      this.isSpeechRecognitionActive = true;
+      this.recognition.start();
+      console.log('Reconnaissance vocale démarrée');
+    } else {
+      alert('La reconnaissance vocale n\'est pas disponible.');
     }
+  }
 
-    // Appel à l'API de traduction via ton backend (qui appelle Targomo ou autre)
-    this.http.post<any>('http://localhost:8089/api/translate', { text: texte })
-    .subscribe({
-      next: res => {
-        if (res && res.translatedText) {
-          this.temoinage.description = res.translatedText;
-          console.log('Description traduite :', res.translatedText);
-        } else {
-          console.warn('Réponse inattendue:', res);
-        }
-      },
-      error: err => {
-        console.error('Erreur lors de la traduction via le backend :', err);
-      }
-    });
-  
+  // Méthode pour arrêter la reconnaissance vocale
+  stopSpeechRecognition(): void {
+    if (this.recognition) {
+      this.isSpeechRecognitionActive = false;
+      this.recognition.stop();
+      console.log('Reconnaissance vocale arrêtée');
+    }
   }
 
   // Méthode pour démarrer l'enregistrement audio
@@ -122,8 +155,6 @@ export class AddTemoinageComponent {
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         this.mediaRecorder = new MediaRecorder(stream);
-        
-        // Spécifie le type de l'événement
         this.mediaRecorder.addEventListener("dataavailable", (event: BlobEvent) => {
           this.audioChunks.push(event.data);
         });
@@ -131,6 +162,7 @@ export class AddTemoinageComponent {
         this.mediaRecorder.onstop = () => {
           const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
           this.audioUrl = URL.createObjectURL(audioBlob);
+          this.audioFile = new File([audioBlob], 'temoinage.wav', { type: 'audio/wav' });
           this.audioChunks = [];
         };
 
@@ -138,23 +170,19 @@ export class AddTemoinageComponent {
         this.isRecording = true;
       }).catch(err => {
         console.error('Erreur d\'accès au microphone:', err);
+        alert('Erreur d\'accès au microphone. Veuillez vérifier les autorisations.');
       });
+    } else {
+      alert('Votre navigateur ne prend pas en charge l\'enregistrement audio.');
     }
   }
 
-  // Méthode pour arrêter l'enregistrement audio
   stopRecording(): void {
-    this.mediaRecorder.stop();
-    this.isRecording = false;
-
-    this.mediaRecorder.onstop = () => {
-      const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
-      this.audioUrl = URL.createObjectURL(audioBlob);
-      this.audioFile = new File([audioBlob], 'temoinage.wav', { type: 'audio/wav' });
-      this.audioChunks = [];
-    };
+    if (this.mediaRecorder) {
+      this.mediaRecorder.stop();
+      this.isRecording = false;
+    }
   }
-  
+
+  // Supprimez la méthode traduireDescription() si vous n'en avez plus besoin
 }
-
-

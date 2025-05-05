@@ -37,7 +37,7 @@ export class TemoinageListComponent implements OnInit {
     );
   }
   accepterTemoinage(temoinage: any) {
-    temoinage.statut = TemoinageStatut.ACCEPTE;
+    
   
     this.temoinageService.updateTemoinage(temoinage).subscribe(() => {
       // ✅ Après mise à jour, rediriger vers la page publique

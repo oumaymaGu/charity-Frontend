@@ -22,11 +22,12 @@ export class GalleryComponent implements OnInit {
   onSubmit() {
     this.claimService.sendClaim(this.claim).subscribe(response => {
       alert('Claim sent successfully!');
-      this.claims.push(this.claim);  // Add the submitted claim to the list
-      this.claim = { name: '', email: '', message: '' }; // Reset the form
-      this.loadClaims();  // Reload claims after submission
+      this.claims.push(response); // utiliser la réponse renvoyée par le backend
+      this.claim = { name: '', email: '', message: '' };
+      this.loadClaims();
     });
   }
+  
 
   // Method to load all claims from the backend
   loadClaims(): void {
