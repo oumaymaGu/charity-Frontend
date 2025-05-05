@@ -15,15 +15,17 @@ export class AuthService {
 
   // Login method
   login(username: string, password: string): Observable<any> {
-    return this.http.post<{ token: string, role: string, username: string, email: string }>(
+    return this.http.post<{ accessToken: string, role: string, username: string, email: string }>(
       this.loginUrl, { username, password }
     ).pipe(
       tap((response) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
+        if (response.accessToken) {
+          localStorage.setItem('token', response.accessToken);
           localStorage.setItem('role', response.role);
           localStorage.setItem('username', response.username);
+          
           localStorage.setItem('email', response.email); // Store email
+
         }
       })
     );
@@ -46,6 +48,7 @@ export class AuthService {
     localStorage.removeItem('role');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
+    localStorage.removeItem('idUser');
     this.router.navigate(['/home']).then(() => {
       window.location.reload();
     });
