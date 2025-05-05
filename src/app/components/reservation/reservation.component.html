@@ -1,0 +1,32 @@
+<div *ngIf="!errorMessage && logement" class="reservation-container">
+  <h2 class="reservation-title">Réservation du logement : {{ logement.nom }}</h2>
+  
+  <div class="logement-details">
+    <p><strong>Adresse:</strong> {{ logement.adresse }}</p>
+    <p><strong>Places disponibles:</strong> {{ logement.capacite }}</p>
+    <p><strong>Disponibilité:</strong> {{ logement.disponnibilite === 'disponible' ? 'Disponible' : 'Non disponible' }}</p>
+  </div>
+
+  <!-- Formulaire de réservation -->
+  <form (ngSubmit)="reserver()" class="reservation-form" *ngIf="logement.capacite > 0 && logement.disponnibilite === 'disponible'">
+    <div class="form-group">
+      <label for="message" class="form-label">Message :</label>
+      <textarea id="message" [(ngModel)]="message" name="message" class="form-textarea" required placeholder="Écrivez un message..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-submit">Réserver</button>
+  </form>
+
+  <!-- Message si aucune place disponible -->
+  <div class="no-places-alert" *ngIf="logement.capacite <= 0 || logement.disponnibilite !== 'disponible'">
+    <p>Ce logement n'est plus disponible ou n'a plus de places.</p>
+  </div>
+
+  <!-- Affichage du message de succès -->
+  <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+</div>
+
+<!-- Affichage du message d'erreur -->
+<p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<!-- Lien pour retourner à la liste des logements -->
+<a routerLink="/service" class="btn btn-link">Retour à la liste des logements</a>

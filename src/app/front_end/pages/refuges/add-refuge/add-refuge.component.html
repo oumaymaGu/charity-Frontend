@@ -1,349 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Humanity</title>
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" routerLink="/assets/css/bootstrap.min.css">
-    <!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link routerLink="/assets/css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" routerLink="/assets/css/demo.css" />
-    <link rel="stylesheet" routerLink="/assets/css/testimonial.css" />
-    <link rel="stylesheet" routerLink="/assets/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-
-    <!-- Styles CSS intégrés -->
-    <style>
-        /* Styles pour le conteneur du formulaire */
-        .form-container {
-            max-width: 600px; /* Largeur du formulaire */
-            margin: 50px auto; /* Centrer verticalement et horizontalement */
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Styles pour le titre du formulaire */
-        .form-container h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-
-        /* Styles pour les champs du formulaire */
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: #007bff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        /* Styles pour les boutons */
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline-primary {
-            background-color: transparent;
-            border: 2px solid #007bff;
-            color: #007bff;
-        }
-
-        .btn-outline-primary:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/demo.css" />
+    <link rel="stylesheet" href="/assets/css/testimonial.css" />
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
+  </head>
+  <body>
     <div class="header container">
-        <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
-            <a rel="home" routerLink="/home">
-                <img src="/assets/img/logo.png" width="200" alt="logo">
-            </a>
-        </div>
+      <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
+        <a routerLink="/home">
+          <img src="/assets/img/logo.png" width="200" alt="logo">
+        </a>
+      </div>
     </div>
 
     <!-- Section de la barre de navigation -->
     <div class="navbar" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a routerLink="/">Home</a></li>
-                <li><a routerLink="/about">Associations</a></li>
-                <li class="selected"><a routerLink="/service">Refuge Space</a></li>
-                <li><a routerLink="/gallery">Delivery</a></li>
-                <li class="hidden-xs hidden-sm">
-                    <a rel="home" routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
-                </li>
-                <li><a routerLink="/event">Events</a></li>
-                <li><a routerLink="/team">Testimonials</a></li>
-                <li><a routerLink="/donate">Donate</a></li>
-                <li><a routerLink="/contact">Contact</a></li>
-                <li><a routerLink="/join">Sign In</a></li>
-                <li><a routerLink="/signup">Sign Up</a></li>
-            </ul>
-        </div>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/about">Associations</a></li>
+          <li class="selected"><a routerLink="/service">Refuge Space</a></li>
+          <li><a routerLink="/gallery">Delivery</a></li>
+          <li class="hidden-xs hidden-sm">
+            <a routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
+          </li>
+          <li><a routerLink="/event">Events</a></li>
+          <li><a routerLink="/team">Testimonials</a></li>
+          <li><a routerLink="/donate">Donate</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+          <li><a routerLink="/signin">Sign In</a></li>
+        </ul>
+      </div>
     </div>
-
-    <!-- Conteneur du formulaire -->
-    <div class="form-container">
-        <h2>Add a Refuge</h2>
-        <form (ngSubmit)="onSubmit()" #refugeForm="ngForm">
-            <div class="mb-3">
-                <label for="nom" class="form-label">Last Name</label>
-                <input type="text" id="nom" class="form-control" [(ngModel)]="refuge.nom" name="nom" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="prenom" class="form-label">First Name</label>
-                <input type="text" id="prenom" class="form-control" [(ngModel)]="refuge.prenom" name="prenom" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" class="form-control" [(ngModel)]="refuge.email" name="email" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="nationnalite" class="form-label">Nationality</label>
-              <select id="nationnalite" class="form-control" [(ngModel)]="refuge.nationnalite" name="nationnalite" required>
-                  <option value="">Select a country</option>
-                  <option value="Afghanistan">Afghanistan</option>
-                  <option value="Albania">Albania</option>
-                  <option value="Algeria">Algeria</option>
-                  <option value="Andorra">Andorra</option>
-                  <option value="Angola">Angola</option>
-                  <option value="Argentina">Argentina</option>
-                  <option value="Armenia">Armenia</option>
-                  <option value="Australia">Australia</option>
-                  <option value="Austria">Austria</option>
-                  <option value="Azerbaijan">Azerbaijan</option>
-                  <option value="Bahamas">Bahamas</option>
-                  <option value="Bahrain">Bahrain</option>
-                  <option value="Bangladesh">Bangladesh</option>
-                  <option value="Barbados">Barbados</option>
-                  <option value="Belarus">Belarus</option>
-                  <option value="Belgium">Belgium</option>
-                  <option value="Belize">Belize</option>
-                  <option value="Benin">Benin</option>
-                  <option value="Bhutan">Bhutan</option>
-                  <option value="Bolivia">Bolivia</option>
-                  <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-                  <option value="Botswana">Botswana</option>
-                  <option value="Brazil">Brazil</option>
-                  <option value="Brunei">Brunei</option>
-                  <option value="Bulgaria">Bulgaria</option>
-                  <option value="Burkina Faso">Burkina Faso</option>
-                  <option value="Burundi">Burundi</option>
-                  <option value="Cambodia">Cambodia</option>
-                  <option value="Cameroon">Cameroon</option>
-                  <option value="Canada">Canada</option>
-                  <option value="Cape Verde">Cape Verde</option>
-                  <option value="Central African Republic">Central African Republic</option>
-                  <option value="Chad">Chad</option>
-                  <option value="Chile">Chile</option>
-                  <option value="China">China</option>
-                  <option value="Colombia">Colombia</option>
-                  <option value="Comoros">Comoros</option>
-                  <option value="Congo">Congo</option>
-                  <option value="Costa Rica">Costa Rica</option>
-                  <option value="Croatia">Croatia</option>
-                  <option value="Cuba">Cuba</option>
-                  <option value="Cyprus">Cyprus</option>
-                  <option value="Czech Republic">Czech Republic</option>
-                  <option value="Denmark">Denmark</option>
-                  <option value="Djibouti">Djibouti</option>
-                  <option value="Dominica">Dominica</option>
-                  <option value="Dominican Republic">Dominican Republic</option>
-                  <option value="Ecuador">Ecuador</option>
-                  <option value="Egypt">Egypt</option>
-                  <option value="El Salvador">El Salvador</option>
-                  <option value="Equatorial Guinea">Equatorial Guinea</option>
-                  <option value="Eritrea">Eritrea</option>
-                  <option value="Estonia">Estonia</option>
-                  <option value="Ethiopia">Ethiopia</option>
-                  <option value="Fiji">Fiji</option>
-                  <option value="Finland">Finland</option>
-                  <option value="France">France</option>
-                  <option value="Gabon">Gabon</option>
-                  <option value="Gambia">Gambia</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Germany">Germany</option>
-                  <option value="Ghana">Ghana</option>
-                  <option value="Greece">Greece</option>
-                  <option value="Grenada">Grenada</option>
-                  <option value="Guatemala">Guatemala</option>
-                  <option value="Guinea">Guinea</option>
-                  <option value="Guinea-Bissau">Guinea-Bissau</option>
-                  <option value="Guyana">Guyana</option>
-                  <option value="Haiti">Haiti</option>
-                  <option value="Honduras">Honduras</option>
-                  <option value="Hungary">Hungary</option>
-                  <option value="Iceland">Iceland</option>
-                  <option value="India">India</option>
-                  <option value="Indonesia">Indonesia</option>
-                  <option value="Iran">Iran</option>
-                  <option value="Iraq">Iraq</option>
-                  <option value="Ireland">Ireland</option>
-                  <option value="Israel">Israel</option>
-                  <option value="Italy">Italy</option>
-                  <option value="Jamaica">Jamaica</option>
-                  <option value="Japan">Japan</option>
-                  <option value="Jordan">Jordan</option>
-                  <option value="Kazakhstan">Kazakhstan</option>
-                  <option value="Kenya">Kenya</option>
-                  <option value="Kiribati">Kiribati</option>
-                  <option value="North Korea">North Korea</option>
-                  <option value="South Korea">South Korea</option>
-                  <option value="Kuwait">Kuwait</option>
-                  <option value="Kyrgyzstan">Kyrgyzstan</option>
-                  <option value="Laos">Laos</option>
-                  <option value="Latvia">Latvia</option>
-                  <option value="Lebanon">Lebanon</option>
-                  <option value="Lesotho">Lesotho</option>
-                  <option value="Liberia">Liberia</option>
-                  <option value="Libya">Libya</option>
-                  <option value="Liechtenstein">Liechtenstein</option>
-                  <option value="Lithuania">Lithuania</option>
-                  <option value="Luxembourg">Luxembourg</option>
-                  <option value="Macedonia">Macedonia</option>
-                  <option value="Madagascar">Madagascar</option>
-                  <option value="Malawi">Malawi</option>
-                  <option value="Malaysia">Malaysia</option>
-                  <option value="Maldives">Maldives</option>
-                  <option value="Mali">Mali</option>
-                  <option value="Malta">Malta</option>
-                  <option value="Marshall Islands">Marshall Islands</option>
-                  <option value="Mauritania">Mauritania</option>
-                  <option value="Mauritius">Mauritius</option>
-                  <option value="Mexico">Mexico</option>
-                  <option value="Moldova">Moldova</option>
-                  <option value="Monaco">Monaco</option>
-                  <option value="Mongolia">Mongolia</option>
-                  <option value="Montenegro">Montenegro</option>
-                  <option value="Morocco">Morocco</option>
-                  <option value="Mozambique">Mozambique</option>
-                  <option value="Myanmar">Myanmar</option>
-                  <option value="Namibia">Namibia</option>
-                  <option value="Nepal">Nepal</option>
-                  <option value="Netherlands">Netherlands</option>
-                  <option value="New Zealand">New Zealand</option>
-                  <option value="Nicaragua">Nicaragua</option>
-                  <option value="Niger">Niger</option>
-                  <option value="Nigeria">Nigeria</option>
-                  <option value="Norway">Norway</option>
-                  <option value="Oman">Oman</option>
-                  <option value="Pakistan">Pakistan</option>
-                  <option value="Panama">Panama</option>
-                  <option value="Paraguay">Paraguay</option>
-                  <option value="Peru">Peru</option>
-                  <option value="Philippines">Philippines</option>
-              </select>
-          </div>
-          
-
-            <div class="mb-3">
-                <label for="datedenaissance" class="form-label">Date of Birth</label>
-                <input type="date" id="datedenaissance" class="form-control" [(ngModel)]="refuge.datedenaissance" name="datedenaissance" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="localisationActuel" class="form-label">Current Location</label>
-                <input type="text" id="localisationActuel" class="form-control" [(ngModel)]="refuge.localisationActuel" name="localisationActuel" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="besoin" class="form-label">Needs</label>
-                <textarea id="besoin" class="form-control" [(ngModel)]="refuge.besoin" name="besoin" required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary" [disabled]="!refugeForm.form.valid">Add</button>
-            <a class="btn btn-outline-primary px-3" routerLink="/service">
-                <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle me-2">
-                    <i class="fa fa-arrow-left"></i>
-                </div>
-                Back
-            </a>
-        </form>
+<div class="form-container">
+    <div class="form-header">
+      <h2>Add a Refuge</h2>
+      <p class="form-subtitle">Please fill out the information below to request assistance</p>
     </div>
-    <footer id="footer">
-      <div class="footer-content container">
-        <div class="footer-adress text-center col-xs-12 col-sm-4 col-md-4">
-          <h4>Great love for humanity</h4>
-          <ul class="footer-menus">
-            <li><a routerLink="/">Home</a> /</li>
-            <li><a routerLink="/about">About</a> /</li>
-            <li><a routerLink="/services">Service</a> /</li>
-            <li><a routerLink="/gallery">Gallery</a> /</li>
-            <li><a routerLink="/contact">Contact</a></li>
-          </ul>
-        </div>
-    
-        <div class="footer-second col-xs-12 col-sm-4 col-md-4">
-          <div class="social-block text-center">
-            <div class="social-share">
-              <a href="#"><i class="fa fa-2x fa-facebook"></i></a>
-              <a href="#"><i class="fa fa-2x fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-2x fa-google-plus"></i></a>
-              <a href="#"><i class="fa fa-2x fa-instagram"></i></a>
-            </div>
+  
+    <form (ngSubmit)="onSubmit()" #refugeForm="ngForm" class="modern-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="prenom" class="form-label">First Name</label>
+          <div class="input-wrapper">
+            <i class="fa fa-user input-icon"></i>
+            <input type="text" id="prenom" class="form-input" [(ngModel)]="refuge.prenom" name="prenom" required placeholder="Enter first name">
           </div>
-          <p class="text-center footer-text1">123 456 7890</p>
-          <p class="text-center footer-text">humanity@shuvohabib.com</p>
         </div>
-    
-        <div class="footer-third col-xs-12 col-sm-4 col-md-4">
-          <div class="copyright">
-            <span>Copyright 2014 Theme</span><br>
-            <span>All Rights Reserved</span>
+  
+        <div class="form-group">
+          <label for="nom" class="form-label">Last Name</label>
+          <div class="input-wrapper">
+            <i class="fa fa-user input-icon"></i>
+            <input type="text" id="nom" class="form-input" [(ngModel)]="refuge.nom" name="nom" required placeholder="Enter last name">
           </div>
         </div>
       </div>
-    
-      <div class="move-top-page">
-        <!-- Bouton pour remonter en haut de la page -->
-        <a href="#" class="scroll-to-top">
-          <i class="fa fa-arrow-up"></i>
+  
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-wrapper">
+          <i class="fa fa-envelope input-icon"></i>
+          <input type="email" id="email" class="form-input" [(ngModel)]="refuge.email" name="email" required placeholder="Enter your email address">
+        </div>
+      </div>
+  
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nationnalite" class="form-label">Nationality</label>
+          <div class="input-wrapper">
+            <i class="fa fa-globe input-icon"></i>
+            <select id="nationnalite" class="form-input" [(ngModel)]="refuge.nationnalite" name="nationnalite" required>
+              <option value="">Select a country</option>
+              <option value="Afghanistan">Afghanistan</option>
+              <option value="Albania">Albania</option>
+              <option value="Algeria">Algeria</option>
+              <option value="Andorra">Andorra</option>
+              <option value="Angola">Angola</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Armenia">Armenia</option>
+              <option value="Australia">Australia</option>
+              <option value="Austria">Austria</option>
+              <option value="Azerbaijan">Azerbaijan</option>
+              <option value="Bahamas">Bahamas</option>
+              <option value="Bahrain">Bahrain</option>
+              <option value="Bangladesh">Bangladesh</option>
+              <option value="Barbados">Barbados</option>
+              <option value="Belarus">Belarus</option>
+              <option value="Belgium">Belgium</option>
+              <option value="Belize">Belize</option>
+              <option value="Benin">Benin</option>
+              <option value="Bhutan">Bhutan</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+              <option value="Botswana">Botswana</option>
+              <option value="Brazil">Brazil</option>
+              <option value="Brunei">Brunei</option>
+              <option value="Bulgaria">Bulgaria</option>
+              <option value="Burkina Faso">Burkina Faso</option>
+              <option value="Burundi">Burundi</option>
+              <option value="Cambodia">Cambodia</option>
+              <option value="Cameroon">Cameroon</option>
+              <option value="Canada">Canada</option>
+              <option value="Cape Verde">Cape Verde</option>
+              <option value="Central African Republic">Central African Republic</option>
+              <option value="Chad">Chad</option>
+              <option value="Chile">Chile</option>
+              <option value="China">China</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Comoros">Comoros</option>
+              <option value="Congo">Congo</option>
+              <option value="Costa Rica">Costa Rica</option>
+              <option value="Croatia">Croatia</option>
+              <option value="Cuba">Cuba</option>
+              <option value="Cyprus">Cyprus</option>
+              <option value="Czech Republic">Czech Republic</option>
+              <option value="Denmark">Denmark</option>
+              <option value="Djibouti">Djibouti</option>
+              <option value="Dominica">Dominica</option>
+              <option value="Dominican Republic">Dominican Republic</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="Egypt">Egypt</option>
+              <option value="El Salvador">El Salvador</option>
+              <option value="Equatorial Guinea">Equatorial Guinea</option>
+              <option value="Eritrea">Eritrea</option>
+              <option value="Estonia">Estonia</option>
+              <option value="Ethiopia">Ethiopia</option>
+              <option value="Fiji">Fiji</option>
+              <option value="Finland">Finland</option>
+              <option value="France">France</option>
+              <option value="Gabon">Gabon</option>
+              <option value="Gambia">Gambia</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Germany">Germany</option>
+              <option value="Ghana">Ghana</option>
+              <option value="Greece">Greece</option>
+              <option value="Grenada">Grenada</option>
+              <option value="Guatemala">Guatemala</option>
+              <option value="Guinea">Guinea</option>
+              <option value="Guinea-Bissau">Guinea-Bissau</option>
+              <option value="Guyana">Guyana</option>
+              <option value="Haiti">Haiti</option>
+              <option value="Honduras">Honduras</option>
+              <option value="Hungary">Hungary</option>
+              <option value="Iceland">Iceland</option>
+              <option value="India">India</option>
+              <option value="Indonesia">Indonesia</option>
+              <option value="Iran">Iran</option>
+              <option value="Iraq">Iraq</option>
+              <option value="Ireland">Ireland</option>
+              <option value="Italy">Italy</option>
+              <option value="Jamaica">Jamaica</option>
+              <option value="Japan">Japan</option>
+              <option value="Jordan">Jordan</option>
+              <option value="Kazakhstan">Kazakhstan</option>
+              <option value="Kenya">Kenya</option>
+              <option value="Kiribati">Kiribati</option>
+              <option value="North Korea">North Korea</option>
+              <option value="South Korea">South Korea</option>
+              <option value="Kuwait">Kuwait</option>
+              <option value="Kyrgyzstan">Kyrgyzstan</option>
+              <option value="Laos">Laos</option>
+              <option value="Latvia">Latvia</option>
+              <option value="Lebanon">Lebanon</option>
+              <option value="Lesotho">Lesotho</option>
+              <option value="Liberia">Liberia</option>
+              <option value="Libya">Libya</option>
+              <option value="Liechtenstein">Liechtenstein</option>
+              <option value="Lithuania">Lithuania</option>
+              <option value="Luxembourg">Luxembourg</option>
+              <option value="Macedonia">Macedonia</option>
+              <option value="Madagascar">Madagascar</option>
+              <option value="Malawi">Malawi</option>
+              <option value="Malaysia">Malaysia</option>
+              <option value="Maldives">Maldives</option>
+              <option value="Mali">Mali</option>
+              <option value="Malta">Malta</option>
+              <option value="Marshall Islands">Marshall Islands</option>
+              <option value="Mauritania">Mauritania</option>
+              <option value="Mauritius">Mauritius</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Moldova">Moldova</option>
+              <option value="Monaco">Monaco</option>
+              <option value="Mongolia">Mongolia</option>
+              <option value="Montenegro">Montenegro</option>
+              <option value="Morocco">Morocco</option>
+              <option value="Mozambique">Mozambique</option>
+              <option value="Myanmar">Myanmar</option>
+              <option value="Namibia">Namibia</option>
+              <option value="Nepal">Nepal</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="Nicaragua">Nicaragua</option>
+              <option value="Niger">Niger</option>
+              <option value="Nigeria">Nigeria</option>
+              <option value="Norway">Norway</option>
+              <option value="Oman">Oman</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="Panama">Panama</option>
+              <option value="Palastine">Palastine</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Peru">Peru</option>
+              <option value="Philippines">Philippines</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="datedenaissance" class="form-label">Date of Birth</label>
+          <div class="input-wrapper">
+            <i class="fa fa-calendar input-icon"></i>
+            <input type="date" id="datedenaissance" class="form-input" [(ngModel)]="refuge.datedenaissance" name="datedenaissance" required>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="localisationActuel" class="form-label">Current Location</label>
+        <div class="input-wrapper">
+          <i class="fa fa-map-marker input-icon"></i>
+          <input type="text" id="localisationActuel" class="form-input" [(ngModel)]="refuge.localisationActuel" name="localisationActuel" required placeholder="Enter your current location">
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="besoin" class="form-label">Needs</label>
+        <div class="input-wrapper textarea-wrapper">
+          <i class="fa fa-list-alt input-icon"></i>
+          <textarea id="besoin" class="form-input" [(ngModel)]="refuge.besoin" name="besoin" required placeholder="Please describe your needs in detail"></textarea>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="image" class="form-label">Photo</label>
+        <div class="file-upload-wrapper">
+          <div class="file-upload-box">
+            <i class="fa fa-cloud-upload upload-icon"></i>
+            <span class="upload-text">Click to upload a photo or drag and drop</span>
+            <input type="file" id="image" class="file-input" (change)="onFileSelected($event)" accept="image/*">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Image preview area -->
+      <div *ngIf="imagePreview" class="image-preview-container">
+        <div class="image-preview-header">
+          <span>Image Preview</span>
+
+        </div>
+        <div class="image-preview">
+          <img [src]="imagePreview" alt="Preview">
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" class="submit-btn" [disabled]="!refugeForm.form.valid">
+          <i class="fa fa-check-circle"></i> Submit Request
+        </button>
+        <a class="back-btn" routerLink="/service">
+          <i class="fa fa-arrow-left"></i> Back
         </a>
       </div>
-    </footer>
-</body>
-</html>
+    </form>
+  </div>
+  
+  <style>
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .form-header h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-subtitle {
+      color: #666;
+      font-size: 1rem;
+    }
+    
+    .modern-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .form-group {
+      margin-bottom: 0;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 12px;
+      color: #4361ee;
+      font-size: 1rem;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      border-color: #4361ee;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+      outline: none;
+    }
+    
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234361ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 40px;
+    }
+    
+    .textarea-wrapper .input-icon {
+      top: 12px;
+    }
+    
+    textarea.form-input {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .file-upload-wrapper {
+      margin-top: 0.5rem;
+    }
+    
+    .file-upload-box {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .file-upload-box:hover {
+      border-color: #4361ee;
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .upload-icon {
+      font-size: 2rem;
+      color: #4361ee;
+      margin-bottom: 0.75rem;
+    }
+    
+    .upload-text {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .image-preview-container {
+      margin-top: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .image-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .remove-image-btn {
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0;
+    }
+    
+    .remove-image-btn:hover {
+      color: #dc3545;
+    }
+    
+    .image-preview {
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .image-preview img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 4px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .submit-btn {
+      flex: 1;
+      padding: 0.75rem 1.5rem;
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .submit-btn:hover {
+      background-color: #3a56d4;
+    }
+    
+    .submit-btn:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+    }
+    
+    .back-btn {
+      padding: 0.75rem 1.5rem;
+      background-color: white;
+      color: #4361ee;
+      border: 1px solid #4361ee;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    
+    .back-btn:hover {
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 1.5rem;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+    }
+  </style>

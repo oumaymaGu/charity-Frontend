@@ -15,74 +15,213 @@
     <link rel="stylesheet" routerLink="/assets/css/demo.css" />
     <link rel="stylesheet" routerLink="/assets/css/testimonial.css" />
     <link rel="stylesheet" routerLink="/assets/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles CSS intégrés -->
     <style>
-        /* Styles pour le conteneur du formulaire */
+      :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3bc9db;
+        --danger-color: #e63946;
+        --text-color: #2b2d42;
+        --text-light: #6c757d;
+        --light-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --border-radius: 12px;
+        --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        --transition: all 0.3s ease;
+      }
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--light-bg);
+      }
+      
+      .form-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+      }
+      
+      .form-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+      
+      .form-header h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+      
+      .form-header p {
+        color: var(--text-light);
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      
+      .form-header::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+      
+      .modern-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      
+      .form-row {
+        display: flex;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+      }
+      
+      .form-row .form-group {
+        flex: 1;
+        min-width: 250px;
+      }
+      
+      .form-group {
+        margin-bottom: 0;
+      }
+      
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-color);
+      }
+      
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      
+      .input-icon {
+        position: absolute;
+        left: 12px;
+        color: var(--primary-color);
+        font-size: 1rem;
+      }
+      
+      .form-input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      
+      .form-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        outline: none;
+      }
+      
+      select.form-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234361ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 40px;
+      }
+      
+      .textarea-wrapper .input-icon {
+        top: 12px;
+      }
+      
+      textarea.form-input {
+        min-height: 120px;
+        resize: vertical;
+      }
+      
+      .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      
+      .submit-btn {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      
+      .submit-btn:hover {
+        background-color: #3a56d4;
+        transform: translateY(-3px);
+      }
+      
+      .submit-btn:disabled {
+        background-color: #a0aec0;
+        cursor: not-allowed;
+      }
+      
+      .back-btn {
+        padding: 0.75rem 1.5rem;
+        background-color: white;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+      }
+      
+      .back-btn:hover {
+        background-color: rgba(67, 97, 238, 0.05);
+        transform: translateY(-3px);
+      }
+      
+      @media (max-width: 768px) {
         .form-container {
-            max-width: 600px; /* Largeur du formulaire */
-            margin: 50px auto; /* Centrer verticalement et horizontalement */
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 1.5rem;
+          margin: 1rem;
         }
-
-        /* Styles pour le titre du formulaire */
-        .form-container h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 2rem;
+        
+        .form-row {
+          flex-direction: column;
+          gap: 1.25rem;
         }
-
-        /* Styles pour les champs du formulaire */
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+        
+        .form-actions {
+          flex-direction: column;
         }
-
-        .form-control:focus {
-            border-color: #007bff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        
+        .submit-btn, .back-btn {
+          width: 100%;
         }
-
-        /* Styles pour les boutons */
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline-primary {
-            background-color: transparent;
-            border: 2px solid #007bff;
-            color: #007bff;
-        }
-
-        .btn-outline-primary:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
+      }
     </style>
 </head>
 <body>
@@ -125,184 +264,215 @@
 
     <!-- Conteneur du formulaire -->
     <div class="form-container">
-        <h2>Update a Refuge</h2> <!-- Changed from "Add a Shelter" to "Update a Shelter" -->
-        <form (ngSubmit)="onSubmit()" #refugeForm="ngForm">
-            <div class="mb-3">
-                <label for="nom" class="form-label">Last Name</label>
-                <input type="text" id="nom" class="form-control" [(ngModel)]="refuge.nom" name="nom" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="prenom" class="form-label">First Name</label>
-                <input type="text" id="prenom" class="form-control" [(ngModel)]="refuge.prenom" name="prenom" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" class="form-control" [(ngModel)]="refuge.email" name="email" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="nationnalite" class="form-label">Nationality</label>
-                <select id="nationnalite" class="form-control" [(ngModel)]="refuge.nationnalite" name="nationnalite" required>
-                    <option value="">Select a country</option>
-                    <option value="Afghanistan">Afghanistan</option>
-                    <option value="Albania">Albania</option>
-                    <option value="Algeria">Algeria</option>
-                    <option value="Andorra">Andorra</option>
-                    <option value="Angola">Angola</option>
-                    <option value="Argentina">Argentina</option>
-                    <option value="Armenia">Armenia</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Austria">Austria</option>
-                    <option value="Azerbaijan">Azerbaijan</option>
-                    <option value="Bahamas">Bahamas</option>
-                    <option value="Bahrain">Bahrain</option>
-                    <option value="Bangladesh">Bangladesh</option>
-                    <option value="Barbados">Barbados</option>
-                    <option value="Belarus">Belarus</option>
-                    <option value="Belgium">Belgium</option>
-                    <option value="Belize">Belize</option>
-                    <option value="Benin">Benin</option>
-                    <option value="Bhutan">Bhutan</option>
-                    <option value="Bolivia">Bolivia</option>
-                    <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-                    <option value="Botswana">Botswana</option>
-                    <option value="Brazil">Brazil</option>
-                    <option value="Brunei">Brunei</option>
-                    <option value="Bulgaria">Bulgaria</option>
-                    <option value="Burkina Faso">Burkina Faso</option>
-                    <option value="Burundi">Burundi</option>
-                    <option value="Cambodia">Cambodia</option>
-                    <option value="Cameroon">Cameroon</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Cape Verde">Cape Verde</option>
-                    <option value="Central African Republic">Central African Republic</option>
-                    <option value="Chad">Chad</option>
-                    <option value="Chile">Chile</option>
-                    <option value="China">China</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="Comoros">Comoros</option>
-                    <option value="Congo">Congo</option>
-                    <option value="Costa Rica">Costa Rica</option>
-                    <option value="Croatia">Croatia</option>
-                    <option value="Cuba">Cuba</option>
-                    <option value="Cyprus">Cyprus</option>
-                    <option value="Czech Republic">Czech Republic</option>
-                    <option value="Denmark">Denmark</option>
-                    <option value="Djibouti">Djibouti</option>
-                    <option value="Dominica">Dominica</option>
-                    <option value="Dominican Republic">Dominican Republic</option>
-                    <option value="Ecuador">Ecuador</option>
-                    <option value="Egypt">Egypt</option>
-                    <option value="El Salvador">El Salvador</option>
-                    <option value="Equatorial Guinea">Equatorial Guinea</option>
-                    <option value="Eritrea">Eritrea</option>
-                    <option value="Estonia">Estonia</option>
-                    <option value="Ethiopia">Ethiopia</option>
-                    <option value="Fiji">Fiji</option>
-                    <option value="Finland">Finland</option>
-                    <option value="France">France</option>
-                    <option value="Gabon">Gabon</option>
-                    <option value="Gambia">Gambia</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Ghana">Ghana</option>
-                    <option value="Greece">Greece</option>
-                    <option value="Grenada">Grenada</option>
-                    <option value="Guatemala">Guatemala</option>
-                    <option value="Guinea">Guinea</option>
-                    <option value="Guinea-Bissau">Guinea-Bissau</option>
-                    <option value="Guyana">Guyana</option>
-                    <option value="Haiti">Haiti</option>
-                    <option value="Honduras">Honduras</option>
-                    <option value="Hungary">Hungary</option>
-                    <option value="Iceland">Iceland</option>
-                    <option value="India">India</option>
-                    <option value="Indonesia">Indonesia</option>
-                    <option value="Iran">Iran</option>
-                    <option value="Iraq">Iraq</option>
-                    <option value="Ireland">Ireland</option>
-                    <option value="Israel">Israel</option>
-                    <option value="Italy">Italy</option>
-                    <option value="Jamaica">Jamaica</option>
-                    <option value="Japan">Japan</option>
-                    <option value="Jordan">Jordan</option>
-                    <option value="Kazakhstan">Kazakhstan</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="Kiribati">Kiribati</option>
-                    <option value="North Korea">North Korea</option>
-                    <option value="South Korea">South Korea</option>
-                    <option value="Kuwait">Kuwait</option>
-                    <option value="Kyrgyzstan">Kyrgyzstan</option>
-                    <option value="Laos">Laos</option>
-                    <option value="Latvia">Latvia</option>
-                    <option value="Lebanon">Lebanon</option>
-                    <option value="Lesotho">Lesotho</option>
-                    <option value="Liberia">Liberia</option>
-                    <option value="Libya">Libya</option>
-                    <option value="Liechtenstein">Liechtenstein</option>
-                    <option value="Lithuania">Lithuania</option>
-                    <option value="Luxembourg">Luxembourg</option>
-                    <option value="Macedonia">Macedonia</option>
-                    <option value="Madagascar">Madagascar</option>
-                    <option value="Malawi">Malawi</option>
-                    <option value="Malaysia">Malaysia</option>
-                    <option value="Maldives">Maldives</option>
-                    <option value="Mali">Mali</option>
-                    <option value="Malta">Malta</option>
-                    <option value="Marshall Islands">Marshall Islands</option>
-                    <option value="Mauritania">Mauritania</option>
-                    <option value="Mauritius">Mauritius</option>
-                    <option value="Mexico">Mexico</option>
-                    <option value="Moldova">Moldova</option>
-                    <option value="Monaco">Monaco</option>
-                    <option value="Mongolia">Mongolia</option>
-                    <option value="Montenegro">Montenegro</option>
-                    <option value="Morocco">Morocco</option>
-                    <option value="Mozambique">Mozambique</option>
-                    <option value="Myanmar">Myanmar</option>
-                    <option value="Namibia">Namibia</option>
-                    <option value="Nepal">Nepal</option>
-                    <option value="Netherlands">Netherlands</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="Nicaragua">Nicaragua</option>
-                    <option value="Niger">Niger</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="Norway">Norway</option>
-                    <option value="Oman">Oman</option>
-                    <option value="Pakistan">Pakistan</option>
-                    <option value="Panama">Panama</option>
-                    <option value="Paraguay">Paraguay</option>
-                    <option value="Peru">Peru</option>
-                    <option value="Philippines">Philippines</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="datedenaissance" class="form-label">Date of Birth</label>
-                <input type="date" id="datedenaissance" class="form-control" [(ngModel)]="refuge.datedenaissance" name="datedenaissance" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="localisationActuel" class="form-label">Current Location</label>
-                <input type="text" id="localisationActuel" class="form-control" [(ngModel)]="refuge.localisationActuel" name="localisationActuel" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="besoin" class="form-label">Needs</label>
-                <textarea id="besoin" class="form-control" [(ngModel)]="refuge.besoin" name="besoin" required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary" [disabled]="!refugeForm.form.valid">Update</button> <!-- Changed from "Add" to "Update" -->
-            <a class="btn btn-outline-primary px-3" routerLink="/lastrefuge">
-                <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle me-2">
-                    <i class="fa fa-arrow-left"></i>
+        <div class="form-header">
+            <h2>Update Refuge Request</h2>
+            <p>Please update your information below</p>
+        </div>
+        
+        <form (ngSubmit)="onSubmit()" #refugeForm="ngForm" class="modern-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="prenom" class="form-label">First Name</label>
+                    <div class="input-wrapper">
+                        <i class="fa fa-user input-icon"></i>
+                        <input type="text" id="prenom" class="form-input" [(ngModel)]="refuge.prenom" name="prenom" required placeholder="Enter first name">
+                    </div>
                 </div>
-                Back
-            </a>
+
+                <div class="form-group">
+                    <label for="nom" class="form-label">Last Name</label>
+                    <div class="input-wrapper">
+                        <i class="fa fa-user input-icon"></i>
+                        <input type="text" id="nom" class="form-input" [(ngModel)]="refuge.nom" name="nom" required placeholder="Enter last name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-envelope input-icon"></i>
+                    <input type="email" id="email" class="form-input" [(ngModel)]="refuge.email" name="email" required placeholder="Enter your email address">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nationnalite" class="form-label">Nationality</label>
+                    <div class="input-wrapper">
+                        <i class="fa fa-globe input-icon"></i>
+                        <select id="nationnalite" class="form-input" [(ngModel)]="refuge.nationnalite" name="nationnalite" required>
+                            <option value="">Select a country</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Andorra">Andorra</option>
+                            <option value="Angola">Angola</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahamas">Bahamas</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Barbados">Barbados</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Belize">Belize</option>
+                            <option value="Benin">Benin</option>
+                            <option value="Bhutan">Bhutan</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Brunei">Brunei</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Burkina Faso">Burkina Faso</option>
+                            <option value="Burundi">Burundi</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Cameroon">Cameroon</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Cape Verde">Cape Verde</option>
+                            <option value="Central African Republic">Central African Republic</option>
+                            <option value="Chad">Chad</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Comoros">Comoros</option>
+                            <option value="Congo">Congo</option>
+                            <option value="Costa Rica">Costa Rica</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Cuba">Cuba</option>
+                            <option value="Cyprus">Cyprus</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Djibouti">Djibouti</option>
+                            <option value="Dominica">Dominica</option>
+                            <option value="Dominican Republic">Dominican Republic</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="El Salvador">El Salvador</option>
+                            <option value="Equatorial Guinea">Equatorial Guinea</option>
+                            <option value="Eritrea">Eritrea</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Fiji">Fiji</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Gabon">Gabon</option>
+                            <option value="Gambia">Gambia</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Grenada">Grenada</option>
+                            <option value="Guatemala">Guatemala</option>
+                            <option value="Guinea">Guinea</option>
+                            <option value="Guinea-Bissau">Guinea-Bissau</option>
+                            <option value="Guyana">Guyana</option>
+                            <option value="Haiti">Haiti</option>
+                            <option value="Honduras">Honduras</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Jamaica">Jamaica</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Kiribati">Kiribati</option>
+                            <option value="North Korea">North Korea</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Kuwait">Kuwait</option>
+                            <option value="Kyrgyzstan">Kyrgyzstan</option>
+                            <option value="Laos">Laos</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Liberia">Liberia</option>
+                            <option value="Libya">Libya</option>
+                            <option value="Liechtenstein">Liechtenstein</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Macedonia">Macedonia</option>
+                            <option value="Madagascar">Madagascar</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Maldives">Maldives</option>
+                            <option value="Mali">Mali</option>
+                            <option value="Malta">Malta</option>
+                            <option value="Marshall Islands">Marshall Islands</option>
+                            <option value="Mauritania">Mauritania</option>
+                            <option value="Mauritius">Mauritius</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Moldova">Moldova</option>
+                            <option value="Monaco">Monaco</option>
+                            <option value="Mongolia">Mongolia</option>
+                            <option value="Montenegro">Montenegro</option>
+                            <option value="Morocco">Morocco</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="Myanmar">Myanmar</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Nepal">Nepal</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Nicaragua">Nicaragua</option>
+                            <option value="Niger">Niger</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Oman">Oman</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Panama">Panama</option>
+                            <option value="Paraguay">Paraguay</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="datedenaissance" class="form-label">Date of Birth</label>
+                    <div class="input-wrapper">
+                        <i class="fa fa-calendar input-icon"></i>
+                        <input type="date" id="datedenaissance" class="form-input" [(ngModel)]="refuge.datedenaissance" name="datedenaissance" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="localisationActuel" class="form-label">Current Location</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-map-marker input-icon"></i>
+                    <input type="text" id="localisationActuel" class="form-input" [(ngModel)]="refuge.localisationActuel" name="localisationActuel" required placeholder="Enter your current location">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="besoin" class="form-label">Needs</label>
+                <div class="input-wrapper textarea-wrapper">
+                    <i class="fa fa-list-alt input-icon"></i>
+                    <textarea id="besoin" class="form-input" [(ngModel)]="refuge.besoin" name="besoin" required placeholder="Please describe your needs in detail"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" [disabled]="!refugeForm.form.valid">
+                    <i class="fa fa-check-circle"></i> Update Request
+                </button>
+                <a class="back-btn" routerLink="/lastrefuge">
+                    <i class="fa fa-arrow-left"></i> Back
+                </a>
+            </div>
         </form>
     </div>
+
     <footer id="footer">
       <div class="footer-content container">
         <div class="footer-adress text-center col-xs-12 col-sm-4 col-md-4">
@@ -338,7 +508,6 @@
       </div>
     
       <div class="move-top-page">
-        <!-- Bouton pour remonter en haut de la page -->
         <a href="#" class="scroll-to-top">
           <i class="fa fa-arrow-up"></i>
         </a>

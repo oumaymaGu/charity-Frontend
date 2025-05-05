@@ -31,6 +31,14 @@ import { RefugeComponent } from './front_end/pages/refuges/refuge/refuge.compone
 import { ListRefugeComponent } from './front_end/pages/refuges/list-refuge/list-refuge.component';
 import { ModifierRefugeComponent } from './front_end/pages/refuges/modifier-refuge/modifier-refuge.component';
 import { LastRefugeComponent } from './front_end/pages/refuges/last-refuge/last-refuge.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import { AdminReservationsComponent } from './back_end/admin-reservations/admin-reservations.component';
+import { NotificationsRefugeComponent } from './front_end/notifications-refuge/notifications-refuge.component';
+import { ConnectionComponent } from './front_end/connection/connection.component';
+import { PsychologicalTestComponent } from './front_end/pages/psychological-test/psychological-test/psychological-test.component';
+import { PsychologicalTestResultsComponent } from './front_end/pages/psychological-test/psychological-test-results/psychological-test-results.component';
+
+
 
 
 
@@ -40,8 +48,8 @@ const routes: Routes = [
 
   // Route pour la page d'accueil
  // { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'singin', component: LoginComponent },
-  { path: '', component: HomeComponent },
+  { path: 'signin', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
 
   // Routes pour les autres pages
   { path: 'about', component: AboutComponent },
@@ -54,7 +62,7 @@ const routes: Routes = [
  // { path: 'join', component: JoinComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forget', component: ForgetPasswordComponent },
-  { path: 'reset', component: ResetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'dash', component: DashboardComponent ,canActivate: [AuthGuard] },  
   { path: 'ajout-event', component: AjoutEventComponent },
   { path: 'edit-event/:id', component: EditEventComponent },
@@ -67,12 +75,22 @@ const routes: Routes = [
 { path: 'admin/logements/liste', component: ListeLogementComponent },
 { path: 'admin/logements/modifier/:id', component: ModifierLogementComponent },
 { path: 'logement', component: LogementComponent },
-{ path: 'logement/:id', component: LogementDetailsComponent },
+{ path: 'logement-details/:id', component: LogementDetailsComponent },
 { path: 'refuge', component: RefugeComponent },
 { path: 'lastrefuge', component: LastRefugeComponent },
 { path: 'refuge/modifier/:idRfg', component: ModifierRefugeComponent },
 { path: 'listref', component: ListRefugeComponent },
 { path: 'addrefuge', component: AddRefugeComponent },
+{ path: 'reservation/:username/:logementId', component: ReservationComponent },
+{ path: 'admin/reservations', component: AdminReservationsComponent },
+{ path: 'notificationRfg', component: NotificationsRefugeComponent },
+{ path: '', component: ConnectionComponent },
+{ path: 'psychological-test', component: PsychologicalTestComponent },
+{ path: 'psychological-test-results', component: PsychologicalTestResultsComponent },
+
+
+
+
 
 { path: '**', redirectTo:"" , pathMatch: 'full' }
 

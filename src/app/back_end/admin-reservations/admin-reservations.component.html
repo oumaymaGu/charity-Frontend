@@ -1,0 +1,48 @@
+<div class="container mt-5">
+    <h2 class="text-center">Admin - Manage Reservations</h2>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Logement</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations; let i = index">
+          <td>{{ reservation.demandeur.username }}</td>
+          <td>{{ reservation.demandeur.email }}</td>
+          <td>{{ reservation.logement.nom }}</td>
+          <td>{{ reservation.logement.adresse }}</td>
+          <td>{{ reservation.statut }}</td>
+          <td>
+            <!-- Status Change Buttons -->
+            <button class="btn btn-success btn-sm" 
+                    [disabled]="reservation.statut === 'ACCEPTEE'"
+                    (click)="changeStatus(reservation.idReservation, 'ACCEPTEE')">
+              Accept
+            </button>
+            <button class="btn btn-danger btn-sm" 
+                    [disabled]="reservation.statut === 'REFUSEE'"
+                    (click)="changeStatus(reservation.idReservation, 'REFUSEE')">
+              Refuse
+            </button>
+            <button class="btn btn-secondary btn-sm" 
+                    [disabled]="reservation.statut === 'EN_ATTENTE'"
+                    (click)="changeStatus(reservation.idReservation, 'EN_ATTENTE')">
+              Pending
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

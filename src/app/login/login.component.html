@@ -1,107 +1,184 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
-        /* Fond avec un léger dégradé */
-        body {
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Poppins', sans-serif;
-        }
 
-        /* Conteneur du formulaire */
-        .login-container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-            width: 400px;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #a8e063, #56ab2f);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
 
-        /* Titre */
-        .login-container h1 {
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+    .login-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
 
-        /* Champs de formulaire */
-        .form-control {
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 16px;
-        }
+    .login-container {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      margin: auto;
+    }
 
-        /* Bouton de connexion */
-        .btn-primary {
-            background: #007bff;
-            border: none;
-            padding: 10px;
-            font-size: 18px;
-            border-radius: 8px;
-            width: 100%;
-            transition: 0.3s;
-        }
+    .login-container img {
+      width: 100px;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
 
-        /* Effet au survol du bouton */
-        .btn-primary:hover {
-            background: #0056b3;
-            transform: scale(1.05);
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
 
-        /* Messages d'erreur et de succès */
-        .alert {
-            margin-top: 15px;
-            border-radius: 8px;
-        }
-    </style>
-</head>
-<body>
+    .login-container h1 {
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 25px;
+    }
 
+    .form-group label {
+      font-weight: 500;
+      color: #4a4a4a;
+      text-align: left;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .btn-primary {
+      background: #43a047;
+      border: none;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 10px;
+      width: 100%;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #2e7d32;
+      transform: translateY(-2px);
+    }
+
+    .alert {
+      margin-top: 15px;
+      border-radius: 8px;
+      padding: 10px 15px;
+    }
+
+    .text-center.mt-3 p {
+      font-size: 0.9em;
+      margin-bottom: 0;
+    }
+
+    .text-center.mt-3 a {
+      color: #2e7d32;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .text-center.mt-3 a:hover {
+      text-decoration: underline;
+    }
+
+    .quote-box {
+      margin-top: 30px;
+      font-style: italic;
+      font-weight: 500;
+      color: #555;
+      font-size: 1em;
+      line-height: 1.5;
+      font-size: 1em;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 30px;
+    font-weight: bold; /* ajoute ceci */
+    }
+
+    .quote-box strong {
+      display: block;
+      font-size: 1.1em;
+      margin-bottom: 5px;
+
+    }
+  </style>
+
+
+  <div class="login-wrapper">
     <div class="login-container">
-        <h1 class="text-center">Login</h1>
-        <form (ngSubmit)="onSubmit()" class="login-form">
-        <div class="form-group">
-        <label for="username">Username:</label>
-        <input
-        id="username"
-        type="text"
-        [(ngModel)]="credentials.username"
-        name="username"
-        required
-        class="form-control"
-        placeholder="Enter your username"
-        />
+      <img src="/assets/img/logo.png" alt="Charity Logo" />
+      <h1 class="text-center">Login</h1>
+      
+      <form (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group text-start">
+          <label for="username">Username:</label>
+          <input
+            id="username"
+            type="text"
+            [(ngModel)]="credentials.username"
+            name="username"
+            required
+            class="form-control"
+            placeholder="Enter your username"
+          />
         </div>
-        <div class="form-group">
-        <label for="password">Password:</label>
-        <input
-        id="password"
-        type="password"
-        [(ngModel)]="credentials.password"
-        name="password"
-        required
-        class="form-control"
-        placeholder="Enter your password"
-        />
+
+        <div class="form-group text-start">
+          <label for="password">Password:</label>
+          <input
+            id="password"
+            type="password"
+            [(ngModel)]="credentials.password"
+            name="password"
+            required
+            class="form-control"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <div class="text-center mt-3">
+          <p>Forgot password? <a href="/forget" class="text-decoration-none">Click here</a></p>
+        </div>
+
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+
+        <div *ngIf="successMessage" class="alert alert-success text-center">
+          {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger text-center">
+          {{ errorMessage }}
+        </div>
+      </form>
+
+      <div class="quote-box">
+        <strong>"Helping one person might not change the whole world..."</strong>
+        but it could change the world for one person.
+      </div>
     </div>
-    <div class="form-group text-center">
-    <button type="submit" class="btn btn-primary btn-block">Login</button>
-    </div>
-    <div *ngIf="successMessage" class="alert alert-success text-center">
-    {{ successMessage }}
-    </div>
-    <div *ngIf="errorMessage" class="alert alert-danger text-center">
-    {{ errorMessage }}
-    </div>
-    </form>
-   </div>
-</body>
-</html>
+  </div>
+

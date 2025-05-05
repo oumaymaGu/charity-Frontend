@@ -22,20 +22,27 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets"  
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bootstrap.min.css",  
               "src/assets/css/demo.css",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/styles.css",
-              "src/assets/css/testimonial.css"
-              
+              "src/assets/css/testimonial.css",
+              "node_modules/bxslider/dist/jquery.bxslider.min.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+  "node_modules/bxslider/dist/jquery.bxslider.min.js",
+              "src/assets/js/jquery.min.js", 
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/nav-hover.min.js",
+              "src/assets/js/jquery.bxslider.min.js",
+              "src/assets/js/main.js"
             ]
           },
           "configurations": {
@@ -97,7 +104,7 @@
             ],
             "styles": [
               "src/styles.css"
-                ],
+            ],
             "scripts": []
           }
         }

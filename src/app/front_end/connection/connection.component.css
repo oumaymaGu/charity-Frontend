@@ -1,0 +1,97 @@
+.connection-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(to right, #d4fc79, #96e6a1); /* vert pastel doux */
+  background-image: url('/assets/img/bg-pattern.svg'); /* motif doux en fond */
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Poppins', sans-serif;
+}
+
+.connection-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.connection-content:hover {
+  transform: scale(1.02);
+}
+
+.connection-content .logo {
+  margin-bottom: 20px;
+}
+
+.connection-content h1 {
+  color: #2e7d32; /* vert foncé doux */
+  margin-bottom: 15px;
+  font-size: 2.3em;
+  font-weight: 700;
+}
+
+.connection-content .quote {
+  font-size: 1em;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 30px;
+    font-size: 1em;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 30px;
+    font-weight: bold; /* ajoute ceci */
+  
+  
+}
+
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.signin-button,
+.signup-button,
+.signin-button:link,
+.signup-button:link,
+.signin-button:visited,
+.signup-button:visited {
+  padding: 14px 32px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.signin-button {
+  background: linear-gradient(to right, #43cea2, #185a9d); /* vert-bleu */
+  color: white;
+}
+
+.signup-button {
+  background: linear-gradient(to right, #56ab2f, #a8e063); /* vert clair */
+  color: white;
+}
+
+.signin-button:hover {
+  background: linear-gradient(to right, #3cb371, #00796b);
+  transform: translateY(-3px);
+}
+
+.signup-button:hover {
+  background: linear-gradient(to right, #7bc043, #b2f7ef);
+  transform: translateY(-3px);
+}
+

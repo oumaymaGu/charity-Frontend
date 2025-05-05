@@ -1,155 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title>Humanity</title>
-    <meta name="generator" content="Bootply" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" routerLink="/assets/css/bootstrap.min.css">
-    <!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link routerLink="/assets/css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" routerLink="/assets/css/demo.css" />
-    <link rel="stylesheet" routerLink="/assets/css/testimonial.css" />
-    <link rel="stylesheet" routerLink="/assets/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <style>
-        /* Custom styles for the table */
-        .table {
-            width: 100%;
-            margin-bottom: 1rem;
-            background-color: transparent;
-            border-collapse: collapse;
-            border: 2px solid black; /* Bordure noire pour le tableau */
-        }
-        .table th,
-        .table td {
-            padding: 0.75rem;
-            vertical-align: top;
-            border: 1px solid black; /* Bordure noire pour les cellules */
-        }
-        .table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid black; /* Bordure noire plus épaisse pour l'en-tête */
-            background-color: #f8f9fa;
-            color: #495057;
-        }
-        .table tbody tr:hover {
-            background-color: rgba(0, 123, 255, 0.1);
-            cursor: pointer;
-        }
-        .btn-contact {
-            background-color: #17a2b8;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-contact:hover {
-            background-color: #138496;
-        }
-        .loading-message,
-        .error-message {
-            text-align: center;
-            padding: 20px;
-            font-size: 1.2rem;
-            color: #555;
-        }
-        .error-message {
-            color: #dc3545;
-        }
-    </style>
-</head>
-<body>
-    <div class="header container">
-        <div class="visible-xs visible-sm col-xs-12 col-sm-12 text-center sm-logo">
-            <a rel="home" routerLink="/home">
-                <img src="/assets/img/logo.png" width="200" alt="logo">
-            </a>
-        </div>
-    </div>
+<!-- Solution 1: Mise à jour du HTML pour inclure Font Awesome et les icônes dans le HTML -->
+<!-- Ajoutez cette ligne dans la section head de votre document -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <!-- Navigation Bar -->
-    <div class="navbar" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+<!-- Exemple de mise à jour du HTML pour inclure les icônes directement -->
+<div *ngIf="!loading && refuges.length > 0">
+  <h2 class="section-title">List of Refuges</h2>
+  
+  <ul class="refuge-list">
+    <li *ngFor="let refuge of refuges" class="refuge-item">
+      <!-- Solution 2: Utilisation d'une image placeholder au lieu de l'image dynamique -->
+      <div class="refuge-image">
+        <img [src]="getImageUrl(refuge.imagePath)" [alt]="'Image of ' + refuge.nom" 
+             (error)="onImageError($event, refuge)" 
+             class="refuge-photo" />
+      </div>
+      
+      <div class="refuge-info">
+        <h3>{{ refuge.nom }} {{ refuge.prenom }}</h3>
+        
+        <div class="basic-info">
+          <div class="info-group">
+            <label><i class="fas fa-envelope"></i> Email:</label>
+            <span>{{ refuge.email }}</span>
+          </div>
+          
+          <div class="info-group">
+            <label><i class="fas fa-flag"></i> Nationality:</label>
+            <span>{{ refuge.nationnalite }}</span>
+          </div>
+          
+          <div class="info-group">
+            <label><i class="fas fa-calendar-alt"></i> Date of Birth:</label>
+            <span>{{ refuge.datedenaissance | date }}</span>
+          </div>
+          
+          <div class="info-group">
+            <label><i class="fas fa-map-marker-alt"></i> Location:</label>
+            <span>{{ refuge.localisationActuel }}</span>
+          </div>
+          
+          <div class="info-group">
+            <label><i class="fas fa-hand-holding-heart"></i> Need:</label>
+            <span>{{ refuge.besoin }}</span>
+          </div>
         </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a routerLink="/">Home</a></li>
-                <li><a routerLink="/about">Associations</a></li>
-                <li class="selected"><a routerLink="/service">Refuge Space</a></li>
-                <li><a routerLink="/gallery">Delivery</a></li>
-                <li class="hidden-xs hidden-sm">
-                    <a rel="home" routerLink="/home"><img class="logo" src="/assets/img/logo.png" width="200" alt="logo"></a>
-                </li>
-                <li><a routerLink="/event">Events</a></li>
-                <li><a routerLink="/team">Testimonials</a></li>
-                <li><a routerLink="/donate">Donate</a></li>
-                <li><a routerLink="/contact">Contact</a></li>
-                <li><a routerLink="/join">Sign In</a></li>
-                <li><a routerLink="/signup">Sign Up</a></li>
-            </ul>
+        
+        <div class="detected-attributes">
+          <h4>Detected Attributes</h4>
+          <div>Gender: {{ refuge.detectedGender || 'Unknown' }} (Confidence: {{ formatConfidence(refuge.genderConfidence) }})</div>
+          <div>Age: {{ refuge.detectedAge || 'Unknown' }}</div>
         </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container mt-4">
-        <h2>List of Shelters</h2>
-
-        <!-- Loading Message -->
-        <div *ngIf="loading" class="loading-message">
-            <p>Loading shelters...</p>
+        
+        <div class="emotions">
+          <h4>Emotions</h4>
+          <div class="emotion-bars">
+            <div class="emotion-item">
+              <div class="emotion-label">Happiness</div>
+              <div class="progress-container">
+                <div class="progress-bar happiness" [style.width]="refuge.emotionHappiness + '%'"></div>
+              </div>
+              <div class="emotion-value">{{ formatConfidence(refuge.emotionHappiness) }}</div>
+            </div>
+            
+            <div class="emotion-item">
+              <div class="emotion-label">Sadness</div>
+              <div class="progress-container">
+                <div class="progress-bar sadness" [style.width]="refuge.emotionSadness + '%'"></div>
+              </div>
+              <div class="emotion-value">{{ formatConfidence(refuge.emotionSadness) }}</div>
+            </div>
+            
+            <div class="emotion-item">
+              <div class="emotion-label">Anger</div>
+              <div class="progress-container">
+                <div class="progress-bar anger" [style.width]="refuge.emotionAnger + '%'"></div>
+              </div>
+              <div class="emotion-value">{{ formatConfidence(refuge.emotionAnger) }}</div>
+            </div>
+            
+            <div class="emotion-item">
+              <div class="emotion-label">Surprise</div>
+              <div class="progress-container">
+                <div class="progress-bar surprise" [style.width]="refuge.emotionSurprise + '%'"></div>
+              </div>
+              <div class="emotion-value">{{ formatConfidence(refuge.emotionSurprise) }}</div>
+            </div>
+            
+            <div class="emotion-item">
+              <div class="emotion-label">Fear</div>
+              <div class="progress-container">
+                <div class="progress-bar fear" [style.width]="refuge.emotionFear + '%'"></div>
+              </div>
+              <div class="emotion-value">{{ formatConfidence(refuge.emotionFear) }}</div>
+            </div>
+            
+            <div class="emotion-item">
+              <div class="emotion-label">Disgust</div>
+              <div class="progress-container">
+                <div class="progress-bar disgust" [style.width]="refuge.emotionDisgust + '%'"></div>
+              </div>
+              <div class="emotion-value">{{ formatConfidence(refuge.emotionDisgust) }}</div>
+            </div>
+            
+            <div class="emotion-item">
+              <div class="emotion-label">Neutral</div>
+              <div class="progress-container">
+                <div class="progress-bar neutral" [style.width]="refuge.emotionNeutral + '%'"></div>
+              </div>
+              <div class="emotion-value">{{ formatConfidence(refuge.emotionNeutral) }}</div>
+            </div>
+          </div>
         </div>
-
-        <!-- Error Message -->
-        <div *ngIf="error && !loading" class="error-message">
-            <p>{{ error }}</p>
-        </div>
-
-        <!-- Back Button -->
-        <button class="btn btn-secondary mb-3" (click)="goBack()">Back</button>
-
-        <!-- Table of Shelters -->
-        <div *ngIf="!loading && !error">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Last Name</th>
-                        <th>First Name</th>
-                        <th>Email</th>
-                        <th>Nationality</th>
-                        <th>Date of Birth</th>
-                        <th>Current Location</th>
-                        <th>Needs</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let refuge of refuges">
-                        <td>{{ refuge.nom }}</td>
-                        <td>{{ refuge.prenom }}</td>
-                        <td>{{ refuge.email }}</td>
-                        <td>{{ refuge.nationnalite }}</td>
-                        <td>{{ refuge.datedenaissance | date }}</td>
-                        <td>{{ refuge.localisationActuel }}</td>
-                        <td>{{ refuge.besoin }}</td>
-                        <td>
-                            <button class="btn-contact" (click)="contactRefuge(refuge)">Contact</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>
+      </div>
+    </li>
+  </ul>
+</div>

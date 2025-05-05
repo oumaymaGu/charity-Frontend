@@ -1,6 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+
+interface Refuge {
+  idRfg?: number;
+  nom: string;
+  prenom: string;
+  email: string;
+  nationnalite: string;
+  datedenaissance: Date;
+  localisationActuel: string;
+  besoin: string;
+  imagePath?: string;
+  detectedGender?: string;
+  genderConfidence?: number;
+  detectedAge?: number;
+  emotionHappiness?: number;
+  emotionSadness?: number;
+  emotionAnger?: number;
+  emotionSurprise?: number;
+  emotionFear?: number;
+  emotionDisgust?: number;
+  emotionNeutral?: number;
+}
 
 @Component({
   selector: 'app-list-refuge',
@@ -8,47 +29,48 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-refuge.component.css']
 })
 export class ListRefugeComponent implements OnInit {
-  refuges: any[] = [];
-  loading: boolean = true;
+  refuges: Refuge[] = [];
+  loading = false;
   error: string | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.loadRefuges();
+  ngOnInit(): void {
+    this.fetchRefuges();
   }
 
-  // Charger la liste des refuges depuis l'API
-  loadRefuges() {
+  fetchRefuges(): void {
     this.loading = true;
-    this.http.get<any[]>('http://localhost:8089/refuge/get-all-ref')
-      .subscribe({
-        next: (data) => {
-          this.refuges = data;
-          this.loading = false;
-        },
-        error: (error) => {
-          this.error = 'Erreur lors du chargement des refuges';
-          this.loading = false;
-        }
-      });
+    this.error = null;
+    this.http.get<Refuge[]>('http://localhost:8089/refuge/get-all-ref').subscribe({
+      next: (data) => {
+        this.refuges = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load refuges. Please try again later.';
+        console.error('Error fetching refuges:', err);
+        this.loading = false;
+      }
+    });
   }
 
-  // Rediriger vers le chemin /service lorsqu'on clique sur un refuge
-  voirService() {
-    this.router.navigate(['/service']);
-  }
-
-
-    // Fonction pour revenir à la page précédente
-    goBack() {
-      this.router.navigate(['/service']);  // Vous pouvez personnaliser cette ligne si nécessaire pour rediriger vers une autre page
+  getImageUrl(imagePath?: string): string {
+    if (!imagePath) {
+      return 'assets/default-image.png'; // fallback image
     }
+    return `http://localhost:8089/uploads/images/refuges/${imagePath}`;
+  }
 
-    contactRefuge(refuge: any): void {
-      // Ouvrir une boîte de dialogue pour envoyer un e-mail
-      const subject = `Contact regarding shelter: ${refuge.nom} ${refuge.prenom}`;
-      const body = `Hello ${refuge.nom} ${refuge.prenom},\n\nI would like to discuss your needs: ${refuge.besoin}.\n\nBest regards,\n[Your Name]`;
-      window.location.href = `mailto:${refuge.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  formatConfidence(value?: number | null): string {
+    if (value === null || value === undefined || isNaN(value)) {
+      return 'N/A';
+    }
+    return value.toFixed(1) + '%';
+  }
+
+  onImageError(event: Event, refuge: Refuge): void {
+    const img = event.target as HTMLImageElement;
+    img.src = 'assets/default-image.png';
   }
 }

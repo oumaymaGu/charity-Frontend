@@ -24,7 +24,7 @@ import { NavbarComponent } from './back_end/navbar/navbar.component';
 import { DashboardComponent } from './back_end/dashboard/dashboard.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AjoutEventComponent } from './front_end/Events/ajout-event/ajout-event.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditEventComponent } from './front_end/Events/edit-event/edit-event.component';
 import { EventPageComponent } from './front_end/Events/event-page/event-page.component';
 import { EventDetailsComponent } from './front_end/Events/event-details/event-details.component';
@@ -41,6 +41,15 @@ import { LastRefugeComponent } from './front_end/pages/refuges/last-refuge/last-
 import { ListRefugeComponent } from './front_end/pages/refuges/list-refuge/list-refuge.component';
 import { ModifierRefugeComponent } from './front_end/pages/refuges/modifier-refuge/modifier-refuge.component';
 import { LogementDetailsComponent } from './front_end/pages/logement/logement-details.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import { AdminReservationsComponent } from './back_end/admin-reservations/admin-reservations.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { NotificationsRefugeComponent } from './front_end/notifications-refuge/notifications-refuge.component';
+import { SseService } from './services/sse.service';
+import { ConnectionComponent } from './front_end/connection/connection.component';
+import { PsychologicalTestComponent } from './front_end/pages/psychological-test/psychological-test/psychological-test.component';
+import { PsychologicalTestResultsComponent } from './front_end/pages/psychological-test/psychological-test-results/psychological-test-results.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,16 +87,26 @@ import { LogementDetailsComponent } from './front_end/pages/logement/logement-de
     LastRefugeComponent,
     ListRefugeComponent,
     ModifierRefugeComponent,
+    ReservationComponent,
+    AdminReservationsComponent,
+    NotificationsRefugeComponent,
+    ConnectionComponent,
+    PsychologicalTestComponent,
+    PsychologicalTestResultsComponent
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
-    LogementsModule
+    LogementsModule,
+    ModalModule.forRoot()
   ],
   providers: [
+    SseService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
