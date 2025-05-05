@@ -17,8 +17,10 @@
           <div class="mb-3">
             <label for="capaciteTotale" class="form-label fw-bold">Capacity:</label>
             <input type="number" id="capaciteTotale" class="form-control" 
-                   [(ngModel)]="stock.capaciteTotale" name="capaciteTotale" 
-                   [class.is-invalid]="submitted && !stock.capaciteTotale" required>
+       [(ngModel)]="stock.capaciteTotale" name="capaciteTotale" 
+       [class.is-invalid]="submitted && (!stock.capaciteTotale && stock.capaciteTotale !== 0)" 
+       min="0" required>
+
             <div *ngIf="submitted && !stock.capaciteTotale" class="invalid-feedback">
               ⚠ Capacity is required.
             </div>

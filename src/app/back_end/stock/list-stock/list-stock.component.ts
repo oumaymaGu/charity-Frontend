@@ -99,11 +99,12 @@ export class ListStockComponent implements OnInit {
   }
 
   refreshStocks(): void {
-    // Recherche et mise à jour du stock dans la liste
-    const updatedStock = this.stockSelectionnePourRetrait;
-    const index = this.stocks.findIndex(stock => stock.idStock === updatedStock.idStock);
-    if (index !== -1) {
-      this.stocks[index] = updatedStock;  // Mettre à jour le stock dans la liste
-    }
+    this.loadStocks();
   }
+  
+
+  isStockCritique(stock: any): boolean {
+    return stock.capaciteDisponible / stock.capaciteTotale < 0.1;
+  }
+  
 }

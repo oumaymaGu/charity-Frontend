@@ -145,7 +145,7 @@
 
    <!-- Ajouter un commentaire -->
    <div class="mt-5">
-    <h5 class="mb-3 text-primary">💬 Ajouter un commentaire</h5>
+    <h5 class="mb-3 text-primary">💬 Add a comment</h5>
     <div class="position-relative">
       <div class="form-floating mb-2 position-relative">
         <textarea 
@@ -153,7 +153,7 @@
           class="form-control" 
           placeholder="Votre commentaire..." 
           style="height: 100px"></textarea>
-        <label>Votre commentaire</label>
+        <label>Write a public comment</label>
       
         <!-- Conteneur des boutons emojis/GIF -->
         <div class="position-absolute end-0 top-50 translate-middle-y d-flex me-2">
@@ -216,13 +216,13 @@ style="position: absolute; z-index: 1000; background: white; width: 300px; max-h
     
 
     <button (click)="ajouterCommentaire()" class="btn btn-outline-primary mt-2">
-      <i class="bi bi-send-fill"></i> Publier
+      <i class="bi bi-send-fill"></i> Send
     </button>
   </div>
 
   <!-- Section Commentaires -->
 <div class="mt-5">
-  <h4 class="mb-4 fw-bold text-primary">🗨️ Commentaires</h4>
+  <h4 class="mb-4 fw-bold text-primary">🗨️ Comments</h4>
 
   <div *ngIf="commentaires && commentaires.length > 0; else noComments">
 
@@ -246,7 +246,7 @@ style="position: absolute; z-index: 1000; background: white; width: 300px; max-h
                 ❤️ {{ commentaire.likes || 0 }}
               </button>
               <button class="btn btn-sm btn-outline-secondary" (click)="toggleReply(commentaire.id)">
-                💬 Répondre
+                💬 Reply
               </button>
             </div>
 
@@ -254,13 +254,13 @@ style="position: absolute; z-index: 1000; background: white; width: 300px; max-h
             <div *ngIf="commentaire.showReplyForm" class="mt-3">
               <div class="form-floating mb-2">
                 <textarea [(ngModel)]="commentaire.replyContent" class="form-control" placeholder="Écrivez votre réponse..." style="height: 100px"></textarea>
-                <label>Votre réponse</label>
+                <label>Your reply</label>
               </div>
               <button 
                 *ngIf="commentaire.id && commentaire.replyContent"
                 (click)="repondreAuCommentaire(commentaire.id, commentaire.replyContent)" 
                 class="btn btn-primary btn-sm">
-                Envoyer
+                Send
               </button>
             </div>
           </div>
@@ -284,7 +284,7 @@ style="position: absolute; z-index: 1000; background: white; width: 300px; max-h
 
   <!-- Aucun commentaire -->
   <ng-template #noComments>
-    <p class="text-muted fst-italic">Aucun commentaire pour le moment.</p>
+    <p class="text-muted fst-italic">No comments yet.</p>
   </ng-template>
 </div>
 

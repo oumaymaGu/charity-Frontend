@@ -1,0 +1,9 @@
+.table-danger {
+    background-color: #f8d7da !important;
+  }
+  
+  .badge.bg-danger {
+    font-size: 0.75em;
+    vertical-align: middle;
+  }
+  

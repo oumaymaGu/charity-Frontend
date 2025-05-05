@@ -30,9 +30,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let stock of stocks">
-        <td>{{ stock.capaciteDisponible }}</td>
-        <td>{{ stock.typeStock }}</td>
+      <tr *ngFor="let stock of stocks" [ngClass]="{'table-danger': isStockCritique(stock)}">
+
+        <td>{{ stock.capaciteDisponible }} / {{ stock.capaciteTotale }}</td>
+
+       <td>{{ stock.typeStock }}</td>
         <td>{{ stock.lieu }}</td>
         <td>{{ stock.associations?.nomAss || 'Non affectée' }}</td>
         <td>
