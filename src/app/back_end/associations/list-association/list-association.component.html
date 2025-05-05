@@ -1,0 +1,124 @@
+<app-navbar></app-navbar>
+<!-- Sidebar -->
+<div class="col-md-3 sidebar">
+  <app-sidebar></app-sidebar>
+</div>
+
+<div class="container mt-4 content">
+  <h2 class="text-center text-dark mb-4"> Associations</h2>
+
+  <!-- Boutons de contrôle -->
+  <div class="d-flex justify-content-between mb-3">
+    <button class="btn btn-outline-primary" (click)="searchAssociation()">
+      🔍 Search
+    </button>
+    <button class="btn btn-outline-secondary" (click)="loadAssociations()">
+      🔄 Reset
+    </button>
+  </div>
+
+  <!-- Message de chargement -->
+  <div *ngIf="loading" class="alert alert-info text-center">
+    ⏳ Loading...
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger text-center">
+    ❌ {{ error }}
+  </div>
+
+  <!-- Table des associations -->
+  <div *ngIf="associations.length > 0">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped shadow-sm">
+        <thead class="table-primary">
+          <tr>
+           <!-- <th>ID</th>-->
+            <th>Name</th>
+            <th>Location</th>
+            <th>Founded on</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let association of associations">
+            <!--<td>{{ association.idAss }}</td>-->
+            <td>{{ association.nomAss }}</td>
+            <td>{{ association.lieu }}</td>
+            <td>{{ association.date | date:'dd/MM/yyyy' }}</td>
+            <td>{{ association.contact }}</td>
+            <td>{{ association.email }}</td>
+            <td>{{ association.description }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-success me-2" (click)="modifierAssociation(association)">
+                ✏ Edit
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteAssociation(association.idAss)">
+                🗑 Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Message si aucune association n'est trouvée -->
+  <div *ngIf="associations.length === 0 && !loading" class="alert alert-warning text-center">
+    😕 No associations found.
+  </div>
+</div>
+
+
+
+<!-- ✅ Styles mis à jour -->
+<style>
+  /* Assurer que la page n’a pas de marges inutiles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  /* ✅ Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh; /* Pleine hauteur */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Ajout du défilement vertical */
+  }
+
+  /* ✅ Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #ffffff; /* Garder le fond bleu clair */
+  }
+
+  .form-group label {
+    font-weight: bold;
+  }
+
+  .btn-primary {
+    margin-top: 10px;
+  }
+</style>

@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './front_end/pages/home/home.component';
 import { AboutComponent } from './front_end/pages/about/about.component';
+
 import { ServiceComponent } from './front_end/pages/logement/log/log.component';
 import { ContactComponent } from './front_end/pages/contact/contact.component';
 import { DonateComponent } from './front_end/pages/donate/donate.component';
 import { GalleryComponent } from './front_end/pages/gallery/gallery.component';
 import { EventComponent } from './front_end/Events/event/event.component';
 import { TeamComponent } from './front_end/pages/team/team.component';
-//import { JoinComponent } from './front_end/pages/join/join.component';
 import { SignupComponent } from './front_end/pages/signup/signup.component';
 import { ForgetPasswordComponent } from './front_end/pages/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './front_end/pages/reset-password/reset-password.component';
@@ -18,9 +18,9 @@ import { EditEventComponent } from './front_end/Events/edit-event/edit-event.com
 import { EventDetailsComponent } from './front_end/Events/event-details/event-details.component';
 import { EventPageComponent } from './front_end/Events/event-page/event-page.component';
 import { AssociationComponent } from './front_end/association/association.component';
-import { AssociationFormComponent } from 'src/app/front_end/association/association-form.component';
+import { AssociationFormComponent } from './front_end/association/association-form.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from 'src/app/services/auth.guard';
+import { AuthGuard } from './services/auth.guard';
 import { AjouterLogementComponent } from './back_end/logements/ajouter-logement/ajouter-logement.component';
 import { ListeLogementComponent } from './back_end/logements/liste-logement/liste-logement.component';
 import { ModifierLogementComponent } from './back_end/logements/modifier-logement/modifier-logement.component';
@@ -37,21 +37,43 @@ import { NotificationsRefugeComponent } from './front_end/notifications-refuge/n
 import { ConnectionComponent } from './front_end/connection/connection.component';
 import { PsychologicalTestComponent } from './front_end/pages/psychological-test/psychological-test/psychological-test.component';
 import { PsychologicalTestResultsComponent } from './front_end/pages/psychological-test/psychological-test-results/psychological-test-results.component';
-
-
-
-
-
-
+import { AjouterAssociationComponent } from './back_end/associations/ajouter-association/ajouter-association.component';
+import { ListAssociationComponent } from './back_end/associations/list-association/list-association.component';
+import { ModifierAssociationComponent } from './back_end/associations/modifier-association/modifier-association.component';
+import { AjoutStockComponent } from './back_end/stock/ajout-stock/ajout-stock.component';
+import { ListStockComponent } from './back_end/stock/list-stock/list-stock.component';
+import { ModifierStockComponent } from './back_end/stock/modifier-stock/modifier-stock.component';
+import { AssociationDetailComponent } from './front_end/pages/about/association-detail/association-detail.component';
+import { ChatComponent } from './front_end/pages/components/chat/chat.component';
+import { ChatAdminComponent } from './front_end/pages/chat-admin/chat-admin.component';
+import { StockRetraitComponent } from './back_end/stock/stock-retrait/stock-retrait.component';
+import { InscriptionComponent } from './inscription/inscription.component';
+import { AjoutLogistiqueComponent } from './back_end/LOG/ajoutlogestique/ajoutlogestique.component';
+import { ListelogestiqueComponent } from './back_end/LOG/listelogestique/listelogestique.component';
+import { EditlogestiqueComponent } from './back_end/LOG/editlogestique/editlogestique.component';
+import { ListInscriptionComponent } from './back_end/list-inscription/list-inscription.component';
+import { MapComponent } from './front_end/map/map.component';
+import { AjoutDonationComponent } from './front_end/donations/ajout-donation/ajout-donation.component';
+import { DonationDetailsComponent } from './front_end/donations/donation-details/donation-details.component';
+import { PaymentInscriptionComponent } from './front_end/payment-inscription/payment-inscription.component';
+import { ListDonationComponent } from './front_end/donations/list-donation/list-donation.component';
+import { AddPaymentComponent } from './front_end/payments/ajout-payment/ajout-payment.component';
+import { MaterialDonationComponent } from './front_end/donations/material-donation/material-donation.component';
+import { MaterialDonationListComponent } from './front_end/donations/material-donation-list/material-donation-list.component';
+import { PaymentHistoryComponent } from './front_end/payments/payment-history/payment-history.component';
+import { StripeComponent } from './front_end/payments/stripe/stripe.component';
+import { EventsLogestiquesComponent } from './back_end/LOG/events-logestiques/events-logestiques.component';
+import { BilletComponent } from './front_end/billet/billet.component';
+import { DonorContactComponent } from './front_end/donor-contact/donor-contact.component';
+import { RequestListComponent } from './front_end/request-list/request-list.component';
+import { NotificationComponent } from './front_end/notification/notification.component';
+import { ScanMedicamentComponent } from './front_end/ocr/scan-medicament/scan-medicament.component';
+import { UserProfilComponent } from './front_end/user-profil/user-profil.component';
 
 const routes: Routes = [
-
-  // Route pour la page d'accueil
- // { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'signin', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-
-  // Routes pour les autres pages
+  { path: '', component: ConnectionComponent },
+  { path: 'signin', component: LoginComponent },
   { path: 'about', component: AboutComponent },
   { path: 'service', component: ServiceComponent },
   { path: 'contact', component: ContactComponent },
@@ -59,41 +81,66 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'event', component: EventComponent },
   { path: 'team', component: TeamComponent },
- // { path: 'join', component: JoinComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forget', component: ForgetPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'dash', component: DashboardComponent ,canActivate: [AuthGuard] },  
+  { path: 'dash', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'ajout-event', component: AjoutEventComponent },
   { path: 'edit-event/:id', component: EditEventComponent },
   { path: 'event-details/:id', component: EventDetailsComponent },
-{ path : 'list-event' , component : EventPageComponent},
-{ path: 'associations', component: AssociationComponent },
-{ path: 'associations/create', component: AssociationFormComponent },
-{ path: 'associations/:id/edit', component: AssociationFormComponent },
-{ path: 'admin/logements/ajouter', component: AjouterLogementComponent },
-{ path: 'admin/logements/liste', component: ListeLogementComponent },
-{ path: 'admin/logements/modifier/:id', component: ModifierLogementComponent },
-{ path: 'logement', component: LogementComponent },
-{ path: 'logement-details/:id', component: LogementDetailsComponent },
-{ path: 'refuge', component: RefugeComponent },
-{ path: 'lastrefuge', component: LastRefugeComponent },
-{ path: 'refuge/modifier/:idRfg', component: ModifierRefugeComponent },
-{ path: 'listref', component: ListRefugeComponent },
-{ path: 'addrefuge', component: AddRefugeComponent },
-{ path: 'reservation/:username/:logementId', component: ReservationComponent },
-{ path: 'admin/reservations', component: AdminReservationsComponent },
-{ path: 'notificationRfg', component: NotificationsRefugeComponent },
-{ path: '', component: ConnectionComponent },
-{ path: 'psychological-test', component: PsychologicalTestComponent },
-{ path: 'psychological-test-results', component: PsychologicalTestResultsComponent },
-
-
-
-
-
-{ path: '**', redirectTo:"" , pathMatch: 'full' }
-
+  { path: 'list-event', component: EventPageComponent },
+  { path: 'associations', component: AssociationComponent },
+  { path: 'associations/create', component: AssociationFormComponent },
+  { path: 'associations/:id/edit', component: AssociationFormComponent },
+  { path: 'admin/logements/ajouter', component: AjouterLogementComponent },
+  { path: 'admin/logements/liste', component: ListeLogementComponent },
+  { path: 'admin/logements/modifier/:id', component: ModifierLogementComponent },
+  { path: 'logement', component: LogementComponent },
+  { path: 'logement-details/:id', component: LogementDetailsComponent },
+  { path: 'refuge', component: RefugeComponent },
+  { path: 'lastrefuge', component: LastRefugeComponent },
+  { path: 'refuge/modifier/:idRfg', component: ModifierRefugeComponent },
+  { path: 'listref', component: ListRefugeComponent },
+  { path: 'addrefuge', component: AddRefugeComponent },
+  { path: 'reservation/:username/:logementId', component: ReservationComponent },
+  { path: 'admin/reservations', component: AdminReservationsComponent },
+  { path: 'notificationRfg', component: NotificationsRefugeComponent },
+  { path: 'psychological-test', component: PsychologicalTestComponent },
+  { path: 'psychological-test-results', component: PsychologicalTestResultsComponent },
+  { path: 'ajout-log', component: AjoutLogistiqueComponent },
+  { path: 'liste-log', component: ListelogestiqueComponent },
+  { path: 'edit-log/:id', component: EditlogestiqueComponent },
+  { path: 'inscription/:id', component: InscriptionComponent },
+  { path: 'event/:eventId/users', component: ListInscriptionComponent },
+  { path: 'map', component: MapComponent },
+  { path: 'ajout-donation', component: AjoutDonationComponent },
+  { path: 'donation-details/:id', component: DonationDetailsComponent },
+  { path: 'list-donation', component: ListDonationComponent },
+  { path: 'ajout-payment', component: AddPaymentComponent },
+  { path: 'material-donation', component: MaterialDonationComponent },
+  { path: 'material-donation-list', component: MaterialDonationListComponent },
+  { path: 'payment-history', component: PaymentHistoryComponent },
+  { path: 'stripe-payment', component: StripeComponent },
+  { path: 'payment-inscription', component: PaymentInscriptionComponent },
+  { path: 'events-logestiques', component: EventsLogestiquesComponent },
+  { path: 'events-logestiques/:id', component: EventsLogestiquesComponent },
+  { path: 'billet/:userId/:eventId', component: BilletComponent },
+  { path: 'donor-contact/:id', component: DonorContactComponent },
+  { path: 'Request-liste', component: RequestListComponent },
+  { path: 'notifications', component: NotificationComponent },
+  { path: 'scan', component: ScanMedicamentComponent },
+  { path: 'addasso', component: AjouterAssociationComponent },
+  { path: 'list-asso', component: ListAssociationComponent },
+  { path: 'modifierasso/:id', component: ModifierAssociationComponent },
+  { path: 'stock', component: AjoutStockComponent },
+  { path: 'list-stock', component: ListStockComponent },
+  { path: 'modifier-stock/:id', component: ModifierStockComponent },
+  { path: 'association-detail/:id', component: AssociationDetailComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'chat-admin', component: ChatAdminComponent },
+  { path: 'stock-retrait', component: StockRetraitComponent },
+  { path: 'user-profil', component: UserProfilComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

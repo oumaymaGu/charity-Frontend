@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Logistique } from 'src/app/front_end/pages/models/Logestique';
-import { LogestiqueServiceService } from 'src/app/front_end/pages/service/logestique-service.service';
+import { LogestiqueServiceService } from 'src/app/services/logestique-service.service';
 
 
 
@@ -10,19 +10,23 @@ import { LogestiqueServiceService } from 'src/app/front_end/pages/service/logest
   templateUrl: './ajoutlogestique.component.html', // Vérifie que le fichier existe bien
   styleUrls: ['./ajoutlogestique.component.css']
 })
-export class AjoutLogistiqueComponent { 
+export class AjoutLogistiqueComponent {
   logistique: Logistique = new Logistique(); // Objet Logistique
 
-  constructor(private logistiqueService: LogestiqueServiceService, private router: Router) {} 
-
-  addLogistique() { // Méthode pour ajouter une logistique
+  constructor(private logistiqueService: LogestiqueServiceService, private router: Router) {}
+  addLogistique(): void {
+    if (this.logistique.quantity < 1) {
+      console.error('La quantité doit être supérieure à 0.');
+      return;
+    }
+  
     this.logistiqueService.addlog(this.logistique).subscribe(
       (response: any) => {
-        console.log('Logistique added successfully', response); // Message de succès
+        console.log('Logistique ajoutée avec succès', response);
         this.router.navigate(['/liste-log']); // Redirection après succès
       },
       (error: any) => {
-        console.error('Error adding logistique', error); // Correction du message d'erreur
+        console.error('Erreur lors de l\'ajout de la logistique', error);
       }
     );
   }

@@ -1,0 +1,46 @@
+<div class="modal-overlay" (click)="closeRetraitModal()"></div>
+
+<div class="modal-content">
+  <h4 class="text-center text-primary">Retrait de Stock</h4>
+
+  <div class="form-group">
+    <label>Quantité à retirer :</label>
+    <input type="number"
+           [(ngModel)]="quantite"
+           min="1"
+           [max]="stock?.capaciteDisponible"
+           class="form-control"
+           placeholder="Entrez la quantité" />
+           <p class="mt-2 text-muted">Disponible : {{ stock?.capaciteDisponible }}</p>
+  </div>
+
+  <div class="text-end mt-3">
+    <button class="btn btn-success me-2" (click)="confirmerRetrait()">✔ Confirmer</button>
+    <button class="btn btn-secondary" (click)="closeRetraitModal()">✖ Annuler</button>
+  </div>
+</div>
+
+<style>
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+  }
+
+  .modal-content {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: #fff;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+  }
+</style>

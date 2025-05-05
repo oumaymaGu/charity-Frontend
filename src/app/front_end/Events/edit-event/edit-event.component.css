@@ -1,0 +1,72 @@
+/* Assurer que la page n’a pas de marges inutiles */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .container-fluid {
+    padding: 0;
+  }
+  
+  .row {
+    margin: 0;
+    display: flex;
+  }
+  
+  /* Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: calc(100vh - 56px); /* Ajuster la hauteur pour exclure la hauteur de la navbar */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+    top: 56px; /* Positionner la sidebar juste sous la navbar */
+  }
+  
+  /* Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #f8f9fa; /* Fond clair */
+   
+  }
+  
+  h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .col-form-label {
+    font-weight: bold;
+  }
+  
+  /* Augmenter la taille du texte dans les champs */
+  .form-control {
+    font-size: 1.1rem; /* Augmenter la taille du texte */
+    padding: 12px; /* Ajouter plus d'espace à l'intérieur des champs */
+  }
+  
+  .text-danger {
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  
+  .btn-primary {
+    margin-top: 10px;
+  }
+  
+  .btn-secondary {
+    margin-top: 10px;
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }

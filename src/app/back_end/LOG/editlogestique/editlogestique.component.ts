@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LogestiqueServiceService } from 'src/app/front_end/pages/service/logestique-service.service';
+import { LogestiqueServiceService } from 'src/app/services/logestique-service.service';
 
 @Component({
   selector: 'app-editlogestique',
@@ -42,6 +42,11 @@ export class EditlogestiqueComponent {
   }
 
   updateLogestique(): void {
+    if (this.logestique.quantity < 1) {
+      console.error('La quantité doit être supérieure à 0.');
+      return;
+    }
+
     console.log('Mise à jour logistique:', this.logestique);
     this.logestiqueService.updateLogestique(this.logestique).subscribe(
       (res) => {

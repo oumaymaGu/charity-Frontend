@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+
+<div class="d-flex">
+  <div class="col-md-3 p-0">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <div class="container-fluid p-4 container-background">
+    <div class="card shadow-sm rounded-4">
+      <div class="card-body">
+
+        <h2 class="text-center text-dark mb-4">➕ Add New Stock</h2>
+
+        <form #stockForm="ngForm" (ngSubmit)="onSubmit()">
+
+          <!-- Capacity -->
+          <div class="mb-3">
+            <label for="capaciteTotale" class="form-label fw-bold">Capacity:</label>
+            <input type="number" id="capaciteTotale" class="form-control" 
+                   [(ngModel)]="stock.capaciteTotale" name="capaciteTotale" 
+                   [class.is-invalid]="submitted && !stock.capaciteTotale" required>
+            <div *ngIf="submitted && !stock.capaciteTotale" class="invalid-feedback">
+              ⚠ Capacity is required.
+            </div>
+          </div>
+
+        <!-- Type Dropdown -->
+        <div class="mb-3">
+          <label for="typeStock" class="form-label fw-bold">Type:</label>
+          <select id="typeStock" class="form-select"
+                  [(ngModel)]="stock.typeStock" name="typeStock"
+                  [class.is-invalid]="submitted && !stock.typeStock" required>
+            <option value="" disabled selected>Select stock type</option>
+            <option *ngFor="let type of stockTypes" [value]="type">{{ type }}</option>
+          </select>
+          <div *ngIf="submitted && !stock.typeStock" class="invalid-feedback">
+            ⚠ Type is required.
+          </div>
+        </div>
+
+          <!-- Location -->
+          <div class="mb-3">
+            <label for="lieu" class="form-label fw-bold">Location:</label>
+            <input type="text" id="lieu" class="form-control" 
+                   [(ngModel)]="stock.lieu" name="lieu" 
+                   [class.is-invalid]="submitted && !stock.lieu" required>
+            <div *ngIf="submitted && !stock.lieu" class="invalid-feedback">
+              ⚠ Location is required.
+            </div>
+          </div>
+
+          <!-- Association Dropdown -->
+          <div class="mb-3">
+            <label for="associationId" class="form-label fw-bold">Association:</label>
+            <select id="associationId" class="form-select" 
+                    [(ngModel)]="associationId" name="associationId" 
+                    [class.is-invalid]="submitted && !associationId" required>
+              <option value="">-- Select an association --</option>
+              <option *ngFor="let a of associations" [value]="a.idAss">
+                {{ a.nomAss }}
+              </option>
+            </select>
+            <div *ngIf="submitted && !associationId" class="invalid-feedback">
+              ⚠ Association is required.
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary w-100" [disabled]="stockForm.invalid">
+            ➕ Add Stock
+          </button>
+
+          <!-- Feedback Messages -->
+          <div *ngIf="successMessage" class="alert alert-success mt-4 text-center rounded-pill">
+            ✅ {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-4 text-center rounded-pill">
+            ❌ {{ errorMessage }}
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

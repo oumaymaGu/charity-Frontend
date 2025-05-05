@@ -1,15 +1,57 @@
-<div class="container">
-  <h2>Add New Logistics</h2>
-  <form (ngSubmit)="addLogistique()">
-   
-      <div class="form-group">
-          <label for="ressourceName">Resource Name:</label>
-          <input type="text" id="ressourceName" class="form-control" [(ngModel)]="logistique.ressourceName" name="ressourceName" required>
-      </div>
-      <div class="form-group">
-          <label for="quantity">Quantity:</label>
-          <input type="number" id="quantity" class="form-control" [(ngModel)]="logistique.quantity" name="quantity" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Add Logistics</button> 
-  </form>
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9 content">
+      <h2 class="text-center text-primary mb-4">Add New Logistics</h2>
+      <form (ngSubmit)="addLogistique()" class="form-horizontal">
+        <!-- Resource Name -->
+        <div class="form-group row">
+          <label for="ressourceName" class="col-sm-3 col-form-label text-right">Resource Name:</label>
+          <div class="col-sm-9">
+            <input 
+              type="text" 
+              id="ressourceName" 
+              class="form-control" 
+              [(ngModel)]="logistique.ressourceName" 
+              name="ressourceName" 
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Quantity -->
+        <div class="form-group row">
+          <label for="quantity" class="col-sm-3 col-form-label text-right">Quantity:</label>
+          <div class="col-sm-9">
+            <input 
+              type="number" 
+              id="quantity" 
+              class="form-control" 
+              [(ngModel)]="logistique.quantity" 
+              name="quantity" 
+              required 
+              min="1"
+            >
+            <div *ngIf="logistique.quantity < 1" class="text-danger mt-1">
+              The quantity must be greater than 0.
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-3">
+            <button type="submit" class="btn btn-primary">Add Logistics</button>
+          
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

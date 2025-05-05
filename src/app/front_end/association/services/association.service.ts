@@ -8,14 +8,16 @@ import { Association } from 'src/app/front_end/association/association.model';
   providedIn: 'root'
 })
 export class AssociationService {
-  private apiUrl = 'http://localhost:4200/associations';
+  private apiUrl = 'http://localhost:8089/association';
 
   constructor(private http: HttpClient) {}
 
- 
-
-  getAssociations(id?: string): Observable<Association[]> {
+  getAssociations(): Observable<Association[]> {
     return this.http.get<Association[]>(this.apiUrl);
+  }
+
+  getAssociationById(id: number): Observable<Association> {
+    return this.http.get<Association>(`${this.apiUrl}/${id}`);
   }
 
   createAssociation(association: Association): Observable<Association> {
@@ -27,7 +29,6 @@ export class AssociationService {
   }
 
   deleteAssociation(id: string) {
-    return this.http.delete(`${this.apiUrl}/association/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
-  
 }

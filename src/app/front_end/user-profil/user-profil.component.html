@@ -1,0 +1,101 @@
+<p>user-profil works!</p>
+user profil html
+<div class="profile-container">
+    <!-- En-tête du profil -->
+    <div class="profile-header">
+        <h2>Profil de {{ username }}</h2>
+        
+        <!-- Badges -->
+        <div class="badges-container">
+            <div *ngIf="donationCount >= 1" class="badge bronze">
+                <i class="fas fa-medal"></i> Donateur
+            </div>
+            <div *ngIf="donationCount >= 3" class="badge silver">
+                <i class="fas fa-star"></i> Donateur fidèle
+            </div>
+            <div *ngIf="donationCount >= 5" class="badge gold">
+                <i class="fas fa-crown"></i> Donateur premium
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-value">{{ donationCount }}</div>
+            <div class="stat-label">Dons effectués</div>
+        </div>
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="alert error">
+        <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+
+    <!-- Section Récompense -->
+    <div *ngIf="donationCount >= 3" class="reward-section">
+        <h3><i class="fas fa-gift"></i> Votre récompense</h3>
+        <p class="reward-description">Merci pour votre générosité ! Choisissez votre cadeau :</p>
+        
+        <div class="reward-options">
+            <div *ngFor="let gift of giftOptions" 
+                 class="reward-option" 
+                 [class.selected]="selectedGiftId === gift.id"
+                 (click)="selectedGiftId = gift.id">
+                <div class="reward-icon">
+                    <i [class]="gift.icon"></i>
+                </div>
+                <div class="reward-details">
+                    <h4>{{ gift.name }}</h4>
+                    <p>{{ gift.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="claim-button" 
+                (click)="claimGift()" 
+                [disabled]="!selectedGiftId || isLoading">
+            <span *ngIf="!isLoading">Réclamer mon cadeau</span>
+            <span *ngIf="isLoading">
+                <i class="fas fa-spinner fa-spin"></i> En cours...
+            </span>
+        </button>
+
+        <div *ngIf="giftClaimed" class="reward-success">
+            <i class="fas fa-check-circle"></i>
+            <p>{{ giftSuccessMessage }}</p>
+        </div>
+    </div>
+
+    <!-- Historique des dons -->
+    <div class="donations-section">
+        <h3><i class="fas fa-history"></i> Historique de vos dons</h3>
+        
+        <div *ngIf="isLoading" class="loading-state">
+            <i class="fas fa-spinner fa-spin"></i> Chargement de vos dons...
+        </div>
+        
+        <div *ngIf="!isLoading && donations.length === 0" class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>Vous n'avez pas encore effectué de don</p>
+        </div>
+        
+        <div class="donations-list">
+            <div *ngFor="let donation of donations" class="donation-item">
+                <div class="donation-type">
+                    <i [class]="donation.typeDon === 'MATERIEL' ? 'fas fa-box-open' : 'fas fa-money-bill-wave'"></i>
+                    <span>{{ donation.typeDon === 'MATERIEL' ? (donation.category || 'Matériel') : 'Financier' }}</span>
+                </div>
+                
+                <div class="donation-details">
+                    <div class="donation-date">
+                        {{ donation.date | date:'dd/MM/yyyy' }}
+                    </div>
+                    <div class="donation-quantity">
+                        {{ donation.quantity || 1 }} {{ donation.typeDon === 'MATERIEL' ? 'unité(s)' : '€' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

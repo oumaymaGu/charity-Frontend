@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+
+
+<div>
+    <h2>Edit Association</h2>
+  
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="nomAss">Association name :</label>
+        <input type="text" id="nomAss" [(ngModel)]="association.nomAss" name="nomAss" required>
+      </div>
+      <div>
+        <label for="lieu">Location :</label>
+        <input type="text" id="lieu" [(ngModel)]="association.lieu" name="lieu" required>
+      </div>
+      <div>
+        <label for="date">Founded on :</label>
+        <input type="date" id="date" [(ngModel)]="association.date" name="date" required>
+      </div>
+      <div>
+        <label for="contact">Contact :</label>
+        <input type="text" id="contact" [(ngModel)]="association.contact" name="contact" required>
+      </div>
+      <div>
+        <label for="email">Email :</label>
+        <input type="email" id="email" [(ngModel)]="association.email" name="email" required>
+      </div>
+      <div>
+        <label for="description">Description :</label>
+        <textarea id="description" [(ngModel)]="association.description" name="description" required></textarea>
+      </div>
+      <button type="submit">Save</button>
+      <button type="button" class="btn btn-secondary" routerLink="/list-asso">
+        Cancel</button>
+    </form>
+  </div>
+
+
+  
+
+ 

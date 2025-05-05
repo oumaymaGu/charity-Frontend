@@ -1,0 +1,86 @@
+.scrollable-comments {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+.scrollable-comments::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-comments::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable-comments::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+
+/* Emoji Button sans fond ni bordure */
+.emoji-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Emoji Picker Styling */
+emoji-mart {
+  background-color: #fff !important;
+  border-radius: 12px !important;
+  max-height: 300px;
+  max-width: 320px;
+  overflow: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  z-index: 2000 !important;
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+emoji-mart::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+emoji-mart::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+emoji-mart::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gif-picker::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gif-picker::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
+}
+
+.gif-picker {
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #eee;
+}
+
+

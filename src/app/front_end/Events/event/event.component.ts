@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../pages/service/event.service';
-import { Router } from '@angular/router';
+
+import { Event } from '../../pages/models/event';
+import {Component, OnInit} from "@angular/core";
+import {EventService} from "../../../services/event.service";
+import {Router} from "@angular/router";
+import { AuthService } from 'src/app/services/auth.service';
+
+
 
 @Component({
   selector: 'app-event',
@@ -8,22 +13,91 @@ import { Router } from '@angular/router';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  events: any[] = [];
 
+  events: Event[] = [];
+  filteredEvents: Event[] = [];
+  searchTerm: string = '';
+  today: Date = new Date(); // Current date
 
-  constructor(private eventService: EventService, private router: Router) { }
+  Events: any[] = [];
+  isLoggedIn: boolean = false;
+  userName: string = '';
+  username: string | null = null;
+
+  constructor(private eventService: EventService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getEvents();
+    this.username = this.authService.getUsername();
+
   }
 
+  isEventInPast(eventDate: any): boolean {
+    const eventDateObj = new Date(eventDate);
+    return eventDateObj < this.today; // Check if the event date is in the past
+  }
   getEvents(): void {
-    this.eventService.getAllevents().subscribe((res: any) => {
-      this.events = res;
-      console.log(res);
+
+    this.eventService.getAllevents().subscribe((data: Event[]) => {
+      this.events = data;
+      this.filteredEvents = data;
+      console.log("Événements récupérés :", this.events); // Vérification
     });
   }
 
-  viewEventDetails(event: any): void {
+  searchEvents(term: string): void {
+    if (term) {
+      this.filteredEvents = this.events.filter(event => event.nomEvent.toLowerCase().includes(term.toLowerCase()));
+    } else {
+      this.filteredEvents = this.events;
+    }
+
+
+  }
+
+
+  findEventsNearMe(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+         
+          const radius = 80; // Search radius in kilometers
+          this.eventService.getEventsNear(latitude, longitude, radius).subscribe(events => {
+            console.log('Nearby events:', events);
+
+            if (events.length > 0) {
+              this.filteredEvents = events; // Update the filteredEvents array
+            } else {
+              alert('No events found near your location.');
+            }
+          });
+        },
+        (error) => {
+          console.error('Geolocation error', error);
+          alert('Unable to retrieve your location.');
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  }
+
+  viewEventDetails(event: Event): void {
     this.router.navigate(['/event-details', event.idEvent]);
-  }}
+  }
+
+  rejoindreEvent(eventId: number): void {
+
+    console.log(`Joining event with ID: ${Event}`);
+    this.router.navigate(['/inscription', eventId]);
+  }
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
+  }
+}

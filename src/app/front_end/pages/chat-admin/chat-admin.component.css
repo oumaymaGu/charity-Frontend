@@ -1,0 +1,134 @@
+.chat-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  animation: slideUp 0.3s ease-in-out;
+  border-radius: 16px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Zone de message avec défilement personnalisé */
+.message-box {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.15) transparent;
+}
+
+.message-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-box::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+/* Message utilisateur */
+.user-msg {
+  background-color: #e6f7ff;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* Message admin */
+.admin-msg {
+  background-color: #d9f7be;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: right;
+}
+
+/* Champ de saisie et bouton */
+.input-box {
+  display: flex;
+  margin-top: 10px;
+}
+
+input.form-control {
+  flex: 1;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  transition: box-shadow 0.2s;
+  border-radius: 50px;
+}
+
+input.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Boutons ronds */
+.btn.rounded-circle {
+  transition: transform 0.2s ease;
+}
+.btn.rounded-circle:hover {
+  transform: scale(1.1);
+}
+
+
+/* Emoji Button sans fond ni bordure */
+.emoji-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Emoji Picker Styling */
+emoji-mart {
+  background-color: #fff !important;
+  border-radius: 12px !important;
+  max-height: 300px;
+  max-width: 320px;
+  overflow: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  z-index: 2000 !important;
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+emoji-mart::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+emoji-mart::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+emoji-mart::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

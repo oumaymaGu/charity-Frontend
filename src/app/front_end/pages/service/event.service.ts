@@ -7,7 +7,7 @@ import { Event } from '../models/event';
   providedIn: 'root'
 })
 export class EventService {
-  url = 'http://localhost:8089/event';
+  url = 'http://localhost:8089/charity/event';
   constructor(private http: HttpClient) { }
 
   getAllevents(): Observable<Event[]> {

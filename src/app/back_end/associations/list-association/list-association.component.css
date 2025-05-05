@@ -1,0 +1,35 @@
+/* Ajoute une ombre douce à la table */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Personnalisation des boutons */
+  button {
+    transition: 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Style des alertes */
+  .alert {
+    font-weight: bold;
+    border-radius: 8px;
+  }
+  
+  /* Centrer le contenu */
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Espacement des boutons */
+  .btn-outline-primary,
+  .btn-outline-secondary {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+  

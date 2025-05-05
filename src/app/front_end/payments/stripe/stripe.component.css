@@ -1,0 +1,237 @@
+/* Styles de base */
+.payment-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  color: #32325d;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Champs de formulaire */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #525f7f;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e1e5eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #6772e5;
+  box-shadow: 0 0 0 2px rgba(103, 114, 229, 0.2);
+  outline: none;
+}
+
+/* Élément de carte Stripe */
+.card-element {
+  padding: 0.75rem;
+  border: 1px solid #e1e5eb;
+  border-radius: 6px;
+  background: white;
+  margin-top: 0.5rem;
+}
+
+/* Boutons */
+.payment-button {
+  width: 100%;
+  padding: 1rem;
+  background: #6772e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.payment-button:hover {
+  background: #5469d4;
+}
+
+.payment-button:disabled {
+  background: #aab7c4;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Messages d'erreur */
+.error-message {
+  color: #ff3860;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #fff0f0;
+  border-radius: 4px;
+}
+
+.icon-warning {
+  margin-right: 0.3rem;
+}
+
+/* Confirmation de paiement */
+.success-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.success-content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.success-icon {
+  color: #28a745;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.success-container h3 {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.email-receipt {
+  margin: 1.5rem 0;
+  font-size: 1rem;
+  color: #525f7f;
+}
+
+.email-receipt strong {
+  font-weight: 600;
+  color: #32325d;
+  word-break: break-all;
+}
+
+.new-payment-button {
+  padding: 0.75rem 1.5rem;
+  background: #6772e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.new-payment-button:hover {
+  background: #5469d4;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .payment-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+}
+.receipt-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.receipt-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.receipt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e8e8e8;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.receipt-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #444;
+}
+
+.checkmark {
+  font-size: 2rem;
+  color: green;
+}
+
+.receipt-details p {
+  font-size: 1rem;
+  margin: 8px 0;
+  color: #333;
+}
+
+.receipt-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.download-button,
+.return-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.return-button {
+  background-color: #6b7280;
+}
+
+.download-button:hover {
+  background-color: #2563eb;
+}
+
+.return-button:hover {
+  background-color: #4b5563;
+}

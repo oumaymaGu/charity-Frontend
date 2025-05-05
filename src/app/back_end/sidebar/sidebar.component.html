@@ -1,96 +1,164 @@
 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-    <div class="sb-sidenav-menu">
-      <div class="nav">
-        <div class="sb-sidenav-menu-heading">Core</div>
-        <a class="nav-link" routerLink="/dashboard">
-          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-          Dashboard
-        </a>
-        <div class="sb-sidenav-menu-heading">Interface</div>
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-          <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-          Layouts
-          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-        </a>
-        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-          <nav class="sb-sidenav-menu-nested nav">
-            <a class="nav-link" href="layout-static.html">Static Navigation</a>
-            <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-          </nav>
-        </div>
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-          <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-          Pages
-          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-        </a>
-        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-          <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-              Authentication
-              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-            </a>
-            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-              <nav class="sb-sidenav-menu-nested nav">
-                <a class="nav-link" routerLink="/login">Login</a>
-                <a class="nav-link" routerLink="/register">Register</a>
-                <a class="nav-link" routerLink="/forgot-password">Forgot Password</a>
-              </nav>
-            </div>
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-              Error
-              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-            </a>
-            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-              <nav class="sb-sidenav-menu-nested nav">
-                <a class="nav-link" routerLink="/401">401 Page</a>
-                <a class="nav-link" routerLink="/404">404 Page</a>
-                <a class="nav-link" routerLink="/500">500 Page</a>
-              </nav>
-            </div>
-          </nav>
-        </div>
-        <div class="sb-sidenav-menu-heading">Logements</div>
-        <a class="nav-link" routerLink="/admin/logements/liste">
-          <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-          Liste des logements
-        </a>
-        <a class="nav-link" routerLink="/admin/logements/ajouter">
-          <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
-          Ajouter un logement
-        </a>
-        <a class="nav-link" routerLink="/admin/reservations">
-          <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
-          verify status of reservation
-        </a>
-        <a class="nav-link" routerLink="/listref">
-          <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
-          lists refuge
-        </a>
-        <div class="sb-sidenav-menu-heading">Addons</div>
-        <a class="nav-link" routerLink="/charts">
-          <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-          Charts
-        </a>
-        <a class="nav-link" routerLink="/tables">
-          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-          Tables
-        </a>
-        <a class="nav-link" routerLink="/ajout-event">
-          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-          Ajout Evenement 
-        </a>
-        <a class="nav-link" routerLink="/list-event">
-          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-         List des Evenements 
-        </a>
-        <a class="nav-link" routerLink="/dash/association">
-          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-         Ajouter Association 
-        </a>
+  <div class="sb-sidenav-menu">
+    <div class="nav">
+
+      <!-- CORE -->
+      <div class="sb-sidenav-menu-heading">Core</div>
+      <a class="nav-link" routerLink="/dashboard">
+        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+        Dashboard
+      </a>
+
+      <!-- INTERFACE -->
+      <div class="sb-sidenav-menu-heading">Interface</div>
+      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+        Layouts
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse" id="collapseLayouts" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+          <a class="nav-link" href="layout-static.html">Static Navigation</a>
+          <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+        </nav>
       </div>
+
+      <!-- PAGES -->
+      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+        Pages
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse" id="collapsePages" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+          <!-- AUTH -->
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+            Authentification
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="pagesCollapseAuth" data-bs-parent="#sidenavAccordionPages">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="nav-link" routerLink="/login">Login</a>
+              <a class="nav-link" routerLink="/register">Register</a>
+              <a class="nav-link" routerLink="/forgot-password">Mot de passe oublié</a>
+            </nav>
+          </div>
+
+          <!-- ERROR -->
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+            Erreurs
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="pagesCollapseError" data-bs-parent="#sidenavAccordionPages">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="nav-link" routerLink="/401">Page 401</a>
+              <a class="nav-link" routerLink="/404">Page 404</a>
+              <a class="nav-link" routerLink="/500">Page 500</a>
+            </nav>
+          </div>
+        </nav>
+      </div>
+
+      <!-- LOGEMENTS -->
+      <div class="sb-sidenav-menu-heading">Logements</div>
+      <a class="nav-link" routerLink="/admin/logements/liste">
+        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+        Liste des logements
+      </a>
+      <a class="nav-link" routerLink="/admin/logements/ajouter">
+        <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
+        Ajouter un logement
+      </a>
+      <a class="nav-link" routerLink="/admin/reservations">
+        <div class="sb-nav-link-icon"><i class="fas fa-calendar-check"></i></div>
+        Vérifier les réservations
+      </a>
+      <a class="nav-link" routerLink="/listref">
+        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+        Liste des refuges
+      </a>
+
+      <!-- EVENEMENTS -->
+      <div class="sb-sidenav-menu-heading">Événements & Logistique</div>
+      <a class="nav-link" routerLink="/ajout-event">
+        <div class="sb-nav-link-icon"><i class="fas fa-calendar-plus"></i></div>
+        Ajouter Événement
+      </a>
+      <a class="nav-link" routerLink="/list-event">
+        <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
+        Liste des Événements
+      </a>
+      <a class="nav-link" routerLink="/ajout-log">
+        <div class="sb-nav-link-icon"><i class="fas fa-truck-loading"></i></div>
+        Ajouter logistique
+      </a>
+      <a class="nav-link" routerLink="/liste-log">
+        <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
+        Liste logistique
+      </a>
+
+      <!-- ASSOCIATIONS -->
+      <div class="sb-sidenav-menu-heading">Associations</div>
+      <a class="nav-link" routerLink="/list-asso">
+        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+        Liste des associations
+      </a>
+      <a class="nav-link" routerLink="/addasso">
+        <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
+        Ajouter Association
+      </a>
+      <a class="nav-link" routerLink="/dash/association">
+        <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
+        Gestion des Associations
+      </a>
+
+      <!-- DONS -->
+      <div class="sb-sidenav-menu-heading">Dons & Paiements</div>
+      <a class="nav-link" routerLink="/list-donation">
+        <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-usd"></i></div>
+        Historique des Dons
+      </a>
+      <a class="nav-link" routerLink="/payment-history">
+        <div class="sb-nav-link-icon"><i class="fas fa-money-check-alt"></i></div>
+        Historique Paiements
+      </a>
+
+      <!-- STOCK -->
+      <div class="sb-sidenav-menu-heading">Stock</div>
+      <a class="nav-link" routerLink="/list-stock">
+        <div class="sb-nav-link-icon"><i class="fas fa-boxes"></i></div>
+        Liste du Stock
+      </a>
+      <a class="nav-link" routerLink="/Request-liste">
+        <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>
+        Liste des Demandes
+      </a>
+      <a class="nav-link" routerLink="/stock">
+        <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
+        Ajouter au Stock
+      </a>
+
+      <!-- STATISTIQUES -->
+      <div class="sb-sidenav-menu-heading">Statistiques</div>
+      <a class="nav-link" routerLink="/charts">
+        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+        Graphiques
+      </a>
+      <a class="nav-link" routerLink="/tables">
+        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+        Tableaux
+      </a>
+      <a class="nav-link" routerLink="/Request-liste">
+        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+        Request-liste
+      </a>
+
     </div>
-    <div class="sb-sidenav-footer">
-      <div class="small">Logged in as:</div>
-      Start Bootstrap
-    </div>
-  </nav>
+  </div>
+
+  <div class="sb-sidenav-footer">
+    <div class="small">Logged in as:</div>
+    Start Bootstrap
+  </div>
+</nav>

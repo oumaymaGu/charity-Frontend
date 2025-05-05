@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -62,5 +62,25 @@ export class AuthService {
 
   getRole(): string | null {
     return localStorage.getItem('role'); // Retrieve role
+  }
+  getIdUser(): string | null {
+    return localStorage.getItem('idUser'); // Retrieve user ID
+  }
+
+  // Method to add token to HTTP request headers
+  getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    }
+    return new HttpHeaders();
+  }
+
+  // Example of how you can use this method to make authenticated requests
+  getDataFromApi(): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get('http://localhost:8089/api/protected-endpoint', { headers });
   }
 }

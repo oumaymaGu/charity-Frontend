@@ -80,7 +80,7 @@ export class AssociationFormComponent implements OnInit {
   loadAssociation(id: string) {
     this.isEdit = true;
     this.associationId = id;
-    this.associationService.getAssociations(id).subscribe(association => {
+    this.associationService.getAssociations().subscribe(association => {
       this.form.patchValue(association);
     });
   }

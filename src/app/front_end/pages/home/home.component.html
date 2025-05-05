@@ -28,15 +28,24 @@
                   <li><a routerLink="/team">Testimonials</a></li>
                   <li><a routerLink="/donate">Donate</a></li>
                    <li><a routerLink="/contact">Contact</a></li>
+                   <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="https://img.freepik.com/psd-gratuit/illustration-icone-contact-isolee_23-2151903337.jpg" alt="User Avatar" class="rounded-circle" width="30" height="30">
+                      <span class="ms-2">{{ username ? username : 'Profile' }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                      <li><button class="dropdown-item" (click)="logout()">Logout</button></li> <!-- Utiliser <button> au lieu de <a> -->
+                    </ul>
+                  </li>
 
 
-                  
+
 
               </ul>
-              
-              
+
+
           </div>
-          
+
       </div>
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -229,7 +238,7 @@
             </section>
 
   <!-- ============FOOTER============= -->
-    <footer id="footer"> 
+    <footer id="footer">
       <div class="footer-content container">
         <div class="footer-adress text-center col-xs-12 col-sm-4 col-md-4">
               <h4>Great love for humanity</h4>

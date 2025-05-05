@@ -1,0 +1,65 @@
+/* Assurer que la page n’a pas de marges inutiles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+  display: flex;
+}
+
+/* Sidebar en noir sur toute la hauteur */
+.sidebar {
+  background-color: #212529 !important; /* Noir Bootstrap */
+  color: white;
+  padding: 20px;
+  border-right: 1px solid #dee2e6;
+  height: calc(100vh - 56px); /* Ajuster la hauteur pour exclure la hauteur de la navbar */
+  position: fixed;
+  width: 250px; /* Fixer une largeur */
+  display: flex;
+  flex-direction: column;
+  top: 56px; /* Positionner la sidebar juste sous la navbar */
+}
+
+/* Ajuster le contenu pour éviter chevauchement */
+.content {
+  margin-left: 250px; /* Décaler le contenu */
+  padding: 30px;
+  width: calc(100% - 250px); /* Ajustement largeur */
+  background-color: #f8f9fa; /* Fond clair */
+ 
+}
+
+h2 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.thead-dark th {
+  background-color: #343a40;
+  color: white;
+}
+
+.btn-primary {
+  margin-top: 10px;
+}
+
+.btn-warning, .btn-danger, .btn-info {
+  margin-right: 5px;
+}
+
+.form-control {
+  font-size: 1rem;
+  padding: 10px;
+}

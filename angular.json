@@ -19,30 +19,47 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+
+  "sockjs-client",
+  "stripe-js",
+  "@stomp/stompjs",
+  "vm",
+  "crypto-browserify",
+  "buffer",
+  "process"
+],
+"polyfills": [
+  "zone.js",
+  "src/polyfills.ts",
+  "node_modules/vm-browserify/index.js"
+],
+
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"  
+              "src/assets"
+
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "src/assets/css/bootstrap.min.css",  
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/css/bootstrap.min.css",
+              "node_modules/leaflet/dist/leaflet.css",
               "src/assets/css/demo.css",
+              "node_modules/ngx-toastr/toastr.css",
+             "src/styles.css",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/styles.css",
-              "src/assets/css/testimonial.css",
-              "node_modules/bxslider/dist/jquery.bxslider.min.css"
+              "src/assets/css/testimonial.css"
+
+
+
+
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/jquery/dist/jquery.min.js",
-  "node_modules/bxslider/dist/jquery.bxslider.min.js",
-              "src/assets/js/jquery.min.js", 
-              "src/assets/js/bootstrap.min.js",
-              "src/assets/js/nav-hover.min.js",
-              "src/assets/js/jquery.bxslider.min.js",
-              "src/assets/js/main.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -74,6 +91,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pi_dev:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "pi_dev:build:production"
@@ -103,8 +123,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ctrl-ngx-emoji-mart/picker.css",
               "src/styles.css"
-            ],
+                ],
             "scripts": []
           }
         }

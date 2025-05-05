@@ -1,0 +1,50 @@
+/* Assurer que la page n’a pas de marges inutiles */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .container-fluid {
+    padding: 0;
+  }
+  
+  .row {
+    margin: 0;
+    display: flex;
+  }
+  
+  /* Sidebar en noir sur toute la hauteur */
+  .sidebar {
+    background-color: #212529 !important; /* Noir Bootstrap */
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh; /* Pleine hauteur */
+    position: fixed;
+    width: 250px; /* Fixer une largeur */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Ajuster le contenu pour éviter chevauchement */
+  .content {
+    margin-left: 250px; /* Décaler le contenu */
+    padding: 30px;
+    width: calc(100% - 250px); /* Ajustement largeur */
+    background-color: #f8f9fa; /* Fond clair */
+  }
+  
+  h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  
+  .text-muted {
+    font-style: italic;
+    color: #6c757d;
+  }

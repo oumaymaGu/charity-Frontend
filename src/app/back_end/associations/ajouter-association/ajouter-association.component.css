@@ -1,0 +1,27 @@
+/* Style du formulaire */
+form {
+    max-width: 600px;
+    margin: auto;
+    background: #f8f9fa;
+  }
+  
+  /* Style des erreurs */
+  .text-danger {
+    font-size: 0.9rem;
+  }
+  
+  /* Animation du bouton */
+  button {
+    transition: 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  /*animation background*/
+
+ 
+ 
+
+  
+  

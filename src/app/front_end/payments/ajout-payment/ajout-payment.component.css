@@ -1,0 +1,281 @@
+/* Conteneur principal */
+.payment-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #f6f8f8;
+  border-radius: 15px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.payment-container:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Groupes de champs */
+.form-group {
+  margin-bottom: 20px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 14px;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Inputs and Selects */
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+input:focus, select:focus {
+  border-color: #2c3e50;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+input:hover, select:hover {
+  border-color: #2c3e50;
+}
+
+/* Validation Styles */
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+  border-color: #ff4d4d;
+}
+
+input.ng-valid.ng-touched, select.ng-valid.ng-touched {
+  border-color: #28a745;
+}
+
+/* Expiration Date */
+.expiration-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.expiration-container select {
+  width: 48%;
+}
+
+/* Amount Form (from previous integration) */
+.amount-form {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  transition: box-shadow 0.3s ease;
+}
+
+.amount-form:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.amount-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.amount-button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  min-width: 80px;
+}
+
+.amount-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.amount-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.custom-amount-input {
+  padding: 12px;
+  width: 100%;
+  max-width: 150px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-amount-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Messages (Error and Success) */
+.error-message, .success-message {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 15px;
+  font-weight: 500;
+  animation: fadeIn 0.5s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.error-message {
+  color: #ff4d4d;
+}
+
+.success-message {
+  color: #28a745;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Bouton de soumission et continue */
+.submit-btn, .btn-continue {
+  width: 100%;
+  padding: 14px;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.submit-btn:hover, .btn-continue:hover {
+  background: #3e5366; /* Slightly lighter shade on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(44, 62, 80, 0.3);
+}
+
+.submit-btn:active, .btn-continue:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Loading State for Buttons */
+.submit-btn.loading, .btn-continue.loading {
+  background: #2c3e50;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.submit-btn.loading::after, .btn-continue.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .payment-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  input, select {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .amount-button {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    min-width: 70px;
+  }
+
+  .custom-amount-input {
+    max-width: 130px;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn, .btn-continue {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .error-message, .success-message {
+    font-size: 13px;
+  }
+}
+
+/* Additional Responsive Adjustments for Amount Form */
+@media (max-width: 576px) {
+  .amount-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .amount-button {
+    width: 100%;
+    max-width: 150px;
+    font-size: 0.9rem;
+  }
+
+  .custom-amount-input {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .btn-continue {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+}

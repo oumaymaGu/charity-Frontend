@@ -1,6 +1,29 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
 
-      <table class="table table-striped">
-        <thead>
+    <!-- Content -->
+    <div class="col-md-9 content">
+      <h2 class="text-center text-primary mb-4">Event List</h2>
+
+      <!-- Search Bar -->
+      <div class="mb-3">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Search by name" 
+          [(ngModel)]="searchTerm" 
+          (input)="searchEvents(searchTerm)"
+        >
+      </div>
+
+      <!-- Event Table -->
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
           <tr>
             <th>Name</th>
             <th>Description</th>
@@ -14,17 +37,23 @@
           <tr *ngFor="let event of events">
             <td>{{ event.nomEvent }}</td>
             <td>{{ event.description }}</td>
-            <td>{{ event.dateEvent | date }}</td>
+            <td>{{ event.dateEvent | date:'dd/MM/yyyy' }}</td>
             <td>{{ event.lieu }}</td>
             <td>{{ event.prixevent }} dt</td>
             <td>
               <button (click)="editEvent(event)" class="btn btn-warning btn-sm">
                 <i class="fa fa-pencil"></i>
               </button>
-              <button (click)="deleteEvent(event.idEvent)" class="btn btn-danger btn-sm">
+              <button (click)="confirmDelete(event.idEvent)" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash"></i>
               </button>
+              <a [routerLink]="['/event', event.idEvent, 'users']" class="btn btn-info btn-sm">
+                <i class="fa fa-users"></i> 
+              </a>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>

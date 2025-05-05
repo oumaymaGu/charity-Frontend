@@ -1,38 +1,147 @@
-<div class="container mt-4">
-  <button (click)="goToDashboard()" class="btn btn-primary mb-3">
-    <a routerLink="/dash" class="btn btn-primary mb-3">
-      <i class="fa fa-arrow-left"></i> Retour au Dashboard
-    </a>
-    
-  </button>
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
 
-  <h2>Liste des Logistiques</h2>
+    <!-- Content -->
+    <div class="col-md-9 content">
+      <h2>Liste des logistiques</h2>
 
-  <div class="mb-3">
-    <input type="text" class="form-control" placeholder="Rechercher par nom" [(ngModel)]="searchTerm" (input)="searchLogestiques(searchTerm)">
+      <!-- Barre de recherche -->
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Rechercher par nom"
+          [(ngModel)]="searchTerm"
+          (input)="searchLogestiques(searchTerm)"
+        />
+      </div>
+
+      <!-- Tableau des logistiques -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let logestique of logestiques">
+            <td>{{ logestique.ressourceName }}</td>
+            <td>{{ logestique.quantity }}</td>
+            <td>
+              <button
+                (click)="editLogestique(logestique)"
+                class="btn btn-warning btn-sm me-2"
+              >
+                <i class="fa fa-edit"></i> 
+              </button>
+              <button
+                (click)="confirmDelete(logestique.idlogestique)"
+                class="btn btn-danger btn-sm"
+              >
+                <i class="fa fa-trash"></i> 
+              </button>
+              <button
+                (click)="assignToEvent(logestique)"
+                class="btn btn-success btn-sm"
+              >
+                <i class="fa fa-link"></i> Assigner à un événement
+              </button>
+              <button
+                (click)="viewAssignedEvents(logestique.idlogestique)"
+                class="btn btn-info btn-sm"
+              >
+                <i class="fa fa-eye"></i> Voir événements assignés
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Bouton retour au dashboard -->
+      <a routerLink="/dashboard" class="btn btn-primary mb-3">
+        <i class="fa fa-arrow-left"></i> Retour au Dashboard
+      </a>
+    </div>
   </div>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Quantité</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let logestique of logestiques">
-        <td>{{ logestique.ressourceName }}</td>
-        <td>{{ logestique.quantity }}</td>
-        <td>
-          <button (click)="editLogestique(logestique)" class="btn btn-warning btn-sm me-2">
-            <i class="fa fa-edit"></i> Modifier
-          </button>
-          <button (click)="confirmDelete(logestique.idlogestique)" class="btn btn-danger btn-sm">
-            <i class="fa fa-trash"></i> Supprimer
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
+
+<!-- Spinner pour le chargement -->
+<div *ngIf="isLoading" class="spinner-overlay">
+  <div class="spinner"></div>
+</div>
+
+<!-- Styles -->
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .row {
+    margin: 0;
+    display: flex;
+  }
+
+  .sidebar {
+    background-color: #212529 !important;
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100vh;
+    position: fixed;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content {
+    margin-left: 250px;
+    padding: 30px;
+    width: calc(100% - 250px);
+    background-color: #f8f9fa;
+  }
+
+  .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
