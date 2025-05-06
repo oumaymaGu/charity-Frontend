@@ -10,7 +10,6 @@ interface Association {
   email: string;
   description: string;
   photoUrl: string;
-  
 }
 
 @Component({
@@ -38,9 +37,31 @@ export class AjouterAssociationComponent {
   errorMessage = '';
 
   // Fonction pour récupérer le fichier sélectionné
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0] || null;
+// Variable pour stocker l'URL de prévisualisation
+imagePreview: string | ArrayBuffer | null = null;
+
+// Fonction modifiée pour récupérer le fichier sélectionné et créer une prévisualisation
+onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0] || null;
+  
+  // Créer une prévisualisation de l'image
+  if (this.selectedFile) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+      // Temporairement afficher l'image en prévisualisation
+      this.association.photoUrl = reader.result as string;
+    };
+    reader.readAsDataURL(this.selectedFile);
   }
+}
+
+// Fonction modifiée pour supprimer l'image sélectionnée
+removeImage() {
+  this.selectedFile = null;
+  this.imagePreview = null;
+  this.association.photoUrl = '';
+}
 
   onSubmit() {
     this.submitted = true;
@@ -114,4 +135,3 @@ export class AjouterAssociationComponent {
     this.submitted = false;
   }
 }
-

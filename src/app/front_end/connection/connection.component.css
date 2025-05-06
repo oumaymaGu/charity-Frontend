@@ -1,97 +1,67 @@
 .connection-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  background: linear-gradient(to right, #d4fc79, #96e6a1); /* vert pastel doux */
-  background-image: url('/assets/img/bg-pattern.svg'); /* motif doux en fond */
-  background-repeat: no-repeat;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.4), 
+      rgba(0, 0, 0, 0.4)
+    ),
+    url('https://t4.ftcdn.net/jpg/03/20/40/93/360_F_320409321_niyM6DAO166WLJuEX8EOXCMvWwKSWDfA.jpg') 
+    no-repeat center center;
   background-size: cover;
-  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start; /* place les éléments à gauche */
+  padding-left: 80px; /* ajuste ici l'espace depuis le bord gauche */
+  align-items: center;
+  
+  
+}
+
+.connection-container img {
+  width: 100px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 .connection-content {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 50px 40px;
+  background-color: rgba(255, 255, 255, 0.25); /* transparence */
+  backdrop-filter: blur(10px); /* flou de l'arrière-plan */
+  -webkit-backdrop-filter: blur(10px); /* compatibilité Safari */
+  padding: 60px 45px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  max-width: 420px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  max-width: 480px;
   width: 100%;
   text-align: center;
-  transition: transform 0.3s ease;
+  animation: fadeIn 0.8s ease-in-out;
+  border: 1px solid rgba(83, 159, 164, 0.3); /* bordure subtile */
 }
 
-.connection-content:hover {
-  transform: scale(1.02);
-}
 
-.connection-content .logo {
-  margin-bottom: 20px;
-}
 
-.connection-content h1 {
-  color: #2e7d32; /* vert foncé doux */
-  margin-bottom: 15px;
-  font-size: 2.3em;
-  font-weight: 700;
-}
 
-.connection-content .quote {
-  font-size: 1em;
+.quote {
   font-style: italic;
-  color: #555;
-  margin-bottom: 30px;
-    font-size: 1em;
-    font-style: italic;
-    color: #555;
-    margin-bottom: 30px;
-    font-weight: bold; /* ajoute ceci */
-  
-  
+  font-size: 1em;
+  margin-top: 20px;
+  color: #363333;
 }
 
-.button-group {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 
-.signin-button,
-.signup-button,
-.signin-button:link,
-.signup-button:link,
-.signin-button:visited,
-.signup-button:visited {
-  padding: 14px 32px;
-  font-size: 1.1em;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
+
+.signin-button, .signup-button {
+  background-color: #8cd7d5;
+  color: white;
+  padding: 12px 25px;
+  margin: 10px;
+  border-radius: 10px;
   text-decoration: none;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
-.signin-button {
-  background: linear-gradient(to right, #43cea2, #185a9d); /* vert-bleu */
-  color: white;
+.signin-button:hover, .signup-button:hover {
+  background-color: #094342;
 }
-
-.signup-button {
-  background: linear-gradient(to right, #56ab2f, #a8e063); /* vert clair */
-  color: white;
-}
-
-.signin-button:hover {
-  background: linear-gradient(to right, #3cb371, #00796b);
-  transform: translateY(-3px);
-}
-
-.signup-button:hover {
-  background: linear-gradient(to right, #7bc043, #b2f7ef);
-  transform: translateY(-3px);
-}
-

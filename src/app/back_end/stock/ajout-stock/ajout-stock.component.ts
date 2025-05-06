@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
@@ -36,6 +36,7 @@ export class AjoutStockComponent implements OnInit {
   submitted = false;
   successMessage = '';
   errorMessage = '';
+  isLoading = false;
 
   @ViewChild('stockForm') stockForm!: NgForm;
 
@@ -53,36 +54,62 @@ export class AjoutStockComponent implements OnInit {
         next: (data) => this.associations = data,
         error: (err) => {
           console.error('Erreur lors du chargement des associations', err);
+          this.errorMessage = "Impossible de charger les associations. Veuillez rafraîchir la page.";
         }
       });
   }
 
   onSubmit() {
     this.submitted = true;
-  
+    this.errorMessage = '';
+    this.successMessage = '';
+    
     if (!this.isValid()) {
       this.errorMessage = "Veuillez remplir correctement tous les champs.";
       return;
     }
-  
-    // 👉 Injecter l'association dans l'objet `stock` AVANT l'envoi
-    this.stock['associations'] = {
-      idAss: this.associationId
+    
+    this.isLoading = true;
+    
+    // Créer un nouvel objet pour l'envoi
+    const stockToSubmit: Stock = {
+      capaciteTotale: this.stock.capaciteTotale,
+      typeStock: this.stock.typeStock,
+      lieu: this.stock.lieu,
+      associations: {
+        idAss: this.associationId
+      }
     };
-  
-    this.http.post<Stock>('http://localhost:8089/stock/add-stock', this.stock)
+    
+    console.log('Envoi des données:', JSON.stringify(stockToSubmit));
+    
+    this.http.post<Stock>('http://localhost:8089/stock/add-stock', stockToSubmit)
       .subscribe({
         next: (createdStock) => {
+          console.log('Réponse du serveur:', JSON.stringify(createdStock));
           this.successMessage = "Stock ajouté avec succès !";
           this.resetForm();
-          setTimeout(() => this.router.navigate(['/list-stock']), 1000);
+          setTimeout(() => this.router.navigate(['/list-stock']), 1500);
         },
-        error: () => {
-          this.errorMessage = "Erreur lors de l'ajout. Veuillez réessayer.";
+        error: (error: HttpErrorResponse) => {
+          console.error('Erreur détaillée:', error);
+          
+          if (error.status === 0) {
+            this.errorMessage = "Impossible de se connecter au serveur. Vérifiez votre connexion.";
+          } else if (error.status === 400) {
+            this.errorMessage = "Données invalides: " + (error.error?.message || "Veuillez vérifier les informations saisies.");
+          } else if (error.status === 500) {
+            this.errorMessage = "Erreur serveur: " + (error.error?.message || "Un problème est survenu côté serveur.");
+            console.error('Corps de la réponse d\'erreur:', error.error);
+          } else {
+            this.errorMessage = "Erreur lors de l'ajout. " + (error.error?.message || error.statusText || "Veuillez réessayer.");
+          }
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       });
   }
-  
 
   isValid(): boolean {
     const { capaciteTotale, typeStock, lieu } = this.stock;
@@ -100,6 +127,7 @@ export class AjoutStockComponent implements OnInit {
     };
     this.associationId = 0;
     this.submitted = false;
+    this.isLoading = false;
     if (this.stockForm) {
       this.stockForm.resetForm();
     }

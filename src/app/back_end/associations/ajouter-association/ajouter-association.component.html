@@ -1,101 +1,165 @@
-<app-navbar></app-navbar>
-<!-- Sidebar -->
-<div class="col-md-3 sidebar">
-  <app-sidebar></app-sidebar>
+<app-navbar ></app-navbar>
+
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div class="col-md-3 sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <div class="content">
+    <div class="container mt-4">
+      <div class="charity-card">
+        <div class="charity-card-header">
+          <h2 class="text-center mb-0">
+            <i class="fas fa-hands-helping me-2"></i>Add New Association
+          </h2>
+        </div>
+        <div class="charity-card-body">
+          <form (ngSubmit)="onSubmit()" class="charity-form">
+            <!-- Nom -->
+            <div class="form-group mb-4">
+              <label for="nomAss" class="form-label">
+                <i class="fas fa-building me-2"></i>Association name:
+              </label>
+              <input type="text" id="nomAss" class="form-control charity-input" [(ngModel)]="association.nomAss" name="nomAss" required>
+              <div *ngIf="submitted && !association.nomAss" class="invalid-feedback">
+                <i class="fas fa-exclamation-triangle me-1"></i> Required field.
+              </div>
+            </div>
+
+            <!-- Lieu -->
+            <div class="form-group mb-4">
+              <label for="lieu" class="form-label">
+                <i class="fas fa-map-marker-alt me-2"></i>Location:
+              </label>
+              <input type="text" id="lieu" class="form-control charity-input" [(ngModel)]="association.lieu" name="lieu" required>
+              <div *ngIf="submitted && !association.lieu" class="invalid-feedback">
+                <i class="fas fa-exclamation-triangle me-1"></i> Required field.
+              </div>
+            </div>
+
+            <!-- Date de création -->
+            <div class="form-group mb-4">
+              <label for="date" class="form-label">
+                <i class="fas fa-calendar-alt me-2"></i>Founded on:
+              </label>
+              <input type="date" id="date" class="form-control charity-input" [(ngModel)]="association.date" name="date" required>
+              <div *ngIf="submitted && !association.date" class="invalid-feedback">
+                <i class="fas fa-exclamation-triangle me-1"></i> Select a date.
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="form-group mb-4">
+              <label for="contact" class="form-label">
+                <i class="fas fa-phone me-2"></i>Contact:
+              </label>
+              <input type="text" id="contact" class="form-control charity-input" [(ngModel)]="association.contact" name="contact" required pattern="^\d{8,}$">
+              <div *ngIf="submitted && !association.contact" class="invalid-feedback">
+                <i class="fas fa-exclamation-triangle me-1"></i> Required (minimum 8 digits).
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group mb-4">
+              <label for="email" class="form-label">
+                <i class="fas fa-envelope me-2"></i>Email:
+              </label>
+              <input type="email" id="email" class="form-control charity-input" [(ngModel)]="association.email" name="email" required>
+              <div *ngIf="submitted && !isValidEmail(association.email)" class="invalid-feedback">
+                <i class="fas fa-exclamation-triangle me-1"></i> Invalid email.
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group mb-4">
+              <label for="description" class="form-label">
+                <i class="fas fa-align-left me-2"></i>Description:
+              </label>
+              <textarea id="description" class="form-control charity-input" [(ngModel)]="association.description" name="description" required rows="4"></textarea>
+              <div *ngIf="submitted && !association.description" class="invalid-feedback">
+                <i class="fas fa-exclamation-triangle me-1"></i> Required field.
+              </div>
+            </div>
+
+            <!-- Upload Photo - Version améliorée et moderne -->
+            <div class="form-group mb-4">
+              <label for="photo" class="form-label">
+                <i class="fas fa-image me-2"></i>Association Image
+              </label>
+              
+              <div class="modern-file-upload">
+                <input type="file" id="photo" class="file-input" (change)="onFileSelected($event)" accept="image/*">
+                <label for="photo" class="file-upload-label">
+                  <div class="upload-icon-container">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <div class="upload-text">
+                    <span class="primary-text">{{ selectedFile ? selectedFile.name : 'Choose an image file' }}</span>
+                    <span class="secondary-text">or drag and drop here</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div *ngIf="submitted && !selectedFile" class="invalid-feedback">
+                <i class="fas fa-exclamation-triangle me-1"></i> Please select an image for the association.
+              </div>
+            </div>
+
+            <!-- Preview de l'image uploadée - Version améliorée -->
+          
+<div class="image-preview-container" *ngIf="imagePreview || association.photoUrl">
+  <div class="preview-header">
+    <span class="preview-title"><i class="fas fa-eye me-2"></i>Image Preview</span>
+    <button type="button" class="btn-remove-preview" (click)="removeImage()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="image-preview-wrapper">
+    <img [src]="imagePreview || association.photoUrl" alt="Association Image" class="preview-image">
+  </div>
 </div>
 
-<div class="container mt-4 container-background">
-  <h2 class="text-center text-dark mb-4">My Association</h2>
+            <!-- Bouton -->
+            <button type="submit" class="btn btn-charity w-100">
+              <i class="fas fa-plus-circle me-2"></i> Add Association
+            </button>
 
-  <form (ngSubmit)="onSubmit()" class="shadow p-4 rounded bg-light">
-    <!-- Nom -->
-    <div class="mb-3">
-      <label for="nomAss" class="form-label">Association name:</label>
-      <input type="text" id="nomAss" class="form-control" [(ngModel)]="association.nomAss" name="nomAss" required>
-      <div *ngIf="submitted && !association.nomAss" class="text-danger small">⚠ Required field.</div>
+            <!-- Messages de feedback -->
+            <div *ngIf="successMessage" class="alert alert-success mt-4 text-center">
+              <i class="fas fa-check-circle me-2"></i> {{ successMessage }}
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-4 text-center">
+              <i class="fas fa-times-circle me-2"></i> {{ errorMessage }}
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-
-    <!-- Lieu -->
-    <div class="mb-3">
-      <label for="lieu" class="form-label">Location:</label>
-      <input type="text" id="lieu" class="form-control" [(ngModel)]="association.lieu" name="lieu" required>
-      <div *ngIf="submitted && !association.lieu" class="text-danger small">⚠ Required field.</div>
-    </div>
-
-    <!-- Date de création -->
-    <div class="mb-3">
-      <label for="date" class="form-label">Founded on:</label>
-      <input type="date" id="date" class="form-control" [(ngModel)]="association.date" name="date" required>
-      <div *ngIf="submitted && !association.date" class="text-danger small">⚠ Select a date.</div>
-    </div>
-
-    <!-- Contact -->
-    <div class="mb-3">
-      <label for="contact" class="form-label">Contact:</label>
-      <input type="text" id="contact" class="form-control" [(ngModel)]="association.contact" name="contact" required pattern="^\d{8,}$">
-      <div *ngIf="submitted && !association.contact" class="text-danger small">⚠ Required (minimum 8 digits).</div>
-    </div>
-
-    <!-- Email -->
-    <div class="mb-3">
-      <label for="email" class="form-label">Email:</label>
-      <input type="email" id="email" class="form-control" [(ngModel)]="association.email" name="email" required>
-      <div *ngIf="submitted && !isValidEmail(association.email)" class="text-danger small">⚠ Invalid email.</div>
-    </div>
-
-    <!-- Description -->
-    <div class="mb-3">
-      <label for="description" class="form-label">Description:</label>
-      <textarea id="description" class="form-control" [(ngModel)]="association.description" name="description" required></textarea>
-      <div *ngIf="submitted && !association.description" class="text-danger small">⚠ Required field.</div>
-    </div>
-
-    <!-- Upload Photo -->
-    <div class="mb-3">
-      <label for="photo" class="form-label">Upload Association Image:</label>
-      <input type="file" id="photo" class="form-control" (change)="onFileSelected($event)">
-      <div *ngIf="submitted && !selectedFile" class="text-danger small">⚠ Image is required.</div>
-    </div>
-
-    <!-- Preview de l'image uploadée -->
-    <div class="text-center" *ngIf="association.photoUrl">
-      <p>Preview:</p>
-      <img [src]="association.photoUrl" alt="Uploaded Image" class="img-thumbnail" style="max-width: 200px;">
-    </div>
-
-    <!-- Bouton -->
-    <button type="submit" class="btn btn-primary w-100">➕ Add Association</button>
-
-    <!-- Messages de feedback -->
-    <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
-      ✅ {{ successMessage }}
-    </div>
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
-      ❌ {{ errorMessage }}
-    </div>
-  </form>
+  </div>
 </div>
 
-<!-- Ajouter la classe CSS suivante pour le background -->
 <style>
-  .container-background {
-    background-image: url('https://www.wur.nl/upload/28b64e46-65c1-48cb-8207-761bd398db67_Racial-Equality-2.jpg'); /* Remplace par le chemin de ton image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin-right: 0%;
-    
+  /* Variables de couleurs pour le thème caritatif */
+  :root {
+    --charity-primary: #4CAF50;
+    --charity-secondary: #8BC34A;
+    --charity-accent: #FF9800;
+    --charity-danger: #F44336;
+    --charity-light: #F1F8E9;
+    --charity-dark: #2E7D32;
+    --charity-gray: #F5F5F5;
+    --charity-teal: #009688;
+    --charity-teal-light: #E0F2F1;
+    --charity-teal-dark: #00796B;
   }
-</style>
 
-<!-- ✅ Styles mis à jour -->
-<style>
-  /* Assurer que la page n’a pas de marges inutiles */
+  /* Assurer que la page n'a pas de marges inutiles */
   body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    
+    font-family: 'Nunito', sans-serif;
   }
 
   .container-fluid {
@@ -107,36 +171,323 @@
     display: flex;
   }
 
-  /* ✅ Sidebar en noir sur toute la hauteur */
+  /* Sidebar en noir sur toute la hauteur */
   .sidebar {
-    background-color: #212529 !important; /* Noir Bootstrap */
+    background-color: #212529 !important;
     color: white;
     padding: 20px;
-    
     border-right: 1px solid #dee2e6;
-    height: 100vh; /* Pleine hauteur */
+    height: 100vh;
     position: fixed;
-    width: 250px; /* Fixer une largeur */
+    width: 250px;
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* Ajout du défilement vertical */
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
   }
 
- 
-
-  /* ✅ Ajuster le contenu pour éviter chevauchement */
+  /* Contenu */
   .content {
-    margin-left: 250px; /* Décaler le contenu */
-    padding: 30px;
-    width: calc(100% - 250px); /* Ajustement largeur */
-    background-color: #f8f9fa; /* Garder le fond bleu clair */
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    background-color: var(--charity-light);
+    padding-top: 20px;
+    padding-bottom: 40px;
   }
 
-  .form-group label {
-    font-weight: bold;
+  /* Carte de contenu */
+  .charity-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    max-width: 800px;
+    border-top: 5px solid var(--charity-teal);
   }
 
-  .btn-primary {
-    margin-top: 10px;
+  .charity-card-header {
+    background-color: var(--charity-teal-light);
+    padding: 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .charity-card-header h2 {
+    color: var(--charity-teal-dark);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .charity-card-body {
+    padding: 35px;
+  }
+
+  /* Formulaire */
+  .charity-form {
+    max-width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 25px;
+  }
+
+  .form-label {
+    color: var(--charity-teal-dark);
+    margin-bottom: 10px;
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .charity-input {
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    padding: 14px 18px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    background-color: #FAFAFA;
+  }
+
+  .charity-input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.2);
+    border-color: var(--charity-teal);
+    background-color: white;
+  }
+
+  textarea.charity-input {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  /* Styles pour l'upload de fichier moderne */
+  .modern-file-upload {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .file-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .file-upload-label {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 2px dashed var(--charity-teal-light);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-height: 120px;
+  }
+
+  .file-upload-label:hover, .file-upload-label:focus {
+    background-color: var(--charity-teal-light);
+    border-color: var(--charity-teal);
+    transform: translateY(-2px);
+  }
+
+  .upload-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 150, 136, 0.1);
+    border-radius: 50%;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+
+  .upload-icon-container i {
+    font-size: 24px;
+    color: var(--charity-teal);
+  }
+
+  .upload-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .primary-text {
+    font-weight: 600;
+    color: var(--charity-teal-dark);
+    font-size: 16px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+
+  .secondary-text {
+    color: #6c757d;
+    font-size: 14px;
+  }
+
+  /* Styles pour la prévisualisation d'image */
+  .image-preview-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+  }
+
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: var(--charity-teal-light);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .preview-title {
+    font-weight: 600;
+    color: var(--charity-teal-dark);
+    font-size: 14px;
+  }
+
+  .btn-remove-preview {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .btn-remove-preview:hover {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--charity-danger);
+  }
+
+  .image-preview-wrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #f8f9fa;
+  }
+
+  .preview-image {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Bouton */
+  .btn-charity {
+    background-color: var(--charity-teal);
+    border: none;
+    color: rgb(35, 119, 101);
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 150, 136, 0.3);
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .btn-charity:hover {
+    background-color: var(--charity-teal-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 150, 136, 0.4);
+  }
+
+  .btn-charity:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 150, 136, 0.3);
+  }
+
+  /* Messages de feedback */
+  .alert {
+    border: none;
+    padding: 16px;
+    margin-top: 25px;
+    animation: fadeIn 0.5s;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+
+  .alert-success {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: var(--charity-dark);
+    border-left: 4px solid var(--charity-primary);
+  }
+
+  .alert-danger {
+    background-color: rgba(244, 67, 54, 0.15);
+    color: var(--charity-danger);
+    border-left: 4px solid var(--charity-danger);
+  }
+
+  .invalid-feedback {
+    color: var(--charity-danger);
+    font-size: 14px;
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--charity-danger);
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .content {
+      margin-left: 0;
+      width: 100%;
+    }
+    
+    .sidebar {
+      display: none;
+    }
+    
+    .charity-card-body {
+      padding: 25px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .file-upload-label {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .upload-icon-container {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+    
+    .primary-text {
+      max-width: 100%;
+    }
   }
 </style>

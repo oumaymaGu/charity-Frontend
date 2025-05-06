@@ -1,42 +1,37 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login</title>
   <style>
     body {
-      background: linear-gradient(to right, #a8e063, #56ab2f);
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('https://t4.ftcdn.net/jpg/03/20/40/93/360_F_320409321_niyM6DAO166WLJuEX8EOXCMvWwKSWDfA.jpg') no-repeat center center;
+      background-size: cover;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start; /* place les éléments à gauche */
+      padding-left: 80px; /* ajuste ici l'espace depuis le bord gauche */
       align-items: center;
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 20px;
     }
 
-    .login-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-    }
-
     .login-container {
-      background: #ffffff;
-      padding: 40px 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      background-color: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 50px 35px;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+      max-width: 420px;
       width: 100%;
-      max-width: 400px;
       text-align: center;
-      margin: auto;
-    }
-
-    .login-container img {
-      width: 100px;
-      margin-bottom: 20px;
-      animation: float 3s ease-in-out infinite;
+      animation: fadeIn 0.8s ease-in-out;
+      border: 1px solid rgba(83, 159, 164, 0.3);
+      
     }
 
     @keyframes float {
@@ -44,31 +39,46 @@
       50% { transform: translateY(-6px); }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .login-container img {
+      width: 90px;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
     .login-container h1 {
       font-weight: 700;
-      color: #2e7d32;
+      color: #23a0a4;
       margin-bottom: 25px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
     }
 
     .form-group label {
       font-weight: 500;
-      color: #4a4a4a;
-      text-align: left;
-      display: block;
+      color: #333;
       margin-bottom: 5px;
+      display: block;
     }
 
     .form-control {
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 16px;
-      margin-bottom: 20px;
       width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 16px;
+      border: none;
       box-sizing: border-box;
     }
 
     .btn-primary {
-      background: #43a047;
+      background: #8cd7d5;
       border: none;
       padding: 12px;
       font-size: 18px;
@@ -76,10 +86,11 @@
       width: 100%;
       transition: all 0.3s ease;
       cursor: pointer;
+      color: white;
     }
 
     .btn-primary:hover {
-      background: #2e7d32;
+      background: #094342;
       transform: translateY(-2px);
     }
 
@@ -91,11 +102,11 @@
 
     .text-center.mt-3 p {
       font-size: 0.9em;
-      margin-bottom: 0;
+      color: #3f3c3c;
     }
 
     .text-center.mt-3 a {
-      color: #2e7d32;
+      color: #345261;
       font-weight: 600;
       text-decoration: none;
     }
@@ -107,78 +118,71 @@
     .quote-box {
       margin-top: 30px;
       font-style: italic;
-      font-weight: 500;
-      color: #555;
+      font-weight: bold;
+      color: #07363c;
       font-size: 1em;
       line-height: 1.5;
-      font-size: 1em;
-    font-style: italic;
-    color: #555;
-    margin-bottom: 30px;
-    font-weight: bold; /* ajoute ceci */
     }
 
     .quote-box strong {
       display: block;
       font-size: 1.1em;
       margin-bottom: 5px;
-
     }
   </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="/assets/img/logo.png" alt="Charity Logo" />
+    <h1>Login</h1>
 
-
-  <div class="login-wrapper">
-    <div class="login-container">
-      <img src="/assets/img/logo.png" alt="Charity Logo" />
-      <h1 class="text-center">Login</h1>
-      
-      <form (ngSubmit)="onSubmit()" class="login-form">
-        <div class="form-group text-start">
-          <label for="username">Username:</label>
-          <input
-            id="username"
-            type="text"
-            [(ngModel)]="credentials.username"
-            name="username"
-            required
-            class="form-control"
-            placeholder="Enter your username"
-          />
-        </div>
-
-        <div class="form-group text-start">
-          <label for="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            [(ngModel)]="credentials.password"
-            name="password"
-            required
-            class="form-control"
-            placeholder="Enter your password"
-          />
-        </div>
-
-        <div class="text-center mt-3">
-          <p>Forgot password? <a href="/forget" class="text-decoration-none">Click here</a></p>
-        </div>
-
-        <div class="form-group text-center">
-          <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-
-        <div *ngIf="successMessage" class="alert alert-success text-center">
-          {{ successMessage }}
-        </div>
-        <div *ngIf="errorMessage" class="alert alert-danger text-center">
-          {{ errorMessage }}
-        </div>
-      </form>
-
-      <div class="quote-box">
-        <strong>"Helping one person might not change the whole world..."</strong>
-        but it could change the world for one person.
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input
+          id="username"
+          type="text"
+          [(ngModel)]="credentials.username"
+          name="username"
+          required
+          class="form-control"
+          placeholder="Enter your username"
+        />
       </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="credentials.password"
+          name="password"
+          required
+          class="form-control"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <div class="text-center mt-3">
+        <p>Forgot password? <a href="/forget">Click here</a></p>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn-primary">Login</button>
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success text-center">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="quote-box">
+      <strong>Helping one person might not change the whole world...</strong>
+      but it could change the world for one person 
     </div>
   </div>
-
+</body>
+</html>

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { AuthService } from 'src/app/services/auth.service';
+import {Router} from "@angular/router";
+
+
 
 
 interface Commentaire {
@@ -43,16 +47,23 @@ export class AssociationDetailComponent implements OnInit {
   loading: boolean = true;
   loadingCommentaires: boolean = true;
   error: string | null = null;
+  isLoggedIn: boolean = false;
+  userName: string = '';
+  username: string | null = null;
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.loadAssociationDetails();
     this.loadCommentaires();
+    this.username = this.authService.getUsername();
+
   }
 
   loadAssociationDetails() {
@@ -237,6 +248,11 @@ sanitizeHtml(contenu: string): SafeHtml {
 
 
 
-
+logout(): void {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userName');
+  this.isLoggedIn = false;
+  this.router.navigate(['/login']);
+}
   
 }

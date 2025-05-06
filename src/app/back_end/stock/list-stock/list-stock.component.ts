@@ -24,6 +24,8 @@ export class ListStockComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
   searchTerm: string = '';
+  sortField: string = 'capaciteDisponible'; // Champ de tri par défaut
+  sortDirection: 'asc' | 'desc' = 'desc'; // Direction de tri par défaut (décroissant)
 
   stockSelectionnePourRetrait: any = null;
 
@@ -39,6 +41,7 @@ export class ListStockComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.stocks = data;
+          this.sortStocks(); // Trier les stocks après chargement
           this.loading = false;
         },
         error: (error) => {
@@ -47,6 +50,33 @@ export class ListStockComponent implements OnInit {
           console.error('Erreur détaillée:', error);
         }
       });
+  }
+
+  // Fonction pour trier les stocks
+  sortStocks() {
+    this.stocks.sort((a, b) => {
+      const valueA = a[this.sortField as keyof Stock] as number;
+      const valueB = b[this.sortField as keyof Stock] as number;
+      
+      if (this.sortDirection === 'asc') {
+        return valueA - valueB;
+      } else {
+        return valueB - valueA;
+      }
+    });
+  }
+
+  // Fonction pour changer le champ de tri
+  changeSortField(field: string) {
+    if (this.sortField === field) {
+      // Si on clique sur le même champ, on inverse la direction
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      // Sinon, on change le champ et on met la direction par défaut
+      this.sortField = field;
+      this.sortDirection = 'desc';
+    }
+    this.sortStocks();
   }
 
   deleteStock(idStock: number) {
@@ -102,9 +132,21 @@ export class ListStockComponent implements OnInit {
     this.loadStocks();
   }
   
-
   isStockCritique(stock: any): boolean {
-    return stock.capaciteDisponible / stock.capaciteTotale < 0.1;
+    const ratio = stock.capaciteDisponible / stock.capaciteTotale;
+    return ratio < 0.5;
   }
   
+  getStockStatus(stock: any): string {
+    const ratio = stock.capaciteDisponible / stock.capaciteTotale;
+    if (ratio < 0.2) return 'critical';
+    if (ratio < 0.5) return 'warning';
+    return 'normal';
+  }
+  
+  // Fonction pour obtenir l'icône de tri
+  getSortIcon(field: string): string {
+    if (this.sortField !== field) return 'fas fa-sort';
+    return this.sortDirection === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+  }
 }

@@ -113,6 +113,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // Modules
 import { LogementsModule } from './back_end/logements/logements.module';
 import { UserProfilComponent } from './front_end/user-profil/user-profil.component';
+import { StockStatistiqueComponent } from './back_end/stock-statistique/stock-statistique.component';
 
 @NgModule({
   declarations: [
@@ -190,7 +191,8 @@ import { UserProfilComponent } from './front_end/user-profil/user-profil.compone
     RequestListComponent,
     EventsLogestiquesComponent,
     BilletComponent,
-    UserProfilComponent
+    UserProfilComponent,
+    StockStatistiqueComponent
   ],
   imports: [
     BrowserModule,
